@@ -63,8 +63,8 @@ xrx.svg.Image.prototype.setImage = function(image) {
 xrx.svg.Image.prototype.draw = function(image) {
   if (image === undefined) return;
   this.setImage(image);
-  this.setWidth(image.naturalWidth);
-  this.setHeight(image.naturalHeight);
+//  this.setWidth(image.naturalWidth);
+//  this.setHeight(image.naturalHeight);
 };
 
 

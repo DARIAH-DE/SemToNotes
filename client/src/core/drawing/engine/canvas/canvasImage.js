@@ -32,8 +32,8 @@ goog.inherits(xrx.canvas.Image, xrx.canvas.Stylable);
  *     that image has naturalWidth and naturalHeight attributes.
  */
 xrx.canvas.Image.prototype.draw = function(image) {
-  if (image) this.context_.drawImage(image, 0, 0, image.naturalWidth,
-      image.naturalHeight);
+  if (image) this.context_.drawImage(image, 0, 0, image.width,
+      image.height);
 };
 
 
