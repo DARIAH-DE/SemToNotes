@@ -86,6 +86,7 @@ xrx.drawing.Creatable.prototype.handleCreated = function(shape) {
     this.drawing_.getLayerShapeCreate().removeShapes();
     this.drawing_.draw();
   }
+  this.dispatchExternal(xrx.drawing.EventType.SHAPE_CREATED, this.drawing_, shape);
 };
 
 
