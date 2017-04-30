@@ -26,7 +26,7 @@ goog.addDependency('../../../../src/core/drawing/drawingEventHandler.js', ['xrx.
 goog.addDependency('../../../../src/core/drawing/drawingEventTarget.js', ['xrx.drawing.EventTarget'], ['goog.Disposable', 'goog.Timer', 'goog.events', 'goog.events.EventHandler', 'goog.events.EventType', 'goog.events.MouseWheelHandler', 'goog.events.MouseWheelHandler.EventType', 'goog.math', 'goog.style', 'goog.userAgent', 'xrx.drawing.Cursor', 'xrx.drawing.Mode', 'xrx.event.Handler', 'xrx.event.Type', 'xrx.shape.Shapes']);
 goog.addDependency('../../../../src/core/drawing/drawingHoverable.js', ['xrx.drawing.Hoverable'], ['goog.array', 'xrx.EventTarget', 'xrx.drawing.EventType', 'xrx.engine']);
 goog.addDependency('../../../../src/core/drawing/drawingModifiable.js', ['xrx.drawing.Modifiable'], ['xrx.EventTarget', 'xrx.geometry', 'xrx.shape.Dragger']);
-goog.addDependency('../../../../src/core/drawing/drawingSelectable.js', ['xrx.drawing.Selectable'], ['goog.Disposable']);
+goog.addDependency('../../../../src/core/drawing/drawingSelectable.js', ['xrx.drawing.Selectable'], ['xrx.EventTarget']);
 goog.addDependency('../../../../src/core/drawing/engine/canvas/canvas.js', ['xrx.canvas'], []);
 goog.addDependency('../../../../src/core/drawing/engine/canvas/canvasCanvas.js', ['xrx.canvas.Canvas'], ['goog.dom.DomHelper', 'xrx.canvas.Container']);
 goog.addDependency('../../../../src/core/drawing/engine/canvas/canvasCircle.js', ['xrx.canvas.Circle'], ['xrx.canvas.Stylable']);

@@ -8,7 +8,7 @@ goog.provide('xrx.drawing.Selectable');
 
 
 
-goog.require('goog.Disposable');
+goog.require('xrx.EventTarget');
 
 
 
@@ -32,7 +32,7 @@ xrx.drawing.Selectable = function(drawing) {
    */
   this.last_;
 };
-goog.inherits(xrx.drawing.Selectable, goog.Disposable);
+goog.inherits(xrx.drawing.Selectable, xrx.EventTarget);
 
 
 
@@ -47,6 +47,7 @@ xrx.drawing.Selectable.prototype.setSelected = function(shape) {
   if (shape) {
     shape.getSelectable().selectOn();
     this.last_ = shape;
+    this.dispatchExternal(xrx.drawing.EventType.SHAPE_SELECTED, this.drawing_, shape);
   } else {
     this.last_ = null;
   }
