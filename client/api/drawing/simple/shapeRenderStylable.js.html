@@ -35,7 +35,7 @@
             </ul>
           </li>
           <li id="retrievalLink"><a href="../../../../index.html#retrieval">Topological Retrieval</a></li>
-          <li><a target="_blank" href="https://github.com/HKIKoeln/SemToNotes/">Code</a></li>
+          <li><a target="_blank" href="https://github.com/DARIAH-DE/SemToNotes/">Code</a></li>
         </ul>
       </div>
       </div><!--/.nav-collapse -->
@@ -158,6 +158,19 @@ xrx.shape.RenderStylable.prototype.getEngineElement = function() {
  */
 xrx.shape.RenderStylable.prototype.setZoomFactor = function(factor) {
   this.zoomFactor_ = factor;
+};
+
+
+
+/**
+ * Copy all styles from another shape.
+ * @param {xrx.shape.Shape}
+ */
+xrx.shape.RenderStylable.prototype.setStyles = function(shape) {
+  this.setStyle(shape);
+  this.getHoverable().setStyle(shape.getHoverable());
+  this.getModifiable().setStyle(shape.getModifiable());
+  this.getSelectable().setStyle(shape.getSelectable());
 };
 
 

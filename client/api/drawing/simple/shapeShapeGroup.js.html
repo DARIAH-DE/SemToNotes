@@ -35,7 +35,7 @@
             </ul>
           </li>
           <li id="retrievalLink"><a href="../../../../index.html#retrieval">Topological Retrieval</a></li>
-          <li><a target="_blank" href="https://github.com/HKIKoeln/SemToNotes/">Code</a></li>
+          <li><a target="_blank" href="https://github.com/DARIAH-DE/SemToNotes/">Code</a></li>
         </ul>
       </div>
       </div><!--/.nav-collapse -->
@@ -215,7 +215,6 @@ xrx.shape.ShapeGroupModifiable.prototype.move = function(distX, distY) {
 
 /**
  * A class representing a creatable shape group.
- * TODO: implement this.
  * @param {xrx.shape.ShapeGroup} shapeGroup The parent shape group.
  * @consturctor
  * @private
@@ -223,13 +222,40 @@ xrx.shape.ShapeGroupModifiable.prototype.move = function(distX, distY) {
 xrx.shape.ShapeGroupCreatable = function(shapeGroup) {
 
   goog.base(this, shapeGroup, new xrx.shape.ShapeGroup(shapeGroup.getDrawing()));
+  
+  this.current = 0;
 };
 goog.inherits(xrx.shape.ShapeGroupCreatable, xrx.shape.Creatable);
 
 
 
-xrx.shape.ShapeGroupCreatable.prototype.handleDown = function() {
+xrx.shape.ShapeGroupCreatable.prototype.allShapesCreated = function() {
+  return this.current === this.target_.getChildren().length - 1;
+};
 
+
+
+xrx.shape.ShapeGroupCreatable.prototype.reset = function() {
+  this.current = 0;
+  this.preview_.removeChildren();
+};
+
+
+
+xrx.shape.ShapeGroupCreatable.prototype.handleDown = function(e, cursor) {
+  this.target_.getChild(this.current).getCreatable().handleDown(e, cursor);
+};
+
+
+
+xrx.shape.ShapeGroupCreatable.prototype.handleMove = function(e, cursor) {
+  this.target_.getChild(this.current).getCreatable().handleMove(e, cursor);
+};
+
+
+
+xrx.shape.ShapeGroupCreatable.prototype.handleUp = function(e, cursor) {
+  this.target_.getChild(this.current).getCreatable().handleUp(e, cursor);
 };
 </code></pre>
         </article>
