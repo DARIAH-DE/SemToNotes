@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.xpath.NameTest</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/SAXException.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/AttributesImpl.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/LocatorImpls.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/NamespaceSupport.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/sax.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/DefaultHandlers.js"></script>
+<script src='../../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.dom');
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx');
+</script>
+</head>
+<body>
+<script type="text/javascript">
+
+function createInstance(xml) {
+  var element = goog.dom.createElement('div');
+  var element2 = goog.dom.createElement('div');
+  goog.dom.classes.set(element2, 'xrx-document');
+  goog.dom.setTextContent(element2, xml);
+  goog.dom.append(element, element2);
+  return new xrx.mvc.Instance(element);
+};
+
+function test01namespace() {
+  var xml = '<x xmlns="http://example.org/x"><y:y xmlns:y="http://example.org/y"/><z/></x>';
+  var instance = createInstance(xml);
+
+  xrx.xpath.declareNamespace('x', 'http://example.org/x');
+  xrx.xpath.declareNamespace('y', 'http://example.org/y');
+
+  // '//y:y'
+  var r1 = xrx.xpath.evaluate('//y:y', new xrx.node.DocumentB(instance.getId()),
+      null, xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(1, r1.snapshotLength);
+  assertEquals('<y:y xmlns:y="http://example.org/y"/>', r1.iterateNext().getXml());
+
+  // '//x:z'
+  var r2 = xrx.xpath.evaluate('//x:z', new xrx.node.DocumentB(instance.getId()),
+      null, xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals('<z/>', r2.iterateNext().getXml());
+
+  // '//z'
+  var r3 = xrx.xpath.evaluate('//z', new xrx.node.DocumentB(instance.getId()),
+      null, xrx.xpath.XPathResultType.ANY_TYPE);
+  //assertEquals(0, r3.snapshotLength);
+};
+
+</script>
+</body>
+</html>

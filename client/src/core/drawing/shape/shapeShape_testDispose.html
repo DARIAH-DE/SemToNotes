@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Test Dispose of Shape Objects</title>
+<script src="../../../../lib/closure-library/closure/goog/base.js"></script>
+<script src="../../../deps.js"></script>
+<script>
+goog.require('goog.dom.DomHelper');
+goog.require('xrx.api.drawing');
+</script>
+<script>
+
+
+
+function run1TestDispose() {
+  var element = goog.dom.createElement('div');
+  this.drawing = new xrx.drawing.Drawing(element);
+  this.circle = new xrx.shape.Circle(this.drawing);
+  this.ellipse = new xrx.shape.Ellipse(this.drawing);
+  this.line = new xrx.shape.Line(this.drawing);
+  this.polygon = new xrx.shape.Polygon(this.drawing);
+  this.polyline = new xrx.shape.Polyline(this.drawing);
+  this.rect = new xrx.shape.Rect(drawing);
+  this.circle.getCreatable();
+  this.circle.getHoverable();
+  this.circle.getModifiable();
+  this.circle.getSelectable();
+  this.ellipse.getCreatable();
+  this.ellipse.getHoverable();
+  this.ellipse.getModifiable();
+  this.ellipse.getSelectable();
+  this.line.getCreatable();
+  this.line.getHoverable();
+  this.line.getModifiable();
+  this.line.getSelectable();
+  this.polygon.getCreatable();
+  this.polygon.getHoverable();
+  this.polygon.getModifiable();
+  this.polygon.getSelectable();
+  this.polyline.getCreatable();
+  this.polyline.getHoverable();
+  this.polyline.getModifiable();
+  this.polyline.getSelectable();
+  this.rect.getCreatable();
+  this.rect.getHoverable();
+  this.rect.getModifiable();
+  this.rect.getSelectable();
+  // dispose drawing and shapes
+  this.drawing.dispose();
+  this.circle.dispose();
+  this.ellipse.dispose();
+  this.line.dispose();
+  this.polygon.dispose();
+  this.polyline.dispose();
+  this.rect.dispose();
+  goog.dom.removeNode(element);
+  element = null;
+};
+
+
+
+function runTestDispose() {
+  for (var i = 0; i < 10; i++) {
+    run1TestDispose();
+  }
+};
+
+
+
+</script>
+</head>
+<body onloads="runTestDispose();">
+  <h1>Test Dispose of Shape Object</h1>
+  <p>Use Google Chrome <em>Developer Tools &gt; Profiles &gt; Record Heap Allocations</em>.</p>
+  <p>Use <em>Class Filter</em> 'xrx'</p>
+  <p>Test succeeds if for each xrx.shape.Shape object <em>Shallow Size</em> is equal to <em>Retained Size</em>.</p>
+  <button onclick="runTestDispose();">Test Dispose of Shape Objects</button>
+</body>
+</html>

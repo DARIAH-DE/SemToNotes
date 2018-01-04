@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.graphic.Canvas (TEI Example)</title>
+<script type="text/javascript" src="../../../../lib/jssaxparser/SAXException.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/AttributesImpl.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/LocatorImpls.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/NamespaceSupport.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/sax.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/DefaultHandlers.js"></script>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx');
+</script>
+<link rel="stylesheet" type="text/css" href="../../../../res/xrx.css">
+<style>
+.xrx-canvas-toolbar {
+position: absolute;
+left: 2px;
+top: 2px;
+}
+pre {
+width: 650px;
+white-space: pre-wrap;
+white-space: -moz-pre-wrap;
+white-space: -o-pre-wrap;
+word-wrap: break-word;
+}
+</style>
+</head>
+<body>
+
+<!-- HTML UIDL -->
+
+<!-- namespaces -->
+<div class="xrx-namespace" data-prefix="xmlns:tei" data-uri="http://www.tei-c.org/ns/1.0"></div>
+
+<!-- instances -->
+<div id="i1" class="xrx-instance" data-resource="./graphicCanvas_test.1.xml.txt"></div>
+<div id="i2" class="xrx-instance" data-resource="./graphicCanvas_test.2.xml.txt"></div>
+
+<!-- bind background image -->
+<div id="b1" class="xrx-bind" data-ref="xrx:instance('i1')//tei:graphic/@url"></div>
+<!-- bind shapes -->
+<div id="b0" class="xrx-bind" data-ref="xrx:instance('i1')//tei:graphic"></div>
+<div id="b2" class="xrx-bind" data-ref="xrx:instance('i1')//tei:zone[@points]"></div>
+<div id="b3" class="xrx-bind" data-ref="xrx:instance('i1')//tei:zone[@ulx]"></div>
+<div id="b4" class="xrx-bind" data-ref="xrx:instance('i1')//tei:zone[@x]"></div>
+<!-- bind console -->
+<div id="b5" class="xrx-bind" data-ref="xrx:instance('i1')"></div>
+<!-- bind create shapes -->
+
+
+
+<!--**
+ * My black polygons model
+ *-->
+<div class="xrx-bind"                  id="b6"
+     data-ref="xrx:instance('i2')//tei:zone[1]"></div>
+<div class="xrx-bind"                  id="b61"
+     data-ref="xrx:bind('b6')/@points"></div>
+
+
+
+<!--**
+ * My black rectangles model
+ *-->
+<div class="xrx-bind"                  id="b7"
+     data-ref="xrx:instance('i2')//tei:zone[2]"></div>
+<div class="xrx-bind"                  id="b71"
+     data-ref="xrx:bind('b7')/@ulx"></div>
+<div class="xrx-bind"                  id="b72"
+     data-ref="xrx:bind('b7')/@uly"></div>
+<div class="xrx-bind"                  id="b73"
+     data-ref="xrx:bind('b7')/@lrx"></div>
+<div class="xrx-bind"                  id="b74"
+     data-ref="xrx:bind('b7')/@lry"></div>
+
+
+
+<!--**
+ * My black rectangles model
+ *-->
+<div class="xrx-bind"                  id="b8"
+     data-ref="xrx:instance('i2')//tei:zone[3]"></div>
+<div class="xrx-bind"                  id="b81"
+     data-ref="xrx:bind('b8')/@x"></div>
+<div class="xrx-bind"                  id="b82"
+     data-ref="xrx:bind('b8')/@y"></div>
+<div class="xrx-bind"                  id="b83"
+     data-ref="xrx:bind('b8')/@width"></div>
+<div class="xrx-bind"                  id="b84"
+     data-ref="xrx:bind('b8')/@height"></div>
+
+
+
+<div class="xrx-bind"                  id="b9"
+     data-ref="xrx:instance('i2')"></div>
+
+<!-- HTML UIDL -->
+<div id="d1" class="xrx-canvas" data-engine="svg">
+  <div class="xrx-canvas-background-image" data-bind="b1"></div>
+  <div class="xrx-canvas-toolbar">
+    <span class="xrx-canvas-toolbar-item-view xrx-icon-openhand32"></span>
+    <span class="xrx-canvas-toolbar-item-zoom-in xrx-icon-zoomIn32"></span>
+    <span class="xrx-canvas-toolbar-item-zoom-out xrx-icon-zoomOut32"></span>
+    <span class="xrx-canvas-toolbar-item-rotate-left xrx-icon-rotateLeft32"></span>
+    <span class="xrx-canvas-toolbar-item-rotate-right xrx-icon-rotateRight32"></span>
+    <span class="xrx-canvas-toolbar-item-create xrx-icon-shapePolygon32"
+          title="Draw a black polygon." data-name="my-black-polygons"></span>
+    <span class="xrx-canvas-toolbar-item-create xrx-icon-shapeRect32"
+          title="Draw a black rectangle." data-name="my-black-rectangles"></span>
+    <span class="xrx-canvas-toolbar-item-create xrx-icon-shapeRect32"
+          title="Draw a red rectangle." data-name="my-red-rectangles"></span>
+    <span class="xrx-canvas-toolbar-item-modify xrx-icon-move32"></span>
+    <span class="xrx-canvas-toolbar-item-delete xrx-icon-delete32"></span>
+  </div>
+  <div class="xrx-canvas-graphics">
+    <div class="xrx-canvas-group" data-name="my-black-polygons">
+      <div id="r1" class="xrx-repeat" data-bind="b2">
+        <div class="xrx-shape-polygon"
+             data-ref="./self::*"
+             data-ref-coords="./@points"></div>
+      </div>
+      <div class="xrx-shape-polygon-create"
+           data-bind="b6"
+           data-bind-coords="b61">
+      </div>
+      <div class="xrx-action" data-event="xrx-event-graphic-created">
+        <div class="xrx-insert">
+          <div class="xrx-origin" data-bind="b6"></div>
+          <div class="xrx-target" data-bind="b0"></div>
+        </div>
+      </div>
+    </div>
+    <div class="xrx-canvas-group" data-bind="b0" data-name="my-black-rectangles">
+      <div class="xrx-repeat" data-bind="b3"> 
+        <div class="xrx-shape-rect"
+             data-ref="./self::*"
+             data-ref-left="./@ulx"
+             data-ref-top="./@uly"
+             data-ref-right="./@lrx"
+             data-ref-bottom="./@lry">
+        </div>
+      </div>
+      <div class="xrx-shape-rect-create"
+           data-bind="b7"
+           data-bind-left="b71"
+           data-bind-top="b72"
+           data-bind-right="b73"
+           data-bind-bottom="b74">
+      </div>
+      <div class="xrx-action" data-event="xrx-event-graphic-created">
+        <div class="xrx-insert">
+          <div class="xrx-origin" data-bind="b7"></div>
+          <div class="xrx-target" data-bind="b0"></div>
+        </div>
+      </div>
+    </div>
+    <div class="xrx-canvas-group" data-bind="b0" data-name="my-red-rectangles">
+      <div class="xrx-repeat" data-bind="b4">
+        <div class="xrx-shape-rect"
+             data-ref="./self::*"
+             data-ref-x="./@x"
+             data-ref-y="./@y"
+             data-ref-width="./@width"
+             data-ref-height="./@height">
+        </div>
+      </div>
+      <div class="xrx-shape-rect-create"
+           data-bind="b8"
+           data-bind-x="b81"
+           data-bind-y="b82"
+           data-bind-width="b83"
+           data-bind-height="b84">
+      </div> 
+      <div class="xrx-action" data-event="xrx-event-graphic-created">
+        <div class="xrx-insert">
+          <div class="xrx-origin" data-bind="b8"></div>
+          <div class="xrx-target" data-bind="b0"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<pre id="c1" class="xrx-console" data-bind="b9"></pre>
+<pre id="c2" class="xrx-console" data-bind="b5"></pre>
+
+<script type="text/javascript">
+ 
+function test() {};
+
+</script>
+
+<script type="text/javascript">
+  xrx.install();
+</script>
+
+</body>
+</html>

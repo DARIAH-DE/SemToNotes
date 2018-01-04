@@ -1,0 +1,5 @@
+<polygons>
+  <url>./data/SachsenspiegelHeidelberg/Bilder-34572-28186-1600.jpg</url>
+  <polygon points="93.5,972.0 110.5,986.0 114.5,1000.0 76.5,1023.0 43.5,1009.0 52.5,992.0 74.5,976.0"></polygon>
+  <polygon points="84.5,985.0 106.5,998.0 125.5,1012.0 121.5,1025.0 84.5,1010.0 73.5,992.0"></polygon>
+</polygons>

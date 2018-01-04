@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.shape.Polygon, xrx.shape.PolygonModifiable, xrx.shape.PolygonCreatable</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../deps.js'></script>
+<script src='./shapeTest.js'></script>
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.dom.DomHelper');
+  goog.require('xrx.api.drawing');
+</script>
+<link rel="stylesheet" type="text/css" href="./shapeTest.css">
+</head>
+<body>
+<script type="text/javascript">
+
+
+
+createTables('Polygon', goog.dom);
+
+
+
+function getPolygons(drawing) {
+  var hoverableStyle = new xrx.shape.Style();
+  hoverableStyle.setFillColor('green');
+  hoverableStyle.setFillOpacity(.2);
+  hoverableStyle.setStrokeColor('green');
+  hoverableStyle.setStrokeWidth(2);
+  var selectableStyle = new xrx.shape.Style();
+  selectableStyle.setFillColor('grey');
+  selectableStyle.setFillOpacity(.2);
+  selectableStyle.setStrokeColor('yellow');
+  selectableStyle.setStrokeWidth(2);
+  var coords1 = [[12,12], [25,15], [100,60], [60,90], [50,50], [30,40], [20,20]];
+  var coords2 = [[112,112], [125,115], [400,160], [160,190], [150,150], [130,140], [120,120]];
+  var coords3 = [[112,312], [125,315], [200,360], [160,390], [150,350], [130,340], [120,320]];
+  var coords4 = [[128,318], [208,368], [168,398], [158,358], [138,348]];
+  var polygon1 = new xrx.shape.Polygon(drawing);
+  var polygon2 = new xrx.shape.Polygon(drawing);
+  var polygon3 = new xrx.shape.Polygon(drawing);
+  var polygon4 = new xrx.shape.Polygon(drawing);
+  polygon1.setCoords(coords1);
+  polygon1.setStrokeWidth(1);
+  polygon1.getHoverable().setStyle(hoverableStyle);
+  polygon1.getSelectable().setStyle(selectableStyle);
+  polygon2.setCoords(coords2);
+  polygon2.setStrokeWidth(1);
+  polygon2.getHoverable().setStyle(hoverableStyle);
+  polygon2.getSelectable().setStyle(selectableStyle);
+  polygon3.setCoords(coords3);
+  polygon3.setStrokeWidth(1);
+  polygon3.getHoverable().setStyle(hoverableStyle);
+  polygon3.getSelectable().setStyle(selectableStyle);
+  polygon4.setCoords(coords4);
+  polygon4.setStrokeWidth(1);
+  polygon4.getHoverable().setStyle(hoverableStyle);
+  polygon4.getSelectable().setStyle(selectableStyle);
+  return [polygon1, polygon2, polygon3, polygon4];
+};
+
+
+
+function test1View() {
+  modeView('Polygon');
+};
+
+
+
+function test2Hover() {
+  modeHover('Polygon');
+};
+
+
+
+function test3HoverMultiple() {
+  modeHoverMultiple('Polygon');
+};
+
+
+
+function test4Select() {
+  modeSelect('Polygon');
+};
+
+
+
+function test5Modify() {
+  modeModify('Polygon');
+};
+
+
+
+function test6Create() {
+  modeCreate('Polygon');
+};
+
+</script>
+</body>
+</html>

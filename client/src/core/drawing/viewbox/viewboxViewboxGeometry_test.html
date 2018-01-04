@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.viewbox.ViewboxGeometry</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.dom.DomHelper');
+  goog.require('goog.events');
+  goog.require('goog.events.EventType');
+  goog.require('xrx');
+</script>
+<style>
+.drawing {
+  border: solid black 1px;
+}
+</style>
+</head>
+<body>
+<div id="output">false</div>
+<div class="drawing" id="drawing"></div>
+<script type="text/javascript">
+
+
+
+var url = './viewbox_test_vertical.png'; // 28 x 55 pixel
+var output = goog.dom.getElement('output');
+var element = goog.dom.getElement('drawing');
+var drawing = new xrx.drawing.Drawing(element);
+var viewbox = drawing.getViewbox();
+var count = 0;
+
+
+
+drawing.setBackgroundImage(url, function() {
+  viewbox.rotateRight('NW');
+  viewbox.zoomIn();
+  viewbox.zoomIn();
+  viewbox.zoomIn();
+  viewbox.zoomIn();
+  drawing.draw();
+});
+
+
+
+function test_isMouseOver() {
+  goog.events.listen(element, goog.events.EventType.MOUSEMOVE, function(e) {
+    var point = new Array(2);
+    var eventPoint = drawing.getEventPoint(e);
+    viewbox.ctm_.transform(eventPoint, 0, point, 0, 1);
+    var text = viewbox.containsPoint(eventPoint) + ' ('+ count++ + ')' +
+        ' (' + eventPoint[0] + ', ' + eventPoint[1] + ')';
+    goog.dom.setTextContent(output, text);
+  });
+};
+
+</script>
+</body>
+</html>

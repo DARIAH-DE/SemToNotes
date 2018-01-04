@@ -58,5 +58,9 @@
   "maintainers": {
     "name": "Jeff Williams",
     "email": "jeffrey.l.williams@gmail.com"
+  },
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc", "closure"]
   }
 }

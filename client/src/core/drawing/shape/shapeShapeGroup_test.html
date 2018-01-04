@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.shape.ShapeGroup</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../deps.js'></script>
+<script src='./shapeTest.js'></script>
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.dom.DomHelper');
+  goog.require('xrx.api.drawing');
+</script>
+<link rel="stylesheet" type="text/css" href="./shapeTest.css">
+</head>
+<body>
+<script type="text/javascript">
+
+
+
+createTables('ShapeGroup', goog.dom);
+
+
+
+function getShapeGroups(drawing) {
+  var hoverableStyle = new xrx.shape.Style();
+  hoverableStyle.setFillColor('green');
+  hoverableStyle.setFillOpacity(.2);
+  hoverableStyle.setStrokeColor('green');
+  hoverableStyle.setStrokeWidth(2);
+  var selectableStyle = new xrx.shape.Style();
+  selectableStyle.setFillColor('grey');
+  selectableStyle.setFillOpacity(.2);
+  selectableStyle.setStrokeColor('yellow');
+  selectableStyle.setStrokeWidth(2);
+  var modifiableStyle = selectableStyle;
+  var creatableStyle = selectableStyle;
+  // fist shape group
+  var style1 = new xrx.shape.Style();
+  style1.setFillColor('purple');
+  style1.setFillOpacity(.4);
+  style1.setStrokeColor('purple');
+  style1.setStrokeWidth(2);
+  var shapeGroup1 = new xrx.shape.ShapeGroup(drawing);
+  shapeGroup1.setStyle(style1);
+  shapeGroup1.getHoverable().setStyle(hoverableStyle);
+  shapeGroup1.getModifiable().setStyle(modifiableStyle);
+  shapeGroup1.getSelectable().setStyle(selectableStyle);
+  shapeGroup1.getCreatable().setStyle(creatableStyle);
+  var circle1 = new xrx.shape.Circle(drawing);
+  circle1.setCenter(100, 110);
+  circle1.setRadius(40);
+  var rect1 = new xrx.shape.Rect(drawing);
+  rect1.setX(20);
+  rect1.setY(20);
+  rect1.setWidth(100);
+  rect1.setHeight(100);
+  var line1 = new xrx.shape.Line(drawing);
+  line1.setX1(40);
+  line1.setY1(50);
+  line1.setX2(150);
+  line1.setY2(140);
+  shapeGroup1.addChildren([circle1, rect1, line1]);
+  // second shape group
+  var style2 = new xrx.shape.Style();
+  style2.setFillColor('brown');
+  style2.setFillOpacity(.4);
+  style2.setStrokeColor('brown');
+  style2.setStrokeWidth(3);
+  var shapeGroup2 = new xrx.shape.ShapeGroup(drawing);
+  shapeGroup2.setStyle(style2);
+  shapeGroup2.getHoverable().setStyle(hoverableStyle);
+  shapeGroup2.getModifiable().setStyle(modifiableStyle);
+  shapeGroup2.getSelectable().setStyle(selectableStyle);
+  shapeGroup2.getCreatable().setStyle(creatableStyle);
+  var circle2 = new xrx.shape.Circle(drawing);
+  circle2.setCenter(300, 310);
+  circle2.setRadius(50);
+  var polygon2 = new xrx.shape.Polygon(drawing);
+  polygon2.setCoords([[280,290],[310,350],[200,340]]);
+  var polyline2 = new xrx.shape.Polyline(drawing);
+  polyline2.setCoords([[200,200],[240,240],[260,330],[340,380]]);
+  shapeGroup2.addChildren([circle2, polygon2, polyline2]);
+  // third shape group
+  var style3 = new xrx.shape.Style();
+  style3.setFillColor('darkblue');
+  style3.setFillOpacity(.1);
+  style3.setStrokeColor('darkblue');
+  style3.setStrokeWidth(5);
+  var shapeGroup3 = new xrx.shape.ShapeGroup(drawing);
+  shapeGroup3.setStyle(style3);
+  shapeGroup3.getHoverable().setStyle(hoverableStyle);
+  shapeGroup3.getModifiable().setStyle(modifiableStyle);
+  shapeGroup3.getSelectable().setStyle(selectableStyle);
+  shapeGroup3.getCreatable().setStyle(creatableStyle);
+  var ellipse3 = new xrx.shape.Ellipse(drawing);
+  ellipse3.setCenter(270, 270);
+  ellipse3.setRadiusX(150);
+  ellipse3.setRadiusY(30);
+  shapeGroup3.addChildren([ellipse3]);
+  return [shapeGroup1, shapeGroup2, shapeGroup3];
+};
+
+
+
+function test1View() {
+  modeView('ShapeGroup');
+};
+
+
+
+function test2Hover() {
+  modeHover('ShapeGroup');
+};
+
+
+
+function test3HoverMultiple() {
+  modeHoverMultiple('ShapeGroup');
+};
+
+
+
+function test4Select() {
+  modeSelect('ShapeGroup');
+};
+
+
+
+function test5Modify() {
+  modeModify('ShapeGroup');
+};
+
+
+
+function test6Create() {
+  var shapeName = 'ShapeGroup';
+  if (xrx.engine.isSupported(xrx.engine.CANVAS)) {
+    var canvasDrawing = getCanvasDrawing('canvas' + shapeName + 'Create');
+    var canvasShape = getShapeGroups(canvasDrawing)[1];
+    canvasDrawing.setModeCreate(canvasShape.getCreatable());
+  }
+  if (xrx.engine.isSupported(xrx.engine.SVG)) {
+    var svgDrawing = getSvgDrawing('svg' + shapeName + 'Create');
+    var svgShape = getShapeGroups(svgDrawing)[1];
+    svgDrawing.setModeCreate(svgShape.getCreatable());
+  }
+  if (xrx.engine.isSupported(xrx.engine.VML)) {
+    var vmlDrawing = getVmlDrawing('vml' + shapeName + 'Create');
+    var vmlShape = getShapeGroups(vmlDrawing)[1];
+    vmlDrawing.setModeCreate(vmlShape.getCreatable());
+  }
+};
+
+
+
+</script>
+</body>
+</html>

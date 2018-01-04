@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Test Dispose of SVG Rendering Elements</title>
+<script src='../../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../../deps.js'></script>
+<script>
+goog.require('goog.dom.DomHelper');
+goog.require('xrx.api.drawing');
+</script>
+<script>
+
+
+
+var col = [];
+
+
+
+function run1TestDispose() {
+  var element = goog.dom.createElement('div');
+  var canvas = xrx.svg.Canvas.create(element);
+  col.push(canvas);
+  var circle = xrx.svg.Circle.create(canvas);
+  col.push(circle);
+  var ellipse = xrx.svg.Ellipse.create(canvas);
+  col.push(ellipse);
+  var image = xrx.svg.Image.create(canvas);
+  col.push(image);
+  var line = xrx.svg.Line.create(canvas);
+  col.push(line);
+  var polygon = xrx.svg.Polygon.create(canvas);
+  col.push(polygon);
+  var polyline = xrx.svg.Polyline.create(canvas);
+  col.push(polyline);
+  var rect = xrx.svg.Rect.create(canvas);
+  col.push(rect);
+
+  // dispose all
+  canvas.dispose();
+  circle.dispose();
+  ellipse.dispose();
+  image.dispose();
+  line.dispose();
+  polygon.dispose();
+  polyline.dispose();
+  rect.dispose();
+
+  goog.dom.removeNode(element);
+  element = null;
+};
+
+
+
+function runTestDispose() {
+  for (var i = 0; i < 10; i++) {
+    run1TestDispose();
+  }
+};
+
+
+
+</script>
+</head>
+<body onloads="runTestDispose();">
+  <h1>Test Dispose of SVG Rendering Elements</h1>
+  <p>Use Google Chrome <em>Developer Tools &gt; Profiles &gt; Record Heap Allocations</em>.</p>
+  <p>Use <em>Class Filter</em> 'xrx'</p>
+  <p>Test succeeds if for each xrx.svg.* object <em>Shallow Size</em> is equal to <em>Retained Size</em>.</p>
+  <button onclick="runTestDispose();">Test Dispose of SVG Rendering Objects</button>
+</body>
+</html>

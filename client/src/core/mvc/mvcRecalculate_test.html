@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.mvc.Recalculate</title>
+<script type="text/javascript" src="../../../lib/jssaxparser/SAXException.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/AttributesImpl.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/LocatorImpls.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/NamespaceSupport.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/sax.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/DefaultHandlers.js"></script>
+<script src='../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.array');
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx');
+  goog.require('xrx.mvc.Recalculate');
+</script>
+</head>
+<body>
+
+
+
+<div class="xrx-instance" id="i11">&lt;dummy1&gt;dummy1&lt;/dummy1&gt;</div>
+<div class="xrx-instance" id="i12">&lt;dummy2&gt;dummy2&lt;/dummy2&gt;</div>
+<div class="xrx-bind" id="b11" data-ref="xrx:instance('i11')/dummy1"></div>
+<div class="xrx-bind" id="b12" data-ref="xrx:instance('i11')/dummy1/text()"></div>
+<div class="xrx-bind" id="b13" data-ref="xrx:instance('i11')/dummy1/text()"></div>
+<div class="xrx-bind" id="b14" data-ref="xrx:instance('i12')/dummy2"></div>
+<div class="xrx-bind" id="b15" data-ref="xrx:instance('i12')/dummy2/text()"></div>
+<div class="xrx-bind" id="b16" data-ref="xrx:instance('i12')/dummy2/text()"></div>
+<script>
+function test() {
+  var msg = function(arr) {
+    return arr.toString() + ' expected.';
+  };
+  // insertEmptyTag
+  assertTrue(msg(['b11', 'b12', 'b13']),
+      goog.array.equals(['b11', 'b12', 'b13'], xrx.mvc.Recalculate.insertEmptyTag('i11')));
+  assertTrue(msg(['b14', 'b15', 'b16']),
+      goog.array.equals(['b14', 'b15', 'b16'], xrx.mvc.Recalculate.insertEmptyTag('i12')));
+  // replaceNotTag
+  assertTrue(msg(['b12', 'b13']),
+      goog.array.equals(['b12', 'b13'], xrx.mvc.Recalculate.replaceNotTag('i11')));
+  assertTrue(['b15', 'b16'].toString() + ' expected.',
+      goog.array.equals(['b15', 'b16'], xrx.mvc.Recalculate.replaceNotTag('i12')));
+};
+</script>
+
+
+
+<script>
+  xrx.install();
+</script>
+
+</body>
+</html>

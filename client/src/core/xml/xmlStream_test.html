@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.xml.Stream</title>
+<script src='../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx.xml.Label');
+  goog.require('xrx.xml.Stream');
+  goog.require('xrx.token');
+  goog.require('xrx.token.Tokens');
+</script>
+</head>
+<body>
+<script type="text/javascript">
+
+var xml           =         '<a>1<b>2</b>3<c/>4<d><e>5</e>6</d></a>';
+var startTagsTest =         '0   4             18 21                 '.replace(/ /g, '');  
+var endTagsTest   =         '        8                25   30  34    '.replace(/ /g, ''); 
+var emptyTagsTest =         '             13                         '.replace(/ /g, '');
+var notTagsTest   =         '   3   7    12   17  21 24   29   34  38'.replace(/ /g, '');
+var length2Test   =         '4   4   5    5    3  4   5    4   4     '.replace(/ /g, '');
+
+var startTags, endTags, emptyTags, notTags;
+
+
+
+function test01StopAtTagWithoutText() {
+  var stream = new xrx.xml.Stream(xml);
+  var off, len1, len2;
+  
+  stream.rowEndTag = function() {};
+  stream.rowEmptyTag = function() {};
+
+  stream.rowStartTag = function(offset, length1, length2) {
+    off = offset;
+    len1 = length1;
+    len2 = length2;
+    stream.stop();
+  };
+  
+  stream.forward(13);
+  
+  assertEquals(18, off);
+  assertEquals(3, len1);
+  assertEquals(3, len2);
+};
+
+
+
+function test02StopAtEndTag() {
+  var stream = new xrx.xml.Stream(xml);
+  var off, len1, len2;
+  
+  stream.rowStartTag = function() {};
+  stream.rowEmptyTag = function() {};
+
+  stream.rowEndTag = function(offset, length1, length2) {
+    off = offset;
+    len1 = length1;
+    len2 = length2;
+    stream.stop();
+  };
+  
+  stream.forward();
+  
+  assertEquals(8, off);
+  assertEquals(4, len1);
+  assertEquals(5, len2);
+};
+
+
+
+function test03StopAtEmptyTagWithOffset() {
+  var stream = new xrx.xml.Stream(xml);
+  var off, len1, len2;
+  
+  stream.rowStartTag = function() {};
+  stream.rowEndTag = function() {};
+
+  stream.rowEmptyTag = function(offset, length1, length2) {
+    off = offset;
+    len1 = length1;
+    len2 = length2;
+    stream.stop();
+  };
+  
+  stream.forward();
+  
+  assertEquals(13, off);
+  assertEquals(4, len1);
+  assertEquals(5, len2);
+};
+
+
+
+function test04Forward() {
+  var startTags = [], endTags = [], emptyTags = [], notTags = [], len2 = [];
+  var stream = new xrx.xml.Stream(xml);
+
+  stream.rowStartTag = function(offset, length1, length2) {
+    startTags.push(offset.toString());
+    notTags.push((offset + length1).toString());
+    len2.push(length2.toString());
+  };
+
+  stream.rowEndTag = function(offset, length1, length2) {
+    endTags.push(offset.toString());
+    notTags.push((offset + length1).toString());
+    len2.push(length2.toString());
+  };
+
+  stream.rowEmptyTag = function(offset, length1, length2) {
+    emptyTags.push(offset.toString());
+    notTags.push((offset + length1).toString());
+    len2.push(length2.toString());
+  };
+  
+  stream.forward();
+  
+  assertEquals(startTagsTest, startTags.join(''));
+  assertEquals(endTagsTest, endTags.join(''));
+  assertEquals(emptyTagsTest, emptyTags.join(''));
+  assertEquals(notTagsTest, notTags.join(''));
+  assertEquals(length2Test, len2.join(''));
+};
+
+
+
+function test05ForwardWithOffset() {
+  var startTags = [], endTags = [], emptyTags = [];
+  var stream = new xrx.xml.Stream(xml);
+
+  startTags.push(parseInt(0));
+  startTags.push(parseInt(4));
+  endTags.push(parseInt(8));
+  
+  stream.rowStartTag = function(offset) {
+    startTags.push(offset.toString());
+  };
+
+  stream.rowEndTag = function(offset) {
+    endTags.push(offset.toString());
+  };
+
+  stream.rowEmptyTag = function(offset) {
+    emptyTags.push(offset.toString());
+  };
+
+  stream.rowNotTag = function(offset) {
+    notTags.push(offset.toString());
+  };
+  
+  stream.forward(12);
+  
+  assertEquals(startTagsTest, startTags.join(''));
+  assertEquals(endTagsTest, endTags.join(''));
+  assertEquals(emptyTagsTest, emptyTags.join(''));
+};
+
+
+
+function test06Backward() {
+  var startTags = [], endTags = [], emptyTags = [], notTags = [], len2 = [];
+  var stream = new xrx.xml.Stream(xml);
+
+  stream.rowStartTag = function(offset, length1, length2) {
+    startTags.unshift(offset.toString());
+    notTags.unshift((offset + length1).toString());
+    len2.unshift(length2.toString());
+  };
+
+  stream.rowEndTag = function(offset, length1, length2) {
+    endTags.unshift(offset.toString());
+    notTags.unshift((offset + length1).toString());
+    len2.unshift(length2.toString());
+  };
+
+  stream.rowEmptyTag = function(offset, length1, length2) {
+    emptyTags.unshift(offset.toString());
+    notTags.unshift((offset + length1).toString());
+    len2.unshift(length2.toString());
+  };
+  
+  stream.backward();
+  
+  assertEquals(startTagsTest, startTags.join(''));
+  assertEquals(endTagsTest, endTags.join(''));
+  assertEquals(emptyTagsTest, emptyTags.join(''));
+  assertEquals(notTagsTest, notTags.join(''));
+  assertEquals(length2Test, len2.join(''));
+};
+
+
+
+function test07BackwardWithOffset() {
+  var startTags = [], endTags = [], emptyTags = [];
+  var stream = new xrx.xml.Stream(xml);
+
+  endTags.unshift(parseInt(34));
+  
+  stream.rowStartTag = function(offset) {
+    startTags.unshift(offset.toString());
+  };
+
+  stream.rowEndTag = function(offset) {
+    endTags.unshift(offset.toString());
+  };
+
+  stream.rowEmptyTag = function(offset) {
+    emptyTags.unshift(offset.toString());
+  };
+
+  stream.backward(34);
+  
+  assertEquals(startTagsTest, startTags.join(''));
+  assertEquals(endTagsTest, endTags.join(''));
+  assertEquals(emptyTagsTest, emptyTags.join('')); 
+};
+
+
+
+function test08rowComment() {
+  var test = [];
+  var xml = '<!-- - --><test><!-- --><!---->a<!----><a/><!----><b></b><!----></test>';
+  var stream = new xrx.xml.Stream(xml);
+
+  stream.rowEndTag = function() {};
+  stream.rowEmptyTag = function() {};
+  stream.rowStartTag = function() {};
+  stream.rowComment = function(offset, length) {
+    test.push(xml.substring(offset, offset + length));
+  };
+  
+  stream.forward();
+  stream.backward();
+
+  assertEquals('<!-- - -->', test[0]);
+  assertEquals('<!-- -->', test[1]);
+  assertEquals('<!---->', test[2]);
+  assertEquals('<!---->', test[3]);
+  assertEquals('<!---->', test[4]);
+  assertEquals('<!---->', test[5]);
+  assertEquals('<!---->', test[6]);
+  assertEquals('<!---->', test[7]);
+  assertEquals('<!---->', test[8]);
+  assertEquals('<!---->', test[9]);
+  assertEquals('<!-- -->', test[10]);
+  assertEquals('<!-- - -->', test[11]);
+};
+
+
+
+function test09rowPI() {
+  var test = [];
+  var pi = '<?xml-stylesheet href="shakes.xsl" type="text/xsl"?>';
+  var xml = pi + '<test>' + pi + pi + 'a' + pi + '<a/>' + pi + '<b></b>' + pi + '</test>';
+  var stream = new xrx.xml.Stream(xml);
+
+  stream.rowEndTag = function() {};
+  stream.rowEmptyTag = function() {};
+  stream.rowStartTag = function() {};
+  stream.rowPI = function(offset, length) {
+    console.log(xml.substring(offset, offset + length));
+    test.push(xml.substring(offset, offset + length));
+  };
+  
+  stream.forward();
+  stream.backward();
+
+  assertEquals(pi, test[0]);
+  assertEquals(pi, test[1]);
+  assertEquals(pi, test[2]);
+  assertEquals(pi, test[3]);
+  assertEquals(pi, test[4]);
+  assertEquals(pi, test[5]);
+  assertEquals(pi, test[6]);
+  assertEquals(pi, test[7]);
+  assertEquals(pi, test[8]);
+  assertEquals(pi, test[9]);
+};
+
+
+
+function test10rowCDATA() {
+  var startTag = [];
+  var endTag = [];
+  var test = [];
+  var count = 0;
+  var cdata = '<![CDATA[' + '<greeting>Hello, world!</greeting>]]>'
+  var xml = '<test>a' + cdata + cdata + 'b</test>';
+  var stream = new xrx.xml.Stream(xml);
+
+  stream.rowStartTag = function(offset, length1, length2) {
+    startTag.push(xml.substring(offset, offset + length1));
+    test.push(xml.substring(offset + length1, offset + length2));
+  };
+  stream.rowEndTag = function(offset, length1, length2) {
+    endTag.push(xml.substring(offset, offset + length1));
+  };
+  stream.rowCDATA = function() {
+    count++;
+  };
+  
+  stream.forward();
+  stream.backward();
+
+  assertEquals(2, count);
+  assertEquals(2, startTag.length);
+  assertEquals('<test>', startTag[0]);
+  assertEquals('<test>', startTag[1]);
+  assertEquals(2, endTag.length);
+  assertEquals('</test>', endTag[0]);
+  assertEquals('</test>', endTag[1]);
+  assertEquals('a' + cdata + cdata + 'b', test[0]);
+  assertEquals('a' + cdata + cdata + 'b', test[1]);
+};
+
+
+
+function test11TagName() {
+  var xml = '<a>1<b attr="value"/>2<c/></a>';
+  var stream = new xrx.xml.Stream(xml);
+  
+  // <a>
+  var lab1 = new xrx.xml.Label([1]);
+  var tok1 = new xrx.token.StartTag(lab1);
+  tok1.offset(0);
+  tok1.length(3);
+  var xmlTok1 = xml.substr(tok1.offset(), tok1.length());
+  var location1 = stream.tagName(xmlTok1);
+  assertEquals('a', xmlTok1.substr(location1.offset, location1.length));
+  
+  // <b attr="value"/>
+  var lab2 = new xrx.xml.Label([1, 1]);
+  var tok2 = new xrx.token.EmptyTag(lab2);
+  tok2.offset(4);
+  tok2.length(17);
+  var xmlTok2 = xml.substr(tok2.offset(), tok2.length());
+  var location2 = stream.tagName(xmlTok2);
+  assertEquals('b', xmlTok2.substr(location2.offset, location2.length));
+  
+  // <c/>
+  var lab3 = new xrx.xml.Label([1, 2]);
+  var tok3 = new xrx.token.EmptyTag(lab3);
+  tok3.offset(22);
+  tok3.length(4);
+  var xmlTok3 = xml.substr(tok3.offset(), tok3.length());
+  var location3 = stream.tagName(xmlTok3);
+  assertEquals('c', xmlTok3.substr(location3.offset, location3.length));
+  
+  // </a>
+  var lab4 = new xrx.xml.Label([1]);
+  var tok4 = new xrx.token.EndTag(lab4);
+  tok4.offset(26);
+  tok4.length(4);
+  var xmlTok4 = xml.substr(tok4.offset(), tok4.length());
+  var location4 = stream.tagName(xmlTok4);
+  assertEquals('a', xmlTok4.substr(location4.offset, location4.length));
+};
+
+
+
+function test12Attribute() {
+  // test with double quotes
+  var xmlA = '<a>1<b attr1="value" attr2="value"/>2<c/></a>';
+  var off1 = '    4                21                      ';
+  var stream1 = new xrx.xml.Stream(xmlA);
+
+  // @return attr2="value"
+  var tok1 = new xrx.token.EmptyTag(new xrx.xml.Label([1, 1]));
+  var attr1 = new xrx.token.Attribute(new xrx.xml.Label([1, 1, 2]));
+  tok1.offset(4);
+  tok1.length(32);
+  var xmlTok1 = xmlA.substr(tok1.offset(), tok1.length());
+  var location1 = stream1.attribute(xmlTok1, attr1.label().last());
+  assertEquals('attr2="value"', xmlTok1.substr(location1.offset, location1.length));
+
+  
+  // test with single quotes
+  var xmlB = "<a>1<b attr='value'/>2<c/></a>";
+  var off2 = '    4  7              22      ';
+  var stream10b = new xrx.xml.Stream(xmlB);
+  
+  // @return attr='value'
+  var tok2 = new xrx.token.EmptyTag(new xrx.xml.Label([1, 1]));
+  var attr2 = new xrx.token.Attribute(new xrx.xml.Label([1, 1, 1]));
+  tok2.offset(4);
+  tok2.length(17);
+  var xmlTok2 = xmlB.substr(tok2.offset(), tok2.length());
+  var location2 = stream10b.attribute(xmlTok2, attr2.label().last());
+  assertEquals("attr='value'", xmlTok2.substr(location2.offset, location2.length));
+
+  // test a tag without attributes
+  var tok3 = new xrx.token.EmptyTag(new xrx.xml.Label([1, 2]));
+  var attr3 = new xrx.token.Attribute(new xrx.xml.Label([1, 2, 1]));
+  tok3.offset(22);
+  tok3.length(4);
+  var xmlTok3 = xmlB.substr(tok3.offset(), tok3.length());
+  var location3 = stream10b.attribute(xmlTok3, attr3.label().last());
+  assertEquals(null, location3);
+};
+
+
+
+function test13AttrName() {
+  var xml = '<a>1<b attr1="value1" attr2="value2"/>2<c/></a>';
+  var off =   '    4                21                      ';
+  var stream = new xrx.xml.Stream(xml);
+  var tok = new xrx.token.EmptyTag(new xrx.xml.Label([1, 1]));
+  var attr1 = new xrx.token.AttrName(new xrx.xml.Label([1, 1, 1]));
+  var attr2 = new xrx.token.AttrName(new xrx.xml.Label([1, 1, 2]));
+  tok.offset(4);
+  tok.length(32);
+  var xmlTok = xml.substr(tok.offset(), tok.length());
+
+  // @return attr1
+  var location1 = stream.attrName(xmlTok, attr1.label().last());
+  assertEquals('attr1', xmlTok.substr(location1.offset, location1.length));
+
+  // @return attr2
+  var location2 = stream.attrName(xmlTok, attr2.label().last());
+  assertEquals('attr2', xmlTok.substr(location2.offset, location2.length));
+};
+
+
+
+function test14AttrValue() {
+  var xml = '<a>1<b attr1="value1" attr2="value2" attr3=""/>2<c/></a>';
+  var stream = new xrx.xml.Stream(xml);
+  var lab = new xrx.xml.Label([1, 1]);
+  var tok = new xrx.token.EmptyTag(lab);
+  tok.offset(4);
+  tok.length(43);
+  var attr1 = new xrx.token.AttrValue(new xrx.xml.Label([1, 1, 1]));
+  var attr2 = new xrx.token.AttrValue(new xrx.xml.Label([1, 1, 2]));
+  var attr3 = new xrx.token.AttrValue(new xrx.xml.Label([1, 1, 3]));
+  var attr4 = new xrx.token.AttrValue(new xrx.xml.Label([1, 1, 4]));
+  var xmlTok = xml.substr(tok.offset(), tok.length());
+
+  // @return 'value1'
+  var location1 = stream.attrValue(xmlTok, attr1.label().last());
+  assertEquals('value1', xmlTok.substr(location1.offset, location1.length));
+
+  // @return 'value2'
+  var location2 = stream.attrValue(xmlTok, attr2.label().last());
+  assertEquals('value2', xmlTok.substr(location2.offset, location2.length));
+
+  // @return ''
+  var location3 = stream.attrValue(xmlTok, attr3.label().last());
+  assertEquals('', xmlTok.substr(location3.offset, location3.length));
+  
+  // @return null
+  var location4 = stream.attrValue(xmlTok, attr4.label().last());
+  assertEquals(null, location4); 
+};
+
+
+
+function test15Attributes() {
+  var xml = '<a>1<b attr1="value1" xmlns="http://example.org" attr2="value2" attr3=""/>2<c/></a>';
+  var stream = new xrx.xml.Stream(xml);
+  var lab = new xrx.xml.Label([1, 1]);
+  var tok = new xrx.token.EmptyTag(lab);
+  tok.offset(4);
+  tok.length(71);
+  var xmlTok = xml.substr(tok.offset(), tok.length());
+
+  // @return ['attr1="value1"', 'attr2="value2"', 'attr3=""']
+  var locations = stream.attributes(xmlTok);
+
+  assertEquals(undefined, locations[2])
+  assertEquals('attr1="value1"', xmlTok.substr(locations[1].offset, locations[1].length));
+  assertEquals('attr2="value2"', xmlTok.substr(locations[3].offset, locations[3].length));
+  assertEquals('attr3=""', xmlTok.substr(locations[4].offset, locations[4].length));
+};
+
+
+
+function test16Namespaces() {
+  var xml = '<a>1<b attr1="value1" xmlns="http://example.org" attr2="value2" attr3=""/>2<c/></a>';
+  var stream = new xrx.xml.Stream(xml);
+  var lab = new xrx.xml.Label([1, 1]);
+  var tok = new xrx.token.EmptyTag(lab);
+  tok.offset(4);
+  tok.length(71);
+  var xmlTok = xml.substr(tok.offset(), tok.length());
+
+  // @return ['attr1="value1"', 'attr2="value2"', 'attr3=""']
+  var locations = stream.namespaces(xmlTok);
+
+  assertEquals(undefined, locations[1])
+  assertEquals('xmlns="http://example.org"', xmlTok.substr(locations[2].offset, locations[2].length));
+};
+
+
+
+function test17namespaceForward() {
+  var xml = '<a xmlns="http://example.org/NS/a"><b xmlns="http://example.org/NS/b"><c/></b></a>';
+  var count = 0;
+  var namespaces = [];
+  var stream = new xrx.xml.Stream(xml);
+  stream.setFeature('NAMESPACE', true);
+
+  stream.rowStartTag = function() {};
+  stream.rowEndTag = function() {};
+  stream.rowEmptyTag = function() {};
+  stream.eventNamespace = function(offset, length) {
+    count += 1;
+    namespaces.push(new xrx.token.Namespace(null, offset, length));
+  };
+
+  stream.forward();
+  
+  assertEquals(2, count);
+  assertEquals('xmlns="http://example.org/NS/a"', namespaces[0].xml(xml));
+  assertEquals('xmlns="http://example.org/NS/b"', namespaces[1].xml(xml));
+};
+
+
+
+function test18namespaceBackward() {
+  var xml = '<a xmlns="http://example.org/NS/a"><b xmlns="http://example.org/NS/b"/></a>';
+  var count = 0;
+  var namespaces = [];
+  var stream = new xrx.xml.Stream(xml);
+  stream.setFeature('NAMESPACE', true);
+
+  stream.rowStartTag = function() {};
+  stream.rowEndTag = function() {};
+  stream.rowEmptyTag = function() {};
+  stream.eventNamespace = function(offset, length) {
+    count += 1;
+    namespaces.push(new xrx.token.Namespace(null, offset, length));
+  };
+
+  stream.backward();
+  
+  assertEquals(2, count);
+  assertEquals('xmlns="http://example.org/NS/b"', namespaces[0].xml(xml));
+  assertEquals('xmlns="http://example.org/NS/a"', namespaces[1].xml(xml));
+  
+};
+
+
+
+function test19nsPrefix() {
+  var xml = '<a xmlns="http://example.org/NS/a" xmlns:b="http://example.org/NS/b">';
+  var stream = new xrx.xml.Stream(xml);
+  
+  var attrName1 = stream.attrName(xml, 1);
+  var attrName2 = stream.attrName(xml, 2);
+  
+  assertEquals('xmlns', attrName1.xml(xml));
+  assertEquals('xmlns:b', attrName2.xml(xml));
+};
+
+
+
+function test20nsUri() {
+  var xml = '<a xmlns="http://example.org/NS/a" xmlns:b="http://example.org/NS/b">';
+  var stream = new xrx.xml.Stream(xml);
+  
+  var attrValue1 = stream.attrValue(xml, 1);
+  var attrValue2 = stream.attrValue(xml, 2);
+  
+  assertEquals('http://example.org/NS/a', attrValue1.xml(xml));
+  assertEquals('http://example.org/NS/b', attrValue2.xml(xml));
+};
+
+
+
+function test21featureTagName() {
+  var test = [];
+  var xml = '<e1>t<e2/>t<e3>t</e3></e1>';
+  var stream = new xrx.xml.Stream(xml);
+  stream.setFeature('TAG_NAME', true);
+
+  stream.rowStartTag = function() {};
+  stream.rowEmptyTag = function() {};
+  stream.rowEndTag = function() {};
+  stream.eventTagName = function(offset, length) {
+    test.push(xml.substr(offset, length));
+  };
+
+  stream.forward();
+  stream.backward();
+
+  assertEquals('e1e2e3e3e1e1e3e3e2e1', test.join(''));
+};
+
+
+
+function test22featureAttribute() {
+  var test = [];
+  var xml = '<a attr1="v1" attr2="v2"/>';
+  var stream = new xrx.xml.Stream(xml);
+  stream.setFeature('ATTRIBUTE', true);
+
+  stream.rowStartTag = function() {};
+  stream.rowEmptyTag = function() {};
+  stream.rowEndTag = function() {};
+  stream.eventAttribute = function(offset, length) {
+    test.push(xml.substr(offset, length));
+  };
+
+  stream.forward();
+  stream.backward();
+
+  assertEquals('attr1="v1"attr2="v2"attr1="v1"attr2="v2"', test.join(''));
+};
+
+
+
+function test23featureAttrName() {
+  var test = [];
+  var xml = '<a attr1="v1" attr2="v2"/>';
+  var stream = new xrx.xml.Stream(xml);
+  stream.setFeature('ATTR_NAME', true);
+
+  stream.rowStartTag = function() {};
+  stream.rowEmptyTag = function() {};
+  stream.rowEndTag = function() {};
+  stream.eventAttrName = function(offset, length) {
+    test.push(xml.substr(offset, length));
+  };
+
+  stream.forward();
+  stream.backward();
+
+  assertEquals('attr1attr2attr1attr2', test.join(''));
+};
+
+
+
+function test24featureAttrValue() {
+  var test = [];
+  var xml = '<a attr1="v1" attr2="v2"/>';
+  var stream = new xrx.xml.Stream(xml);
+  stream.setFeature('ATTR_VALUE', true);
+
+  stream.rowStartTag = function() {};
+  stream.rowEmptyTag = function() {};
+  stream.rowEndTag = function() {};
+  stream.eventAttrValue = function(offset, length) {
+    test.push(xml.substr(offset, length));
+  };
+
+  stream.forward();
+  stream.backward();
+
+  assertEquals('v1v2v1v2', test.join(''));
+
+};
+
+
+
+function test25featureNsPrefix() {
+  var test = [];
+  var xml = '<a xmlns:a="http://example.org/NS/a" attr="v"/>';
+  var stream = new xrx.xml.Stream(xml);
+  stream.setFeature('NS_PREFIX', true);
+
+  stream.rowStartTag = function() {};
+  stream.rowEmptyTag = function() {};
+  stream.rowEndTag = function() {};
+  stream.eventNsPrefix = function(offset, length) {
+    test.push(xml.substr(offset, length));
+  };
+
+  stream.forward();
+  stream.backward();
+
+  assertEquals('xmlns:axmlns:a', test.join(''));
+};
+
+
+
+function test26featureNsUri() {
+  var test = [];
+  var xml = '<a xmlns:a="http://example.org/NS/a" attr="v"/>';
+  var stream = new xrx.xml.Stream(xml);
+  stream.setFeature('NS_URI', true);
+
+  stream.rowStartTag = function() {};
+  stream.rowEmptyTag = function() {};
+  stream.rowEndTag = function() {};
+  stream.eventNsUri = function(offset, length) {
+    test.push(xml.substr(offset, length));
+  };
+
+  stream.forward();
+  stream.backward();
+
+  assertEquals('http://example.org/NS/ahttp://example.org/NS/a', test.join(''));
+};
+
+
+
+function test27featureXmlDecl() {
+  var test = [];
+  var xml = '<?xml version="1.0"?><test></test>';
+  var stream = new xrx.xml.Stream(xml);
+  stream.setFeature('XML_DECL', true);
+
+  stream.rowEndTag = function() {};
+  stream.rowEmptyTag = function() {};
+  stream.rowStartTag = function() {};
+  stream.eventXmlDecl = function(offset, length) {
+    test.push(xml.substr(offset, length));
+  };
+  
+  stream.forward();
+
+  assertEquals('<?xml version="1.0"?>', test[0]);
+};
+
+
+</script>
+</body>
+</html>

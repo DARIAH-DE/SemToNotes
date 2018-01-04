@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - Performance Test Canvas (xrx.drawing.Drawing)</title>
+<script src='../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.dom.DomHelper');
+  goog.require('xrx.api.drawing');
+</script>
+<style>
+#drawing {
+display: block;
+width: 1000px;
+height: 1000px;
+}
+</style>
+</head>
+<body>
+<div id="counter">0</div>
+<div id="drawing"></div>
+
+<script type="text/javascript">
+
+
+
+var countDraws = 0;
+
+
+
+function getPolygons(drawing) {
+  var polygon;
+  var polygons = [];
+  var coords = [[10,10],[12,12],[10,50],[22,100],[100,22],[50,50]];
+  var newCoords;
+  for(var i = 0; i < 100; i++) {
+    polygon = new xrx.shape.Polygon(drawing);
+    newCoords = new Array(coords.length);
+    for (var j = 0; j < newCoords.length; j++) {
+      newCoords[j] = [coords[j][0] + i * 10, coords[j][1] + i * 15];
+    }
+    polygon.setCoords(newCoords);
+    polygon.getHoverable().setFillColor('magenta');
+    polygons.push(polygon);
+  }
+  return polygons;
+};
+
+
+
+function testPerformance() {
+  var url = 'http://digi.ub.uni-heidelberg.de/diglitData/image/saw_mainz72/4/0000a_Deckel_vorne.jpg';
+  var element = goog.dom.getElement('drawing');
+  var drawing = new xrx.drawing.Drawing(element, xrx.engine.CANVAS);
+  var viewbox = drawing.getViewbox();
+  drawing.setModeHover();
+  drawing.setBackgroundImage(url, function() {
+    viewbox.setZoomFactorMin(.03);
+    viewbox.setZoomFactorMax(1);
+    viewbox.setZoomFactor(.01);
+    viewbox.fit();
+    drawing.addShapes.apply(drawing, getPolygons(drawing));
+  });
+  var counter = goog.dom.getElement('counter');
+  drawing.eventBeforeDraw = function() {
+    countDraws++;
+    goog.dom.setTextContent(counter, countDraws);
+  };
+};
+
+
+
+</script>
+</body>
+</html>

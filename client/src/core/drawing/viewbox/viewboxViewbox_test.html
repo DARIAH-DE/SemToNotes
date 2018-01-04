@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.viewbox.Viewbox</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../deps.js'></script>
+<script src='./viewboxViewbox_test.js'></script>
+<link rel="stylesheet" type="text/css" href="./viewboxViewbox_test.css">
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.dom.DomHelper');
+  goog.require('goog.dom.forms');
+  goog.require('goog.events');
+  goog.require('goog.events.EventType');
+  goog.require('xrx');
+</script>
+</head>
+<body>
+
+<h1>Viewbox Events</h1>
+<div class="wrapper1">
+  <div class="drawing zoom" id="event1"></div>
+  <div class="drawing zoom" id="event2"></div>
+</div>
+
+<script type="text/javascript">
+
+
+
+function test1events() {
+  // initialize canvases
+  var canvas1 = new xrx.drawing.Drawing(goog.dom.getElement('event1'));
+  var canvas2 = new xrx.drawing.Drawing(goog.dom.getElement('event2'));
+  var viewbox1 = canvas1.getViewbox();
+  var viewbox2 = canvas2.getViewbox();
+  canvas1.setBackgroundImage(url2, function() {
+    canvas1.setModeView();
+  });
+  canvas2.setBackgroundImage(url2, function() {
+    canvas2.setModeView();
+  });
+
+  // synchronize canvas2 with canvas1
+  canvas1.eventViewboxChange = function() {
+    viewbox2.setCTM(viewbox1.getCTM());
+    canvas2.draw();
+  };
+  // synchronize canvas1 with canvas2
+  canvas2.eventViewboxChange = function() {
+    viewbox1.setCTM(viewbox2.getCTM());
+    canvas1.draw();
+  };
+};
+
+</script>
+
+</body>
+</html>

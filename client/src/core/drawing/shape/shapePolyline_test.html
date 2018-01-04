@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.shape.Polyline, xrx.shape.PolylineModify, xrx.shape.PolylineCreate</title>
+<script src="../../../../lib/closure-library/closure/goog/base.js"></script>
+<script src="../../../deps.js"></script>
+<script src="./shapeTest.js"></script>
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.dom.DomHelper');
+  goog.require('xrx.api.drawing');
+</script>
+<link rel="stylesheet" type="text/css" href="./shapeTest.css">
+</head>
+<body>
+<script type="text/javascript">
+
+
+
+createTables('Polyline', goog.dom);
+
+
+
+function getPolylines(drawing) {
+  var hoverableStyle = new xrx.shape.Style();
+  hoverableStyle.setStrokeColor('green');
+  hoverableStyle.setStrokeWidth(2);
+  var selectableStyle = new xrx.shape.Style();
+  selectableStyle.setStrokeColor('yellow');
+  selectableStyle.setStrokeWidth(2);
+  var coords1 = [[12,12], [25,15], [100,60], [60,90], [500,500]];
+  var coords2 = [[112,112], [125,115], [400,160], [160,190], [150,150]];
+  var coords3 = [[112,312], [125,315], [200,360], [160,390], [150,350]];
+  var polyline1 = new xrx.shape.Polyline(drawing);
+  var polyline2 = new xrx.shape.Polyline(drawing);
+  var polyline3 = new xrx.shape.Polyline(drawing);
+  polyline1.setCoords(coords1);
+  polyline1.setStrokeWidth(1);
+  polyline1.getHoverable().setStyle(hoverableStyle);
+  polyline1.getSelectable().setStyle(selectableStyle);
+  polyline2.setCoords(coords2);
+  polyline2.setStrokeWidth(1);
+  polyline2.getHoverable().setStyle(hoverableStyle);
+  polyline2.getSelectable().setStyle(selectableStyle);
+  polyline3.setCoords(coords3);
+  polyline3.setStrokeWidth(1);
+  polyline3.getHoverable().setStyle(hoverableStyle);
+  polyline3.getSelectable().setStyle(selectableStyle);
+  return [polyline1, polyline2, polyline3];
+};
+
+
+
+function test1View() {
+  modeView('Polyline');
+};
+
+
+
+function test2Hover() {
+  modeHover('Polyline');
+};
+
+
+
+function test3HoverMultiple() {
+  modeHoverMultiple('Polyline');
+};
+
+
+
+function test4Select() {
+  modeSelect('Polyline');
+};
+
+
+
+function test5Modify() {
+  modeModify('Polyline');
+};
+
+
+
+function test6Create() {
+  modeCreate('Polyline');
+};
+
+</script>
+</body>
+</html>

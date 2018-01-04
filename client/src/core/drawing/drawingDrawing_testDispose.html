@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Test Dispose of Drawing Object</title>
+<script src="../../../../lib/closure-library/closure/goog/base.js"></script>
+<script src="../../../deps.js"></script>
+<script>
+goog.require('goog.dom.DomHelper');
+goog.require('xrx.api.drawing');
+</script>
+<script>
+
+
+
+function run1TestDispose() {
+  var element = goog.dom.createElement('div');
+  this.drawing = new xrx.drawing.Drawing(element);
+  var circle = new xrx.shape.Circle(drawing);
+  drawing.addShapes(circle);
+  // dispose
+  this.drawing.dispose();
+  goog.dom.removeNode(element);
+  element = null;
+};
+
+
+
+function runTestDispose() {
+  for (var i = 0; i < 10; i++) {
+    run1TestDispose();
+  }
+};
+
+
+
+</script>
+</head>
+<body onloads="runTestDispose();">
+  <h1>Test Dispose of Drawing Object</h1>
+  <p>Use Google Chrome <em>Developer Tools &gt; Profiles &gt; Record Heap Allocations</em>.</p>
+  <p>Use <em>Class Filter</em> 'xrx'</p>
+  <p>Test succeeds if xrx.drawing.Drawing object <em>Shallow Size</em> is equal to <em>Retained Size</em>.</p>
+  <button onclick="runTestDispose();">Test Dispose of Drawing Object</button>
+</body>
+</html>

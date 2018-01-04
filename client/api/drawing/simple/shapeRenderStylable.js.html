@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Source: core/drawing/shape/abstract/shapeRenderStylable.js | API Reference | SemToNotes</title>
+  <script src="scripts/prettify/prettify.js"></script>
+  <script src="scripts/prettify/lang-css.js"></script>
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+  <!--link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css"-->
+  <link href="../../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../../demo/stylesheets/demo.css" rel="stylesheet">
+</head>
+<body>
+  <nav id="nav" class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"></button>
+        <a class="navbar-brand" href="../../../../index.html">SemToNotes</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li id="homeLink"><a href="../../../../index.html#home">Home</a></li>
+          <li id="apiLink" class="active">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">JavaScript API <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="../../../../index.html#documentation">API Documentation</a></li>
+              <li><a href="../simple/index.html">Simple API Reference <small>(for users)</small></a></li>
+              <li><a href="../full/index.html">Full API Reference <small>(for developers)</small></a></li>
+              <li><a href="../../../../index.html#about">About</a></li>
+            </ul>
+          </li>
+          <li id="retrievalLink"><a href="../../../../index.html#retrieval">Topological Retrieval</a></li>
+          <li><a target="_blank" href="https://github.com/HKIKoeln/SemToNotes/">Code</a></li>
+        </ul>
+      </div>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+  <div id="content" class="container">
+    <div id="main" class="col-md-9">
+      <h1 class="page-title">Source: core/drawing/shape/abstract/shapeRenderStylable.js</h1>
+      
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileoverview A class implementing dynamic rendering of shapes.
+ * @private
+ */
+
+goog.provide('xrx.shape.RenderStylable');
+
+
+
+goog.require('xrx.engine');
+goog.require('xrx.shape.Style');
+
+
+
+/**
+ * A class implementing dynamic rendering of shapes.
+ * @param {xrx.drawing.Drawing} drawing The parent drawing canvas.
+ * @constructor
+ * @extends {xrx.shape.Style}
+ * @private
+ */
+xrx.shape.RenderStylable = function(drawing) {
+
+  goog.base(this);
+
+  /**
+   * The current zoom factor to realize constant
+   * line width and constant size of dragging elements.
+   * @type {number}
+   */
+  this.zoomFactor_ = 1;
+
+  /**
+   * The shape group, if the shape belongs to a group.
+   * @type {xrx.shape.ShapeGroup}
+   */
+  this.shapeGroup_;
+
+  /**
+   * Whether this shape has a DOM representation.
+   * @type {boolean}
+   * @private
+   */
+  this.hasDom_ = xrx.engine.hasDom(drawing.getEngine().getName());
+
+  /**
+   * Object describing whether the fill style did change
+   * since the last drawing.
+   * @type {Object}
+   * @private
+   */
+  this.fillChanged_ = {
+    color: true,
+    opacity: true
+  };
+
+  /**
+   * Object describing whether the stroke style did change
+   * since the last drawing.
+   * @type {Object}
+   * @private
+   */
+  this.strokeChanged_ = {
+    color: true,
+    width: true
+  };
+};
+goog.inherits(xrx.shape.RenderStylable, xrx.shape.Style);
+
+
+
+/**
+ * Returns the current shape group.
+ * @return {xrx.shape.ShapeGroup} The shape group.
+ * @private
+ */
+xrx.shape.RenderStylable.prototype.getShapeGroup = function() {
+  return this.shapeGroup_;
+};
+
+
+
+/**
+ * Sets this shape to be part of a shape group.
+ * @param {xrx.shape.ShapeGroup} shapeGroup The shape group.
+ * @private
+ */
+xrx.shape.RenderStylable.prototype.setShapeGroup = function(shapeGroup) {
+  this.shapeGroup_ = shapeGroup;
+};
+
+
+
+/**
+ * Returns the underlying engine element.
+ * @return {xrx.engine.Element} The engine element.
+ */
+xrx.shape.RenderStylable.prototype.getEngineElement = function() {
+  return this.engineElement_;
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.RenderStylable.prototype.setZoomFactor = function(factor) {
+  this.zoomFactor_ = factor;
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.RenderStylable.prototype.setStyle = function(style) {
+  goog.base(this, 'setStyle', style);
+  this.fillChanged_.color = true;
+  this.fillChanged_.opacity = true;
+  this.strokeChanged_.color = true;
+  this.strokeChanged_.width = true;
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.RenderStylable.prototype.setFillColor = function(color) {
+  goog.base(this, 'setFillColor', color);
+  this.fillChanged_.color = true;
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.RenderStylable.prototype.getRenderingFillColor = function() {
+  var color = this.shapeGroup_ ? this.shapeGroup_.getFillColor() :
+      ((this.hasDom_ &amp;&amp; (this.fillChanged_.color === false)) ? undefined : this.fill_.color);
+  this.fillChanged_.color = false;
+  return color;
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.RenderStylable.prototype.setFillOpacity = function(factor) {
+  goog.base(this, 'setFillOpacity', factor);
+  this.fillChanged_.opacity = true;
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.RenderStylable.prototype.getRenderingFillOpacity = function() {
+  var opacity = this.shapeGroup_ ? this.shapeGroup_.getFillOpacity() :
+      this.hasDom_ &amp;&amp; this.fillChanged_.opacity === false ? undefined : this.fill_.opacity;
+  this.fillChanged_.opacity = false;
+  return opacity;
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.RenderStylable.prototype.setStrokeColor = function(color) {
+  goog.base(this, 'setStrokeColor', color);
+  this.strokeChanged_.color = true;
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.RenderStylable.prototype.getRenderingStrokeColor = function() {
+  var color = this.shapeGroup_ ? this.shapeGroup_.getStrokeColor() :
+      this.hasDom_ &amp;&amp; this.strokeChanged_.color === false ? undefined : this.stroke_.color;
+  this.strokeChanged_.color = false;
+  return color;
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.RenderStylable.prototype.setStrokeWidth = function(width) {
+  goog.base(this, 'setStrokeWidth', width);
+  this.strokeChanged_.width = true;
+};
+
+
+
+/**
+ * Returns the stroke width of this shape.
+ * @return {number} The stroke width.
+ */
+xrx.shape.RenderStylable.prototype.getRenderingStrokeWidth = function() {
+  var width = this.shapeGroup_ ? this.shapeGroup_.getStrokeWidth() / this.zoomFactor_ :
+      this.hasDom_ &amp;&amp; this.strokeChanged_.width === false ? undefined :
+      this.stroke_.width / this.zoomFactor_;
+  this.strokeChanged_.width = false;
+  return width;
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.RenderStylable.prototype.startDrawing_ = function() {
+  this.drawing_.eventBeforeRendering(this);
+  this.engineElement_.applyTransform(this.ctm_);
+  this.engineElement_.startDrawing();
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.RenderStylable.prototype.finishDrawing_ = function() {
+  this.engineElement_.finishDrawing();
+};
+
+
+
+/**
+ * Disposes this rendering style object.
+ */
+xrx.shape.RenderStylable.prototype.disposeInternal = function() {
+  this.engineElement_.dispose();
+  this.engineElement_ = null;
+  goog.dispose(this.shapeGroup_);
+  this.shapeGroup_ = null;
+  goog.base(this, 'disposeInternal');
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    </div>
+    <nav class="col-md-3">
+      <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="xrx.drawing.Drawing.html">xrx.drawing.Drawing</a></li><li><a href="xrx.shape.Circle.html">xrx.shape.Circle</a></li><li><a href="xrx.shape.DiPolygon.html">xrx.shape.DiPolygon</a></li><li><a href="xrx.shape.DiPolygonArrow.html">xrx.shape.DiPolygonArrow</a></li><li><a href="xrx.shape.DiPolygonArrowModifiable.html">xrx.shape.DiPolygonArrowModifiable</a></li><li><a href="xrx.shape.Ellipse.html">xrx.shape.Ellipse</a></li><li><a href="xrx.shape.Line.html">xrx.shape.Line</a></li><li><a href="xrx.shape.Polygon.html">xrx.shape.Polygon</a></li><li><a href="xrx.shape.Polyline.html">xrx.shape.Polyline</a></li><li><a href="xrx.shape.Rect.html">xrx.shape.Rect</a></li><li><a href="xrx.shape.ShapeGroup.html">xrx.shape.ShapeGroup</a></li><li><a href="xrx.shape.Style.html">xrx.shape.Style</a></li><li><a href="xrx.viewbox.Viewbox.html">xrx.viewbox.Viewbox</a></li></ul><h3>Events</h3><ul><li><a href="xrx.drawing.Drawing.html#event:eventShapeModify">xrx.drawing.Drawing#event:eventShapeModify</a></li></ul><h3>Namespaces</h3><ul><li><a href="xrx.html">xrx</a></li><li><a href="xrx.canvas.html">xrx.canvas</a></li><li><a href="xrx.drawing.html">xrx.drawing</a></li><li><a href="xrx.engine.html">xrx.engine</a></li><li><a href="xrx.shape.html">xrx.shape</a></li><li><a href="xrx.svg.html">xrx.svg</a></li><li><a href="xrx.viewbox.html">xrx.viewbox</a></li><li><a href="xrx.vml.html">xrx.vml</a></li></ul>
+    </nav>
+  </div>
+  <script>prettyPrint();</script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

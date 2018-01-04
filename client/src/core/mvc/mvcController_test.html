@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.mvc.Controller</title>
+<script type="text/javascript" src="../../../lib/jssaxparser/SAXException.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/AttributesImpl.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/LocatorImpls.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/NamespaceSupport.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/sax.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/DefaultHandlers.js"></script>
+<script src='../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.array');
+  goog.require('goog.dom.DomHelper');
+  goog.require('goog.dom.dataset');
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx');
+  goog.require('xrx.mvc');
+  goog.require('xrx.mvc.Mvc');
+  goog.require('xrx.mvc.Controller');
+  goog.require('xrx.token.Tokens');
+</script>
+</head>
+<body>
+
+<!-- template used to create new test data and components -->
+<div id="template" style="display:none">
+  <div id="i[%]1" class="xrx-instance[%]">&lt;data&gt;&lt;a/&gt;&lt;b/&gt;&lt;c/&gt;&lt;/data&gt;</div>
+  <div id="i[%]2" class="xrx-instance[%]">&lt;data&gt;&lt;x a="1" b="2"/&gt;&lt;/data&gt;</div>
+  <div id="b[%]1" class="xrx-bind[%]" data-xrx-ref="xrx:instance('i[%]1')//a"></div>
+  <div id="b[%]2" class="xrx-bind[%]" data-xrx-ref="xrx:instance('i[%]1')//b"></div>
+  <div id="b[%]3" class="xrx-bind[%]" data-xrx-ref="xrx:instance('i[%]1')//c"></div>
+  <div id="b[%]4" class="xrx-bind[%]" data-xrx-ref="xrx:instance('i[%]2')//x"></div>
+  <pre id="c[%]1" class="xrx-console[%]" data-xrx-bind="b[%]1"></pre>
+  <pre id="c[%]2" class="xrx-console[%]" data-xrx-bind="b[%]2"></pre>
+  <pre id="c[%]3" class="xrx-console[%]" data-xrx-bind="b[%]3"></pre>
+</div>
+
+<div id="tests"></div>
+
+<script type="text/javascript">
+
+
+function prepareTest(testId) {
+  var template = goog.dom.getElement('template').cloneNode(true);
+  template.id = template.id + testId;
+  var testsDiv = goog.dom.getElement('tests');
+  var testDiv = goog.dom.createElement('div');
+  testDiv.id = 'test' + testId;
+  var children = goog.dom.getChildren(template);
+  var id;
+  var clas;
+  var ref;
+  var bind;
+  goog.array.forEach(children, function(e, i, a) {
+    id = e.id.replace('[%]', testId);
+    e.id = id;
+    clas = goog.dom.classes.get(e)[0];
+    goog.dom.classes.remove(e, clas)
+    goog.dom.classes.set(e, clas.replace('[%]', ''));
+    ref = goog.dom.dataset.get(e, 'xrxRef');
+    if (ref) goog.dom.dataset.set(e, 'xrxRef', ref.replace('[%]', testId));
+    bind = goog.dom.dataset.get(e, 'xrxBind');
+    if (bind) goog.dom.dataset.set(e, 'xrxBind', bind.replace('[%]', testId));
+  });
+  goog.dom.append(testDiv, template);
+  goog.dom.append(testsDiv, testDiv);
+  xrx.mvc.Mvc.install(testDiv);
+};
+
+
+
+function test01InsertNode() {
+  var testId = '01';
+  prepareTest(testId);
+  var newNode = xrx.mvc.getComponent('b' + testId + '4').getNode(0);
+
+  var insertNode = function(comp, expected) {
+    var cons = xrx.mvc.getComponent('c' + testId + comp);
+    var node = cons.getResult().getNode(0);
+    xrx.mvc.Controller.insertNode(cons, node, newNode);
+    assertEquals(expected, xrx.mvc.getComponent('i' + testId + '1').xml());
+  };
+
+  // insert node (empty tag and attributes) after first console widget
+  insertNode(1, '<data><a/><x a="1" b="2"/><b/><c/></data>');
+};
+
+
+
+function test02RemoveEmptyTag() {
+  var testId = '02';
+  prepareTest(testId);
+
+  var removeEmptyTag = function(comp, expected) {
+    var cons = xrx.mvc.getComponent('c' + testId + comp);
+    var node = cons.getResult().getNode(0);
+    var token = node.getToken();
+    xrx.mvc.Controller.removeEmptyTag(cons, node, token);
+    assertEquals(expected, xrx.mvc.getComponent('i' + testId + '1').xml());
+  };
+
+  // remove last console widget
+  removeEmptyTag(3, '<data><a/><b/></data>');
+
+  // remove middle console widget
+  removeEmptyTag(2, '<data><a/></data>');
+
+  // remove first console widget
+  removeEmptyTag(1, '<data></data>');
+};
+
+
+
+function test03InsertEmptyTag() {
+  var testId = '03';
+  prepareTest(testId);
+  var newNode = xrx.mvc.getComponent('b' + testId + '4').getNode(0);
+  var newTag = newNode.getXml();
+
+  var insertEmptyTag = function(comp, expected) {
+    var cons = xrx.mvc.getComponent('c' + testId + comp);
+    var node = cons.getResult().getNode(0);
+    var pilot = node.getInstance().getPilot();
+    var notTag = new xrx.token.NotTag(node.getToken().label().clone());
+    notTag = pilot.notTag(node.getToken(), notTag);
+    xrx.mvc.Controller.insertEmptyTag(cons, node, notTag, 0, newTag);
+    assertEquals(expected, xrx.mvc.getComponent('i' + testId + '1').xml());
+  };
+
+  // insert empty tag after first console widget
+  insertEmptyTag(1, '<data><a/><x a="1" b="2"/><b/><c/></data>');
+
+  // insert empty tag after second console widget
+  insertEmptyTag(2, '<data><a/><x a="1" b="2"/><b/><x a="1" b="2"/><c/></data>');
+
+  // insert empty tag after third console widget
+  insertEmptyTag(3, '<data><a/><x a="1" b="2"/><b/><x a="1" b="2"/><c/><x a="1" b="2"/></data>');
+};
+
+
+
+</script>
+
+<script>
+  xrx.install();
+</script>
+
+</body>
+</html>

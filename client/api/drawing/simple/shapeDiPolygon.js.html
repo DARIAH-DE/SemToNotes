@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Source: extension/shapeDiPolygon.js | API Reference | SemToNotes</title>
+  <script src="scripts/prettify/prettify.js"></script>
+  <script src="scripts/prettify/lang-css.js"></script>
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+  <!--link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css"-->
+  <link href="../../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../../demo/stylesheets/demo.css" rel="stylesheet">
+</head>
+<body>
+  <nav id="nav" class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"></button>
+        <a class="navbar-brand" href="../../../../index.html">SemToNotes</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li id="homeLink"><a href="../../../../index.html#home">Home</a></li>
+          <li id="apiLink" class="active">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">JavaScript API <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="../../../../index.html#documentation">API Documentation</a></li>
+              <li><a href="../simple/index.html">Simple API Reference <small>(for users)</small></a></li>
+              <li><a href="../full/index.html">Full API Reference <small>(for developers)</small></a></li>
+              <li><a href="../../../../index.html#about">About</a></li>
+            </ul>
+          </li>
+          <li id="retrievalLink"><a href="../../../../index.html#retrieval">Topological Retrieval</a></li>
+          <li><a target="_blank" href="https://github.com/HKIKoeln/SemToNotes/">Code</a></li>
+        </ul>
+      </div>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+  <div id="content" class="container">
+    <div id="main" class="col-md-9">
+      <h1 class="page-title">Source: extension/shapeDiPolygon.js</h1>
+      
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileoverview A class representing a shape called
+ * "Directed Polygon" useful for topological image
+ * annotation
+ */
+
+goog.provide('xrx.shape.DiPolygon');
+goog.provide('xrx.shape.DiPolygonPolygon');
+goog.provide('xrx.shape.DiPolygonArrow');
+goog.provide('xrx.shape.DiPolygonArrowModifiable');
+
+
+
+goog.require('xrx.geometry');
+goog.require('xrx.shape.Group');
+goog.require('xrx.shape.Line');
+goog.require('xrx.shape.LineModifiable');
+goog.require('xrx.shape.Polygon');
+goog.require('xrx.shape.Rect');
+
+
+
+/**
+ * @constructor
+ */
+xrx.shape.DiPolygonArrow = function(drawing, diPolygon) {
+
+  goog.base(this, drawing);
+
+  this.diPolygon_ = diPolygon;
+
+  this.angle_;
+};
+goog.inherits(xrx.shape.DiPolygonArrow, xrx.shape.Line);
+
+
+
+xrx.shape.DiPolygonArrow.prototype.getDiPolygon = function() {
+  return this.diPolygon_;
+};
+
+
+
+xrx.shape.DiPolygonArrow.prototype.getModifiable = function() {
+  if (this.modifiable_ === undefined) this.modifiable_ =
+      new xrx.shape.DiPolygonArrowModifiable(this);
+  return this.modifiable_;
+};
+
+
+
+/**
+ * @constructor
+ */
+xrx.shape.DiPolygonArrowModifiable = function(diPolygonArrow) {
+
+  goog.base(this, diPolygonArrow);
+};
+goog.inherits(xrx.shape.DiPolygonArrowModifiable, xrx.shape.LineModifiable);
+
+
+
+/**
+ * @private
+ */
+xrx.shape.DiPolygonArrowModifiable.prototype.setCoordAt = function(pos, coord) {
+  var box = this.shape_.getDiPolygon().getBox();
+  var x1 = coord[0];
+  var y1 = coord[1];
+  if (x1 &lt; box.x) {
+    x1 = box.x;
+  } else if (x1 > box.x2) {
+    x1 = box.x2;
+  }
+  if (y1 &lt; box.y) {
+    y1 = box.y;
+  } else if (y1 > box.y2) {
+    y1 = box.y2;
+  }
+  var centerX = box.x + (box.width / 2);
+  var centerY = box.y + (box.height / 2);
+  var x2 = centerX - (x1 - centerX);
+  var y2 = centerY - (y1 - centerY);
+  if (pos === 0) {
+    this.dragger_[0].setCoordX(x1);
+    this.dragger_[0].setCoordY(y1);
+    this.dragger_[1].setCoordX(x2);
+    this.dragger_[1].setCoordY(y2);
+    this.shape_.setX1(x1);
+    this.shape_.setY1(y1);
+    this.shape_.setX2(x2);
+    this.shape_.setY2(y2);
+  } else {
+    this.dragger_[1].setCoordX(x1);
+    this.dragger_[1].setCoordY(y1);
+    this.dragger_[0].setCoordX(x2);
+    this.dragger_[0].setCoordY(y2);
+    this.shape_.setX1(x2);
+    this.shape_.setY1(y2);
+    this.shape_.setX2(x1);
+    this.shape_.setY2(y1);
+  }
+};
+
+
+
+xrx.shape.DiPolygonArrowModifiable.prototype.move = function() {
+  return;
+};
+
+
+
+xrx.shape.DiPolygonPolygon = function(drawing) {
+
+  goog.base(this, drawing);
+};
+goog.inherits(xrx.shape.DiPolygonPolygon, xrx.shape.Polygon);
+
+
+
+/**
+ * @constructor
+ */
+xrx.shape.DiPolygon = function(drawing) {
+
+  goog.base(this, drawing);
+
+  this.box_;
+
+  this.init_();
+};
+goog.inherits(xrx.shape.DiPolygon, xrx.shape.Group);
+
+
+
+xrx.shape.DiPolygon.prototype.getArrow = function() {
+  return this.arrow_;
+};
+
+
+
+xrx.shape.DiPolygon.prototype.getBox = function() {
+  return this.box_;
+};
+
+
+
+xrx.shape.DiPolygon.prototype.MARGIN = 20;
+
+
+
+xrx.shape.DiPolygon.prototype.setCoords = function(coords) {
+  this.childs_[0].setCoords(coords);
+};
+
+
+
+xrx.shape.DiPolygon.prototype.init_ = function() {
+  var polygon = new xrx.shape.DiPolygonPolygon(this.drawing_);
+  var arrow = new xrx.shape.DiPolygonArrow(this.drawing_, this);
+  this.addChildren([polygon, arrow]);
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    </div>
+    <nav class="col-md-3">
+      <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="xrx.drawing.Drawing.html">xrx.drawing.Drawing</a></li><li><a href="xrx.shape.Circle.html">xrx.shape.Circle</a></li><li><a href="xrx.shape.DiPolygon.html">xrx.shape.DiPolygon</a></li><li><a href="xrx.shape.DiPolygonArrow.html">xrx.shape.DiPolygonArrow</a></li><li><a href="xrx.shape.DiPolygonArrowModifiable.html">xrx.shape.DiPolygonArrowModifiable</a></li><li><a href="xrx.shape.Ellipse.html">xrx.shape.Ellipse</a></li><li><a href="xrx.shape.Line.html">xrx.shape.Line</a></li><li><a href="xrx.shape.Polygon.html">xrx.shape.Polygon</a></li><li><a href="xrx.shape.Polyline.html">xrx.shape.Polyline</a></li><li><a href="xrx.shape.Rect.html">xrx.shape.Rect</a></li><li><a href="xrx.shape.ShapeGroup.html">xrx.shape.ShapeGroup</a></li><li><a href="xrx.shape.Style.html">xrx.shape.Style</a></li><li><a href="xrx.viewbox.Viewbox.html">xrx.viewbox.Viewbox</a></li></ul><h3>Events</h3><ul><li><a href="xrx.drawing.Drawing.html#event:eventShapeModify">xrx.drawing.Drawing#event:eventShapeModify</a></li></ul><h3>Namespaces</h3><ul><li><a href="xrx.html">xrx</a></li><li><a href="xrx.canvas.html">xrx.canvas</a></li><li><a href="xrx.drawing.html">xrx.drawing</a></li><li><a href="xrx.engine.html">xrx.engine</a></li><li><a href="xrx.shape.html">xrx.shape</a></li><li><a href="xrx.svg.html">xrx.svg</a></li><li><a href="xrx.viewbox.html">xrx.viewbox</a></li><li><a href="xrx.vml.html">xrx.vml</a></li></ul>
+    </nav>
+  </div>
+  <script>prettyPrint();</script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

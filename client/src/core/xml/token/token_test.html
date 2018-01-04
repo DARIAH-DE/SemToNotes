@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.token.Tokens</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx.xml.Label');
+  goog.require('xrx.token');
+  goog.require('xrx.token.Tokens');
+</script>
+</head>
+<body>
+<script type="text/javascript">
+
+
+
+function test00getNative() {
+  var label = new xrx.xml.Label([1, 1]);
+  var token = new xrx.token.Token(xrx.token.START_TAG, label, 4, 10);
+  var newToken = xrx.token.Tokens.getNative(token);
+  
+
+  assertEquals(true, newToken instanceof xrx.token.StartTag);
+  assertEquals(xrx.token.START_TAG, token.type());
+  assertEquals(true, token.label().sameAs(newToken.label()));
+  assertEquals(4, token.offset());
+  assertEquals(10, token.length());
+};
+
+
+
+function test01SameAs() {
+  var label = new xrx.xml.Label([1]);
+  
+  var start = new xrx.token.StartTag(label);
+  var end = new xrx.token.EndTag(label);
+  var empty = new xrx.token.EmptyTag(label);
+  var startEmpty = new xrx.token.StartEmptyTag(label);
+  var tag = new xrx.token.Tag(label);
+  var attribute = new xrx.token.Attribute(label);
+
+  // start-tag
+  assertEquals(true, start.sameAs(start, label));
+  assertEquals(false, start.sameAs(end, label));
+  assertEquals(false, start.sameAs(empty, label));
+  assertEquals(true, start.sameAs(startEmpty, label));
+  assertEquals(true, start.sameAs(tag, label));
+  assertEquals(false, start.sameAs(attribute, label));
+  
+  // empty tag
+  assertEquals(false, empty.sameAs(start, label));
+  assertEquals(false, empty.sameAs(end, label));
+  assertEquals(true, empty.sameAs(empty, label));
+  assertEquals(true, empty.sameAs(startEmpty, label));
+  assertEquals(true, empty.sameAs(tag, label));
+  assertEquals(false, empty.sameAs(attribute, label));
+  
+  // end-tag
+  assertEquals(false, end.sameAs(start, label));
+  assertEquals(true, end.sameAs(end, label));
+  assertEquals(false, end.sameAs(empty, label));
+  assertEquals(false, end.sameAs(startEmpty, label));
+  assertEquals(true, end.sameAs(tag, label));
+  assertEquals(false, end.sameAs(attribute, label));
+  
+  // start-empty tag
+  assertEquals(true, startEmpty.sameAs(start, label));
+  assertEquals(false, startEmpty.sameAs(end, label));
+  assertEquals(true, startEmpty.sameAs(empty, label));
+  assertEquals(true, startEmpty.sameAs(startEmpty, label));
+  assertEquals(true, startEmpty.sameAs(tag, label));
+  assertEquals(false, startEmpty.sameAs(attribute, label));
+
+  // tag
+  assertEquals(true, tag.sameAs(start, label));
+  assertEquals(true, tag.sameAs(end, label));
+  assertEquals(true, tag.sameAs(empty, label));
+  assertEquals(true, tag.sameAs(startEmpty, label));
+  assertEquals(true, tag.sameAs(tag, label));
+  assertEquals(false, tag.sameAs(attribute, label));
+  
+  // attribute
+  assertEquals(true, attribute.sameAs(attribute, label));
+};
+
+
+
+function test02Compare() {
+  var label = new xrx.xml.Label([1]);
+  
+  var start = new xrx.token.StartTag(label);
+  var end = new xrx.token.EndTag(label);
+  var empty = new xrx.token.EmptyTag(label);
+  var startEmpty = new xrx.token.StartEmptyTag(label);
+  var tag = new xrx.token.Tag(label);
+
+  // start tag
+  assertEquals(true, start.compare(xrx.token.START_TAG, label));
+  assertEquals(false, start.compare(xrx.token.END_TAG, label));
+  assertEquals(false, start.compare(xrx.token.EMPTY_TAG, label));
+  assertEquals(true, start.compare(xrx.token.START_EMPTY_TAG, label));
+  assertEquals(true, start.compare(xrx.token.TAG, label));
+  
+  // empty tag
+  assertEquals(false, empty.compare(xrx.token.START_TAG, label));
+  assertEquals(false, empty.compare(xrx.token.END_TAG, label));
+  assertEquals(true, empty.compare(xrx.token.EMPTY_TAG, label));
+  assertEquals(true, empty.compare(xrx.token.START_EMPTY_TAG, label));
+  assertEquals(true, empty.compare(xrx.token.TAG, label));
+  
+  // end tag
+  assertEquals(false, end.compare(xrx.token.START_TAG, label));
+  assertEquals(true, end.compare(xrx.token.END_TAG, label));
+  assertEquals(false, end.compare(xrx.token.EMPTY_TAG, label));
+  assertEquals(false, end.compare(xrx.token.START_EMPTY_TAG, label));
+  assertEquals(true, end.compare(xrx.token.TAG, label));
+  
+  // start empty tag
+  assertEquals(true, startEmpty.compare(xrx.token.START_TAG, label));
+  assertEquals(false, startEmpty.compare(xrx.token.END_TAG, label));
+  assertEquals(true, startEmpty.compare(xrx.token.EMPTY_TAG, label));
+  assertEquals(true, startEmpty.compare(xrx.token.START_EMPTY_TAG, label));
+  assertEquals(true, startEmpty.compare(xrx.token.TAG, label));
+
+  // tag
+  assertEquals(true, tag.compare(xrx.token.START_TAG, label));
+  assertEquals(true, tag.compare(xrx.token.END_TAG, label));
+  assertEquals(true, tag.compare(xrx.token.EMPTY_TAG, label));
+  assertEquals(true, tag.compare(xrx.token.START_EMPTY_TAG, label));
+  assertEquals(true, tag.compare(xrx.token.TAG, label));
+};
+
+
+
+function test03IsBeforeSameLabel() {
+  // <a atrr="v"><b><b>t</a>
+  //    _        _  _  _
+  //    1.1
+  var label = new xrx.xml.Label([1,1]);
+
+  var token = ['StartTag', 'EmptyTag', 'EndTag', 'NotTag', 'Attribute'];
+  var matrix = new Array(token.length);
+  for(var t = 0; t < token.length; t++) {
+    matrix[t] = new Array(token.length);
+  };
+
+                        // start      empty       end        not       attr
+  /* start */ matrix[0] = [false,     undefined,  true,      true,     false   ];
+  /* empty */ matrix[1] = [undefined, false,      undefined, true,     false   ];
+  /* end */   matrix[2] = [false,     undefined,  false,     true,     false   ];
+  /* not */   matrix[3] = [false,     false,      false,     false,    false   ];
+  /* attr */  matrix[4] = [true,      true,       true,      true,     false   ];
+
+  for(var x = 0; x < token.length; x++) {
+    var tx = new xrx.token[token[x]](label);
+    for(var y = 0; y < token.length; y++) {
+      var ty = new xrx.token[token[y]](label);
+      var expected = matrix[x][y];
+      if (expected !== undefined)
+          assertEquals(token[x] + ' is before ' + token[y] + ' ' + tx.isAfter(ty),
+              expected, tx.isBefore(ty));
+    };
+  };
+};
+
+
+
+function test04IsAfterSameLabel() {
+  // <a± a1="" a2=""><b> <b> t   <e/></a>
+  //    _           _   _   _   _
+  //    1.1   1.2   1.1 1.1 1.1 1.2
+  var label = new xrx.xml.Label([1,1]);
+
+  var token = ['StartTag', 'EmptyTag', 'EndTag', 'NotTag', 'Attribute'];
+  var matrix = new Array(token.length);
+  for(var t = 0; t < token.length; t++) {
+    matrix[t] = new Array(token.length);
+  };
+
+                        // start      empty       end        not       attr
+  /* start */ matrix[0] = [false,     undefined,  false,     false,    true    ];
+  /* empty */ matrix[1] = [undefined, false,      undefined, false,    true    ];
+  /* end */   matrix[2] = [true,      undefined,  false,     false,    true    ];
+  /* not */   matrix[3] = [true,      true,       true,      false,    true    ];
+  /* attr */  matrix[4] = [false,     false,      false,     false,    false   ];
+
+  for(var x = 0; x < token.length; x++) {
+    var tx = new xrx.token[token[x]](label);
+    for(var y = 0; y < token.length; y++) {
+      var ty = new xrx.token[token[y]](label);
+      var expected = matrix[x][y];
+      if (expected !== undefined)
+          assertEquals(token[x] + ' is after ' + token[y] + ' ' + tx.isAfter(ty),
+              expected, tx.isAfter(ty));
+    };
+  };
+};
+
+
+
+</script>
+</body>
+</html>

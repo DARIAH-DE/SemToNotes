@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.xpath</title>
+<script type="text/javascript" src="../../../../lib/jssaxparser/SAXException.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/AttributesImpl.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/LocatorImpls.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/NamespaceSupport.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/sax.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/DefaultHandlers.js"></script>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.dom.DomHelper');
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx');
+  goog.require('xrx.xpath');
+  goog.require('xrx.xpath.Test');
+</script>
+</head>
+<body>
+
+<script type="text/javascript"> 
+
+function test01UUID() {
+  xrx.xpath.Test.assertTrue(function(result) {
+      return result.match(/-/g).length === 4; },
+      'util:uuid()'
+  );
+};
+
+</script>
+
+</body>
+</html>

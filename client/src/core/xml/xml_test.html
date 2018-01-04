@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - XML update interface</title>
+<script src="../../../lib/closure-library/closure/goog/base.js"></script>
+<script src="../../deps.js"></script>
+<script type="text/javascript">
+  goog.require('goog.object');
+  goog.require('goog.dom');
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx.xml.Update');
+  goog.require('xrx.index.Rebuild');
+</script>
+</head>
+<body>
+<script type="text/javascript">
+
+
+
+var updateOperations =  [
+    'insertAttribute',
+    'insertEmptyTag',
+    'insertFragment',
+    'insertMixed',
+    'insertNotTag',
+    'insertStartEndTag',
+    'removeAttribute',
+    'removeEmptyTag',
+    'removeFragment',
+    'removeMixed',
+    'removeStartEndTag',
+    'replaceAttrValue',
+    'replaceNotTag',
+    'replaceTagName',
+  ];
+
+
+
+function methodsTest(base, impl, methods) {
+  goog.object.forEach(methods, function(e, i, a) {
+    assertTrue('Method ' + e + '() is not available for class ' + impl,
+          typeof base[impl][e] === 'function');
+  });
+};
+
+
+
+function test01Update() {
+  methodsTest(xrx.index, 'Rebuild', updateOperations);
+};
+
+
+
+function test02Rebuild() {
+  methodsTest(xrx.xml, 'Update', updateOperations);
+};
+
+
+
+</script>
+</body>
+</html>

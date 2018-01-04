@@ -1,0 +1,21 @@
+<div id="content" class="container" data-type="html">
+<h1>Browser Support</h1>
+<p>A drawing canvas works with three different browser rendering engines: <a href="http://www.w3.org/TR/2dcontext/">Canvas</a>,
+    <a href="http://www.w3.org/TR/SVG/">SVG</a> and <a href="http://www.w3.org/TR/1998/NOTE-VML-19980513">VML</a>.</p>
+<p>If no special rendering engine is needed, the drawing canvas itself searches for the best engine available, Canvas, SVG, or VML, in this order.</p>
+<p>In seldom cases it might be useful to force a drawing canvas to use a specific rendering engine. Rendering engines can be forced within the
+    construction of a drawing canvas object, e.g., by calling <code>new xrx.drawing.Drawing(element1, xrx.engine.CANVAS)</code>,
+    <code>new xrx.drawing.Drawing(element2, xrx.engine.SVG)</code> or <code>new xrx.drawing.Drawing(element3, xrx.engine.VML)</code>.</p>
+<p>It is recommended to wrap a constructor call with a <code>xrx.engine.isSupported(xrx.engine.CANVAS)</code>, <code>xrx.engine.isSupported(xrx.engine.SVG)</code> or 
+    <code>xrx.engine.isSupported(xrx.engine.VML)</code> condition if one forces a special rendering engine.</p>
+<p>It is also recommended to include a fall-back message inside the drawing canvas' <code>&lt;div&gt;</code> element, e.g.,
+   <code>&lt;div id="drawing1"&gt;&lt;span&gt;Your browser does not support HTML Canvas rendering.&lt;/span&gt;&lt;/div&gt;</code>. The fall-back
+   message is automatically removed from the drawing canvas as soon as an engine is initialized successfully.</p>
+<h3>API Reference</h3>
+<ul>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.engine.html#isSupported">xrx.engine.isSupported()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.engine.html#CANVAS">xrx.engine.CANVAS</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.engine.html#SVG">xrx.engine.SVG</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.engine.html#VML">xrx.engine.VML</a></li>
+</ul>
+</div>

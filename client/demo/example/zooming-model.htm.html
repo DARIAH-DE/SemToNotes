@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Zooming Model</title>
+    <script src="../../xrx.api.drawing.min.js"></script>
+    <link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+    .container, body, html {
+    display: block;
+    height: 100%;
+    }
+    #drawing {
+    display: block;
+    height: 100%;
+    width: 100%;
+    }
+    #slider {
+    width: 100%;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <input id="slider" type="range" min="" step="" max=""
+          oninput="window.drawing.getViewbox().zoomTo(this.value)">
+      <div id="drawing"></div>
+    </div>
+    <script>
+    (function() {
+
+      // create and initialize a drawing canvas
+      var element = document.getElementById('drawing');
+      var drawing = new xrx.drawing.Drawing(element);
+      var viewbox = drawing.getViewbox();
+      window.drawing = drawing; // just a hack to realize slider functionality
+
+      // switch the drawing canvas into mode view to active view-box functionality
+      drawing.setModeView();
+
+      // set a background image
+      var url = '.../../../../../data/SachsenspiegelHeidelberg/Bilder-34553-28167-1600.jpg';
+      drawing.setBackgroundImage(url, function() {
+        // find a proper zoom model as soon as the image is loaded
+        var image = drawing.getBackgroundImage();
+        var imageWidth = image.naturalWidth;
+        var min = 100; // minimum of 100px
+        var max = 2000; // maximum of 2000px
+        var steps = 200; // from minimum to maximum in 200 steps
+        var minFactor = min / imageWidth;
+        var maxFactor = max / imageWidth;
+        var factor = ((max - min) / steps) / imageWidth;
+        // configure the view-box zoom model and the slider
+        // model in the same way
+        viewbox.setZoomFactorMin(minFactor);
+        viewbox.setZoomFactorMax(maxFactor);
+        viewbox.setZoomFactor(factor);
+        slider.min = minFactor;
+        slider.max = maxFactor;
+        slider.step = factor;
+        // make the whole view-box visible
+        viewbox.fit();
+      });
+
+      // synchronize the slider with mouse-wheel events
+      var slider = document.getElementById('slider');
+      window.drawing.eventViewboxChange = function() {
+        // Whenever the view-box' zoom value is changed
+        // by the mouse wheel, update the slider value
+        slider.value = viewbox.getZoomValue();
+      }
+
+      return window.drawing;
+
+    })();
+    </script>
+  </body>
+</html>

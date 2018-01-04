@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.mvc.Xpath</title>
+<script type="text/javascript" src="../../../lib/jssaxparser/SAXException.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/AttributesImpl.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/LocatorImpls.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/NamespaceSupport.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/sax.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/DefaultHandlers.js"></script>
+<script src='../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx');
+  goog.require('xrx.mvc');
+</script>
+</head>
+<body>
+
+
+
+<div class="xrx-instance" id="i11">&lt;dummy1/&gt;</div>
+<div class="xrx-instance" id="i12">&lt;dummy2/&gt;</div>
+<div class="xrx-bind" id="b11" data-ref="xrx:instance('i11')"></div>
+<div class="xrx-bind" id="b12" data-ref="xrx:instance('i12')/dummy2[xrx:instance('i11')/dummy1]"></div>
+<div class="xrx-bind" id="b13" data-ref="xrx:bind('b12')"></div>
+<div class="xrx-bind" id="b14" data-ref="xrx:bind('b13')"></div>
+<script>
+function testHasInstance() {
+  var hasInstance = function(component, instances) {
+    for (var i = 0, len = instances.length; i < len; i++) {
+      assertTrue(xrx.mvc.getComponent(component).getXpath().hasInstance(instances[i]));
+    };
+  };
+  hasInstance('b11', ['i11']);
+  hasInstance('b12', ['i11', 'i12']);
+  hasInstance('b13', ['i11', 'i12']);
+  hasInstance('b14', ['i11', 'i12']);
+};
+</script>
+
+
+
+<div class="xrx-instance" id="i21">&lt;dummy/&gt;</div>
+<div class="xrx-bind" id="b21" data-ref="xrx:instance('i21')/something"></div>
+<div class="xrx-bind" id="b22" data-ref="xrx:instance('i21')/@att"></div>
+<div class="xrx-bind" id="b23" data-ref="xrx:instance('i21')/something[@att='something']"></div>
+<script>
+function testHasAttrValue() {
+  var hasAttrValue = function(component) {
+    return xrx.mvc.getComponent(component).getXpath().hasAttrValue();
+  };
+  assertFalse(hasAttrValue('b21'));
+  assertTrue(hasAttrValue('b22'));
+  assertTrue(hasAttrValue('b23'));
+};
+</script>
+
+
+
+<div class="xrx-instance" id="i31">&lt;dummy/&gt;</div>
+<div class="xrx-bind" id="b31" data-ref="xrx:instance('i31')/something"></div>
+<div class="xrx-bind" id="b32" data-ref="xrx:instance('i31')/text()"></div>
+<div class="xrx-bind" id="b33" data-ref="xrx:instance('i31')/something[.='test']"></div>
+<script>
+function testHasNotTag() {
+  var hasNotTag = function(component) {
+    return xrx.mvc.getComponent(component).getXpath().hasNotTag();
+  };
+  assertFalse(hasNotTag('b31'));
+  assertTrue(hasNotTag('b32'));
+  assertTrue(hasNotTag('b33'));
+};
+</script>
+
+
+
+<script>
+  xrx.install();
+</script>
+
+</body>
+</html>

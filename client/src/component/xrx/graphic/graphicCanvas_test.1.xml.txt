@@ -1,0 +1,16 @@
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <facsimile>
+    <surface ulx="0" uly="0" lrx="200" lry="300">
+      <graphic url="./widgetCanvas_test.jpg"/>
+      <zone points="14.8,41.0 7.4,80.7 56.5,32.2 56.8,32.8 67.1,33.4 5.5,33.7 67.1,33.3 4.6,32.2"/>
+      <zone points="24.8,51.0 7.4,70.7 76.5,72.2 56.8,32.8 67.1,33.4"/>
+      <zone ulx="25" uly="27" lrx="180" lry="60"/>
+      <zone ulx="35" uly="37" lrx="180" lry="60"/>
+      <!--
+           Not TEI conform, just testing the two alternatives to
+           encode rectangle coordinates.
+      -->
+      <zone x="100" y="100" width="30" height="100"/>
+    </surface>
+  </facsimile>
+</TEI>

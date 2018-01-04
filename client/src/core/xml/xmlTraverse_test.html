@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.xml.Traverse</title>
+<script src='../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.array');
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx.xml.Label');
+  goog.require('xrx.token');
+  goog.require('xrx.token.StartTag');
+  goog.require('xrx.token.StartEmptyTag');
+  goog.require('xrx.token.EmptyTag');
+  goog.require('xrx.token.EndTag');
+  goog.require('xrx.xml.Traverse');
+</script>
+</head>
+<body>
+<script type="text/javascript">
+
+function test01forward() {
+  // possible combinations
+  //
+  // start start
+  // start empty
+  // start end
+  // empty start
+  // empty empty
+  // empty end
+  // end start
+  // end empty
+  // end end
+  var xml = '<start><empty/><empty/><start><start></end></end><start><empty/></end><start></end><empty/></end>';
+  //         [1]    [1,1]   [1,2]   [1,3]  [1,3,1][1,3,1][1,3][1,4]  [1,4,1] [1,4] [1,5]  [1,5] [1,6]   [1]
+  var test = {
+    0:  [1],
+    1:  [1,1],
+    2:  [1,2],
+    3:  [1,3],
+    4:  [1,3,1],
+    5:  [1,3,1],
+    6:  [1,3],
+    7:  [1,4],
+    8:  [1,4,1],
+    9:  [1,4],
+    10: [1,5],
+    11: [1,5],
+    12: [1,6],
+    13: [1]
+  };
+  var labels = [];
+  var traverse = new xrx.xml.Traverse(xml);
+
+  traverse.rowStartTag = function(label) {
+    labels.push(label);
+  };
+
+  traverse.rowEndTag = function(label) {
+    labels.push(label);
+  };
+
+  traverse.rowEmptyTag = function(label) {
+    labels.push(label);
+  };
+
+  // test forward
+  traverse.forward();
+  traverse.backward();
+
+  assertTrue(new xrx.xml.Label(test[0]).sameAs(labels[0]));
+  assertTrue(new xrx.xml.Label(test[1]).sameAs(labels[1]));
+  assertTrue(new xrx.xml.Label(test[2]).sameAs(labels[2]));
+  assertTrue(new xrx.xml.Label(test[3]).sameAs(labels[3]));
+  assertTrue(new xrx.xml.Label(test[4]).sameAs(labels[4]));
+  assertTrue(new xrx.xml.Label(test[5]).sameAs(labels[5]));
+  assertTrue(new xrx.xml.Label(test[6]).sameAs(labels[6]));
+  assertTrue(new xrx.xml.Label(test[7]).sameAs(labels[7]));
+  assertTrue(new xrx.xml.Label(test[8]).sameAs(labels[8]));
+  assertTrue(new xrx.xml.Label(test[9]).sameAs(labels[9]));
+  assertTrue(new xrx.xml.Label(test[10]).sameAs(labels[10]));
+  assertTrue(new xrx.xml.Label(test[11]).sameAs(labels[11]));
+  assertTrue(new xrx.xml.Label(test[12]).sameAs(labels[12]));
+  assertTrue(new xrx.xml.Label(test[13]).sameAs(labels[13]));
+
+};
+
+function test02backward() {
+  // Backward is only useful for the parent, ancestor and preceding-sibling axes
+  // possible combinations
+  //
+  // start start
+  // start empty
+  // start end
+  // empty start
+  // empty empty
+  // empty end
+  // end start
+  // end empty
+  // end end
+  var xml = '<start><empty/><empty/><start><start></end><empty/><start><empty/></end></end></end>';
+  //         [1]    [1,1]   [1,2]   [1,3]  [1,3,1][1,3,1][1,3,2][1,3,3][1,3,3,1][1,3,3][1,3][1]
+  var test = {
+    0:  [1,3,3,1],
+    1:  [1,3,3],
+    2:  [1,3,2],
+    3:  [1,3,1],
+    4:  [1,3,1],
+    5:  [1,3],
+    6:  [1,2],
+    7:  [1,1],
+    8:  [1]
+  };
+  var labels = [];
+  var traverse = new xrx.xml.Traverse(xml);
+
+  traverse.rowStartTag = function(label, offset, length) {
+    labels.push(label);
+  };
+
+  traverse.rowEndTag = function(label, offset, length) {
+    labels.push(label);
+  };
+
+  traverse.rowEmptyTag = function(label, offset, length) {
+    labels.push(label);
+  };
+
+  // test backward
+  traverse.backward(new xrx.token.EndTag(new xrx.xml.Label([1,3,3]), 66, 6));
+
+  assertTrue(new xrx.xml.Label(test[0]).sameAs(labels[0]));
+  assertTrue(new xrx.xml.Label(test[1]).sameAs(labels[1]));
+  assertTrue(new xrx.xml.Label(test[2]).sameAs(labels[2]));
+  assertTrue(new xrx.xml.Label(test[3]).sameAs(labels[3]));
+  assertTrue(new xrx.xml.Label(test[4]).sameAs(labels[4]));
+  assertTrue(new xrx.xml.Label(test[5]).sameAs(labels[5]));
+  assertTrue(new xrx.xml.Label(test[6]).sameAs(labels[6]));
+  assertTrue(new xrx.xml.Label(test[7]).sameAs(labels[7]));
+  assertTrue(new xrx.xml.Label(test[8]).sameAs(labels[8]));
+};
+
+function test03offsetStartTag() {
+  var xml = '<test><a></a></test>';
+  var traverse = new xrx.xml.Traverse(xml);
+  var endLabels = [];
+
+  traverse.rowStartTag = function(label) {
+  };
+
+  traverse.rowEndTag = function(label) {
+    endLabels.push(label);
+  };
+
+  traverse.rowEmptyTag = function(label) {
+  };
+
+  traverse.forward(new xrx.token.StartTag(new xrx.xml.Label([1, 1]), 5, 3));
+
+  assertEquals(2, endLabels.length);
+  assertTrue(endLabels[0].sameAs(new xrx.xml.Label([1, 1])));
+  assertTrue(endLabels[1].sameAs(new xrx.xml.Label([1])));
+};
+
+function test04offsetStartEmptyTag() {
+  var xml = '<test><a></a><b/><c></c></test>';
+  var traverse = new xrx.xml.Traverse(xml);
+  var endLabels = [];
+
+  traverse.rowStartTag = function(label) {
+  };
+
+  traverse.rowEndTag = function(label) {
+    endLabels.push(label);
+  };
+
+  traverse.rowEmptyTag = function(label) {
+  };
+
+  traverse.forward(new xrx.token.StartEmptyTag(new xrx.xml.Label([1, 1]), 5, 3));
+
+  assertEquals(3, endLabels.length);
+  assertTrue(endLabels[0].sameAs(new xrx.xml.Label([1,1])));
+  assertTrue(endLabels[1].sameAs(new xrx.xml.Label([1,3])));
+  assertTrue(endLabels[2].sameAs(new xrx.xml.Label([1])));
+};
+
+function test05offsetEmptyTag() {
+  var xml = '<test><a/></test>';
+  var traverse = new xrx.xml.Traverse(xml);
+  var endLabels = [];
+
+  traverse.rowStartTag = function(label) {
+  };
+
+  traverse.rowEndTag = function(label) {
+    endLabels.push(label);
+  };
+
+  traverse.rowEmptyTag = function(label) {
+  };
+
+  traverse.forward(new xrx.token.EmptyTag(new xrx.xml.Label([1, 1]), 5, 4));
+
+  assertEquals(1, endLabels.length);
+  assertTrue(endLabels[0].sameAs(new xrx.xml.Label([1])));
+};
+
+function test06offsetEndTag() {
+  var xml = '<test><a></a></test>';
+  var traverse = new xrx.xml.Traverse(xml);
+  var endLabels = [];
+
+  traverse.rowStartTag = function(label) {
+  };
+
+  traverse.rowEndTag = function(label) {
+    endLabels.push(label);
+  };
+
+  traverse.rowEmptyTag = function(label) {
+  };
+
+  traverse.forward(new xrx.token.EndTag(new xrx.xml.Label([1,1]), 9, 4));
+
+  assertEquals(2, endLabels.length);
+  assertTrue(endLabels[0].sameAs(new xrx.xml.Label([1,1])));
+  assertTrue(endLabels[1].sameAs(new xrx.xml.Label([1])));
+};
+
+function test07features() {
+  var xml = '<test attr1="v1" attr2="v2"' + 
+      ' xmlns:a="http://example.org/a"' + 
+      ' xmlns:b="http://example.org/b"></test>';
+  var traverse = new xrx.xml.Traverse(xml);
+  traverse.setFeatures(true);
+  traverse.setFeature('ATTRIBUTE', false);
+  
+  var tagNames = [];
+  var attributes = [];
+  var attrNames = [];
+  var attrValues = [];
+  var namespaces = [];
+  var nsPrefixes = [];
+  var nsUris = [];
+
+  traverse.rowStartTag = function() {};
+  traverse.rowEndTag = function() {};
+  traverse.rowEmptyTag = function() {};
+  traverse.eventTagName = function(label) {
+    tagNames.push(label.clone());
+  };
+  traverse.eventAttribute = function(label) {
+    attributes.push(label.clone());
+  };
+  traverse.eventAttrName = function(label) {
+    attrNames.push(label.clone());
+  };
+  traverse.eventAttrValue = function(label) {
+    attrValues.push(label.clone());
+  };
+  traverse.eventNamespace = function(label) {
+    namespaces.push(label.clone());
+  };
+  traverse.eventNsPrefix = function(label) {
+    nsPrefixes.push(label.clone());
+  };
+  traverse.eventNsUri = function(label) {
+    nsUris.push(label.clone());
+  };
+  
+  traverse.forward();
+  traverse.backward();
+  
+  assertTrue(tagNames[0].sameAs(new xrx.xml.Label([1])));
+  assertTrue(tagNames[1].sameAs(new xrx.xml.Label([1])));
+  assertTrue(tagNames[3].sameAs(new xrx.xml.Label([1])));
+
+  assertTrue(attributes[0].sameAs(new xrx.xml.Label([1, 1])));
+  assertTrue(attributes[1].sameAs(new xrx.xml.Label([1, 2])));
+
+  assertTrue(attrNames[0].sameAs(new xrx.xml.Label([1, 1])));
+  assertTrue(attrNames[1].sameAs(new xrx.xml.Label([1, 2])));
+
+  assertTrue(attrValues[0].sameAs(new xrx.xml.Label([1, 1])));
+  assertTrue(attrValues[1].sameAs(new xrx.xml.Label([1, 2])));
+
+  assertTrue(namespaces[0].sameAs(new xrx.xml.Label([1, 1])));
+  assertTrue(namespaces[1].sameAs(new xrx.xml.Label([1, 2])));
+
+  assertTrue(nsPrefixes[0].sameAs(new xrx.xml.Label([1, 1])));
+  assertTrue(nsPrefixes[1].sameAs(new xrx.xml.Label([1, 2])));
+
+  assertTrue(nsUris[0].sameAs(new xrx.xml.Label([1, 1])));
+  assertTrue(nsUris[1].sameAs(new xrx.xml.Label([1, 2])));
+};
+
+</script>
+</body>
+</html>
+

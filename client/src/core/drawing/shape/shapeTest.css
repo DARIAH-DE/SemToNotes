@@ -1,0 +1,13 @@
+
+table {
+border-collapse: collapse;
+}
+
+td {
+border: solid grey 1px;
+}
+
+.canvas {
+width: 500px;
+height: 500px;
+}

@@ -1,0 +1,7 @@
+<zones>
+  <zone x="10" y="10" width="500" height="15"/>
+  <zone x="10" y="30" width="500" height="15"/>
+  <zone x="10" y="50" width="500" height="15"/>
+  <zone x="10" y="70" width="500" height="15"/>
+  <zone x="10" y="90" width="500" height="15"/>
+</zones>

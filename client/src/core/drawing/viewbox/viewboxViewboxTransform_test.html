@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.viewbox.ViewboxTransform</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../deps.js'></script>
+<script src='./viewboxViewbox_test.js'></script>
+<link rel="stylesheet" type="text/css" href="./viewboxViewbox_test.css">
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.dom.DomHelper');
+  goog.require('goog.events');
+  goog.require('goog.events.EventType');
+  goog.require('xrx');
+</script>
+</head>
+<body>
+
+<h1>Fit to width and height</h1>
+<div class="drawing" id="fit"></div>
+<div>
+  <button id="bfitToWidth">Fit to width</button>
+  <button id="bfitToHeight">Fit to height</button>
+  <button id="bfitToWidthHeight">Fit (width or height)</button>
+  <button id="bfitTestRotate">Rotate</button>
+</div>
+
+<h1>Dump and restore transformation matrix</h1>
+<div id="dumpRestore"></div>
+
+<script type="text/javascript">
+
+
+function test1fit() {
+  var canvas = new xrx.drawing.Drawing(goog.dom.getElement('fit'));
+  // buttons
+  var fitToWidth = goog.dom.getElement('bfitToWidth');
+  var fitToHeight = goog.dom.getElement('bfitToHeight');
+  var fitToWidthHeight = goog.dom.getElement('bfitToWidthHeight');
+  var fitTestRotate = goog.dom.getElement('bfitTestRotate');
+  goog.events.listen(fitToWidth, goog.events.EventType.CLICK, function() {
+    canvas.getViewbox().fitToWidth();
+    canvas.getViewbox().center();
+    canvas.draw();
+  });
+  goog.events.listen(fitToHeight, goog.events.EventType.CLICK, function() {
+    canvas.getViewbox().fitToHeight();
+    canvas.getViewbox().center();
+    canvas.draw();
+  });
+  goog.events.listen(fitToWidthHeight, goog.events.EventType.CLICK, function() {
+    canvas.getViewbox().fit();
+    canvas.getViewbox().center();
+    canvas.draw();
+  });
+  goog.events.listen(fitTestRotate, goog.events.EventType.CLICK, function() {
+    canvas.getViewbox().rotateRight();
+    canvas.draw();
+  });
+  // canvas
+  canvas.setBackgroundImage(url2, function() {
+    canvas.setModeView();
+  });  
+};
+
+
+
+function test2ctmDumpRestore() {
+  var dump;
+  var canvas = new xrx.drawing.Drawing(goog.dom.getElement('dumpRestore'));
+  canvas.setBackgroundImage(url, function() {
+    dump = canvas.getViewbox().ctmDump();
+    dump[0]++;
+    dump[1]++;
+    dump[2]++;
+    dump[3]++;
+    dump[4]++;
+    dump[5]++;
+    canvas.getViewbox().ctmRestore(dump);
+    canvas.draw();
+  });
+};
+
+</script>
+</body>
+</html>

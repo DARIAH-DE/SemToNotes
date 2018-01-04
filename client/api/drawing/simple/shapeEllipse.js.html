@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Source: core/drawing/shape/shapeEllipse.js | API Reference | SemToNotes</title>
+  <script src="scripts/prettify/prettify.js"></script>
+  <script src="scripts/prettify/lang-css.js"></script>
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+  <!--link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css"-->
+  <link href="../../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../../demo/stylesheets/demo.css" rel="stylesheet">
+</head>
+<body>
+  <nav id="nav" class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"></button>
+        <a class="navbar-brand" href="../../../../index.html">SemToNotes</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li id="homeLink"><a href="../../../../index.html#home">Home</a></li>
+          <li id="apiLink" class="active">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">JavaScript API <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="../../../../index.html#documentation">API Documentation</a></li>
+              <li><a href="../simple/index.html">Simple API Reference <small>(for users)</small></a></li>
+              <li><a href="../full/index.html">Full API Reference <small>(for developers)</small></a></li>
+              <li><a href="../../../../index.html#about">About</a></li>
+            </ul>
+          </li>
+          <li id="retrievalLink"><a href="../../../../index.html#retrieval">Topological Retrieval</a></li>
+          <li><a target="_blank" href="https://github.com/HKIKoeln/SemToNotes/">Code</a></li>
+        </ul>
+      </div>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+  <div id="content" class="container">
+    <div id="main" class="col-md-9">
+      <h1 class="page-title">Source: core/drawing/shape/shapeEllipse.js</h1>
+      
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileoverview A class representing an engine-independent
+ * hoverable, selectable, modifiable and creatable ellipse shape.
+ */
+
+goog.provide('xrx.shape.Ellipse');
+goog.provide('xrx.shape.EllipseCreatable');
+goog.provide('xrx.shape.EllipseHoverable');
+goog.provide('xrx.shape.EllipseModifiable');
+goog.provide('xrx.shape.EllipseSelectable');
+
+
+
+goog.require('xrx.geometry.Ellipse');
+goog.require('xrx.shape.Creatable');
+goog.require('xrx.shape.Geometry');
+goog.require('xrx.shape.Hoverable');
+goog.require('xrx.shape.Modifiable');
+goog.require('xrx.shape.Selectable');
+
+
+
+/**
+ * A class representing an engine-independent ellipse shape.
+ * @param {xrx.drawing.Drawing} drawing The parent drawing canvas.
+ * @extends {xrx.shape.Style}
+ * @constructor
+ */
+xrx.shape.Ellipse = function(drawing) {
+
+  goog.base(this, drawing, new xrx.geometry.Ellipse());
+
+  /**
+   * The engine element.
+   * @type {(xrx.canvas.Ellipse|xrx.svg.Ellipse|xrx.vml.Ellipse)}
+   * @private
+   */
+  this.engineElement_ = this.drawing_.getEngine().createEllipse();
+};
+goog.inherits(xrx.shape.Ellipse, xrx.shape.Geometry);
+
+
+
+/**
+ * Returns the center point of this ellipse.
+ * @return {Array&lt;number>}
+ */
+xrx.shape.Ellipse.prototype.getCenter = function() {
+  return [this.geometry_.cx, this.geometry_.cy];
+};
+
+
+
+/**
+ * Sets the center point of this ellipse.
+ * @param {number} cx The X coordinate of the center point.
+ * @param {number} cy The Y coordinate of the center point.
+ */
+xrx.shape.Ellipse.prototype.setCenter = function(cx, cy) {
+  this.geometry_.cx = cx;
+  this.geometry_.cy = cy;
+};
+
+
+
+/**
+ * Returns the major-radius of this ellipse.
+ * @return {number} The radius.
+ */
+xrx.shape.Ellipse.prototype.getRadiusX = function() {
+  return this.geometry_.rx;
+};
+
+
+
+/**
+ * Sets the major-radius of this ellipse.
+ * @param {number} r The radius.
+ */
+xrx.shape.Ellipse.prototype.setRadiusX = function(rx) {
+  this.geometry_.rx = rx;
+};
+
+
+
+/**
+ * Returns the minor-radius of this ellipse.
+ * @return {number} The radius.
+ */
+xrx.shape.Ellipse.prototype.getRadiusY = function() {
+  return this.geometry_.ry;
+};
+
+
+
+/**
+ * Sets the minor-radius of this ellipse.
+ * @param {number} ry The radius.
+ */
+xrx.shape.Ellipse.prototype.setRadiusY = function(ry) {
+  this.geometry_.ry = ry;
+};
+
+
+
+/**
+ * Returns the coordinates of this ellipse. We assume the center point.
+ * @return {Array&lt;Array&lt;Number>>} The coordinates.
+ * @private
+ */
+xrx.shape.Ellipse.prototype.getCoords = function() {
+  return [this.getCenter()];
+};
+
+
+
+/**
+ * Sets the coordinates of this ellipse. We assume the center point.
+ * @param {Array&lt;Array&lt;Number>>} coords The coordinates.
+ * @private
+ */
+xrx.shape.Ellipse.prototype.setCoords = function(coords) {
+  this.setCenter(coords[0][0], coords[0][1]);
+};
+
+
+
+/**
+ * Draws this ellipse.
+ * @private
+ */
+xrx.shape.Ellipse.prototype.draw = function() {
+  this.startDrawing_();
+  var center = this.getCenter();
+  this.engineElement_.draw(center[0], center[1], this.getRadiusX(),
+      this.getRadiusY(), this.getRenderingFillColor(),
+      this.getRenderingFillOpacity(), this.getRenderingStrokeColor(),
+      this.getRenderingStrokeWidth());
+  this.finishDrawing_();
+};
+
+
+
+/**
+ * Returns a helper shape that makes this shape hoverable.
+ * @return {xrx.shape.EllipseHoverable} The hoverable ellipse shape.
+ */
+xrx.shape.Ellipse.prototype.getHoverable = function() {
+  if (!this.hoverable_) this.hoverable_ = new xrx.shape.EllipseHoverable(this);
+  return this.hoverable_;
+};
+
+
+
+/**
+ * Returns a helper shape that makes this shape selectable.
+ * @return {xrx.shape.EllipseSelectable} The selectable ellipse shape.
+ */
+xrx.shape.Ellipse.prototype.getSelectable = function() {
+  if (!this.selectable_) this.selectable_ = new xrx.shape.EllipseSelectable(this);
+  return this.selectable_;
+};
+
+
+
+/**
+ * Returns a helper shape that makes this shape modifiable.
+ * @return {xrx.shape.EllipseModifiable} The modifiable ellipse shape.
+ */
+xrx.shape.Ellipse.prototype.getModifiable = function() {
+  if (!this.modifiable_) this.modifiable_ = new xrx.shape.EllipseModifiable(this);
+  return this.modifiable_;
+};
+
+
+
+/**
+ * Returns a helper shape that makes this shape creatable.
+ * @return {xrx.shape.EllipseCreatable} The creatable ellipse shape.
+ */
+xrx.shape.Ellipse.prototype.getCreatable = function() {
+  if (!this.creatable_) this.creatable_ = new xrx.shape.EllipseCreatable(this);
+  return this.creatable_;
+};
+
+
+
+/**
+ * Disposes this ellipse shape.
+ */
+xrx.shape.Ellipse.prototype.disposeInternal = function() {
+  goog.base(this, 'disposeInternal');
+};
+
+
+
+/**
+ * A class representing a hoverable ellipse shape.
+ * @param {xrx.shape.Ellipse} ellipse The parent ellipse shape.
+ * @constructor
+ * @private
+ */
+xrx.shape.EllipseHoverable = function(ellipse) {
+
+  goog.base(this, ellipse);
+};
+goog.inherits(xrx.shape.EllipseHoverable, xrx.shape.Hoverable);
+
+
+
+/**
+ * Disposes this hoverable ellipse shape.
+ */
+xrx.shape.EllipseHoverable.prototype.disposeInternal = function() {
+  goog.base(this, 'disposeInternal');
+};
+
+
+
+
+/**
+ * A class representing a selectable ellipse shape.
+ * @param {xrx.shape.Ellipse} ellipse The parent ellipse shape.
+ * @constructor
+ * @private
+ */
+xrx.shape.EllipseSelectable = function(ellipse) {
+
+  goog.base(this, ellipse);
+};
+goog.inherits(xrx.shape.EllipseSelectable, xrx.shape.Selectable);
+
+
+
+/**
+ * Disposes this selectable ellipse shape.
+ */
+xrx.shape.EllipseSelectable.prototype.disposeInternal = function() {
+  goog.base(this, 'disposeInternal');
+};
+
+
+
+/**
+ * A class representing a modifiable ellipse shape.
+ * @param {xrx.shape.Ellipse} ellipse The parent ellipse shape.
+ * @constructor
+ * @private
+ */
+xrx.shape.EllipseModifiable = function(ellipse) {
+
+  goog.base(this, ellipse);
+
+  this.init_();
+};
+goog.inherits(xrx.shape.EllipseModifiable, xrx.shape.Modifiable);
+
+
+
+/**
+ * @private
+ */
+xrx.shape.EllipseModifiable.prototype.setCoords = function(coords) {
+  this.shape_.setCoords(coords);
+  this.dragger_[0].setCoordX(coords[0][0] + this.shape_.getRadiusX());
+  this.dragger_[0].setCoordY(coords[0][1]);
+  this.dragger_[1].setCoordX(coords[0][0]);
+  this.dragger_[1].setCoordY(coords[0][1] + this.shape_.getRadiusY());
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.EllipseModifiable.prototype.setCoordAt = function(pos, coord) {
+  if (pos === 0) {
+    this.dragger_[0].setCoordX(coord[0]);
+    this.shape_.setRadiusX(Math.abs(coord[0] - this.shape_.getCenter()[0]));
+  } else {
+    this.dragger_[1].setCoordY(coord[1]);
+    this.shape_.setRadiusY(Math.abs(coord[1] - this.shape_.getCenter()[1]));
+  }
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.EllipseModifiable.prototype.move = function(distX, distY) {
+  var coords = this.shape_.getCoordsCopy();
+  coords[0][0] += distX;
+  coords[0][1] += distY;
+  this.setCoords(coords);
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.EllipseModifiable.prototype.init_ = function() {
+  var center = this.shape_.getCenter();
+  var radiusX = this.shape_.getRadiusX();
+  var radiusY = this.shape_.getRadiusY();
+  var draggerX = new xrx.shape.Dragger(this, 0);
+  draggerX.setCoords([[center[0] + radiusX, center[1]]]);
+  var draggerY = new xrx.shape.Dragger(this, 1);
+  draggerY.setCoords([[center[0], center[1] + radiusY]]);
+  this.setDragger([draggerX, draggerY]);
+};
+
+
+
+/**
+ * Disposes this modifiable ellipse shape.
+ */
+xrx.shape.EllipseModifiable.prototype.disposeInternal = function() {
+  goog.base(this, 'disposeInternal');
+};
+
+
+
+/**
+ * A class representing a creatable ellipse shape.
+ * @param {xrx.shape.Ellipse} ellipse The parent ellipse shape.
+ * @constructor
+ * @private
+ */
+xrx.shape.EllipseCreatable = function(ellipse) {
+
+  goog.base(this, ellipse, new xrx.shape.Ellipse(ellipse.getDrawing()));
+
+  /**
+   * Center point helper.
+   * @type {Array&lt;number>}
+   */
+  this.point_ = new Array(2);
+};
+goog.inherits(xrx.shape.EllipseCreatable, xrx.shape.Creatable);
+
+
+
+/**
+ * Returns the coordinates of the ellipse currently created.
+ * @return Array&lt;number> The coordinates.
+ * @private
+ */
+xrx.shape.EllipseCreatable.prototype.getCoords = function() {
+  return this.helper_.getCoords();
+};
+
+
+
+/**
+ * Handles down gestures.
+ * @param {goog.events.BrowserEvent} e The browser event.
+ * @param {xrx.drawing.Cursor} cursor The drawing cursor.
+ * @private
+ */
+xrx.shape.EllipseCreatable.prototype.handleDown = function(e, cursor) {
+  var point = cursor.getPointTransformed();
+  this.point_[0] = point[0];
+  this.point_[1] = point[1];
+  this.preview_.setCenter(point[0], point[1]);
+  this.preview_.setRadiusX(0);
+  this.preview_.setRadiusY(0);
+  this.target_.getDrawing().eventShapeCreate([this.preview_]);
+};
+
+
+/**
+ * Handles &lt;em>move&lt;/em> gestures.
+ * @param {goog.events.BrowserEvent} e The browser event.
+ * @param {xrx.drawing.Cursor} cursor The drawing cursor.
+ * @private
+ */
+xrx.shape.EllipseCreatable.prototype.handleMove = function(e, cursor) {
+  var point = cursor.getPointTransformed();
+  var distX = point[0] - this.point_[0];
+  var distY = point[1] - this.point_[1];
+  this.preview_.setCenter(point[0] - distX / 2, point[1] - distY / 2);
+  this.preview_.setRadiusX(Math.abs(distX / 2));
+  this.preview_.setRadiusY(Math.abs(distY / 2));
+};
+
+
+/**
+ * Handles &lt;em>up&lt;/em> gestures.
+ * @param {goog.events.BrowserEvent} e The browser event.
+ * @param {xrx.drawing.Cursor} cursor The drawing cursor.
+ * @private
+ */
+xrx.shape.EllipseCreatable.prototype.handleUp = function(e, cursor) {
+  var ellipse = new xrx.shape.Ellipse(this.target_.getDrawing());
+  var center = this.preview_.getCenter();
+  ellipse.setStyle(this.target_);
+  ellipse.setCenter(center[0], center[1]);
+  ellipse.setRadiusX(this.preview_.getRadiusX());
+  ellipse.setRadiusY(this.preview_.getRadiusY());
+  this.target_.getDrawing().eventShapeCreated(ellipse);
+};
+
+
+/**
+ * Disposes this creatable ellipse shape.
+ * @private
+ */
+xrx.shape.EllipseCreatable.prototype.disposeInternal = function() {
+  this.point_ = null;
+  goog.base(this, 'disposeInternal');
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    </div>
+    <nav class="col-md-3">
+      <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="xrx.drawing.Drawing.html">xrx.drawing.Drawing</a></li><li><a href="xrx.shape.Circle.html">xrx.shape.Circle</a></li><li><a href="xrx.shape.DiPolygon.html">xrx.shape.DiPolygon</a></li><li><a href="xrx.shape.DiPolygonArrow.html">xrx.shape.DiPolygonArrow</a></li><li><a href="xrx.shape.DiPolygonArrowModifiable.html">xrx.shape.DiPolygonArrowModifiable</a></li><li><a href="xrx.shape.Ellipse.html">xrx.shape.Ellipse</a></li><li><a href="xrx.shape.Line.html">xrx.shape.Line</a></li><li><a href="xrx.shape.Polygon.html">xrx.shape.Polygon</a></li><li><a href="xrx.shape.Polyline.html">xrx.shape.Polyline</a></li><li><a href="xrx.shape.Rect.html">xrx.shape.Rect</a></li><li><a href="xrx.shape.ShapeGroup.html">xrx.shape.ShapeGroup</a></li><li><a href="xrx.shape.Style.html">xrx.shape.Style</a></li><li><a href="xrx.viewbox.Viewbox.html">xrx.viewbox.Viewbox</a></li></ul><h3>Events</h3><ul><li><a href="xrx.drawing.Drawing.html#event:eventShapeModify">xrx.drawing.Drawing#event:eventShapeModify</a></li></ul><h3>Namespaces</h3><ul><li><a href="xrx.html">xrx</a></li><li><a href="xrx.canvas.html">xrx.canvas</a></li><li><a href="xrx.drawing.html">xrx.drawing</a></li><li><a href="xrx.engine.html">xrx.engine</a></li><li><a href="xrx.shape.html">xrx.shape</a></li><li><a href="xrx.svg.html">xrx.svg</a></li><li><a href="xrx.viewbox.html">xrx.viewbox</a></li><li><a href="xrx.vml.html">xrx.vml</a></li></ul>
+    </nav>
+  </div>
+  <script>prettyPrint();</script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>SemToNotes - A Topological Image Annotation and Image Retrieval System</title>
+  <meta name="description" content="SemToNotes - A Topological Image Annotation and Image Retrieval System">
+  <link rel="stylesheet" type="text/css" media="screen" href="./client/demo/stylesheets/stylesheet.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="./client/demo/stylesheets/demo.css">
+  <link rel="stylesheet" type="text/css" href="./client/res/xrx.css">
+  <script type="text/javascript" src="./client/lib/jssaxparser/XMLFilterImpls.js"></script>
+  <script type="text/javascript" src="./client/lib/jssaxparser/SAXException.js"></script>
+  <script type="text/javascript" src="./client/lib/jssaxparser/NamespaceSupport.js"></script>
+  <script type="text/javascript" src="./client/lib/jssaxparser/AttributesImpl.js"></script>
+  <script type="text/javascript" src="./client/lib/jssaxparser/SAXScanner.js"></script>
+  <script type="text/javascript" src="./client/lib/jssaxparser/ReaderWrapper.js"></script>
+  <script type="text/javascript" src="./client/lib/jssaxparser/Reader.js"></script>
+  <script type="text/javascript" src="./client/lib/jssaxparser/sax.js"></script>
+  <script type="text/javascript" src="./client/lib/jssaxparser/DefaultHandlers.js"></script>
+  <script src='./client/lib/closure-library/closure/goog/base.js'></script>
+  <script src='./client/src/deps.js'></script>
+  <!--script src="./client/xrx-minified.js"></script-->
+  <script>
+    goog.require('xrx');
+  </script>
+  <!--[if lt IE 9]>
+    <script src="./javascript/html5shiv.min.js"></script>
+    <script src="./javascript/respond.min.js"></script>
+  <![endif]-->
+  <style>
+  .toolbar {
+  z-index: 999;
+  }
+  </style>
+</head>
+<body>
+  <div id="header_wrap" class="outer">
+    <header class="inner">
+      <a id="forkme_banner" href="https://github.com/HKIKoeln/SemToNotes">View on GitHub</a>
+      <h1 id="project_title">SemToNotes</h1>
+      <h2 id="project_tagline">A Topological Image Annotation and Image Retrieval System</h2>
+      <section id="downloads">
+        <a class="zip_download_link" href="https://github.com/HKIKoeln/SemToNotes/zipball/master">Download this project as a .zip file</a>
+        <a class="tar_download_link" href="https://github.com/HKIKoeln/SemToNotes/tarball/master">Download this project as a tar.gz file</a>
+      </section>
+    </header>
+  </div>
+  <div id="main_content_wrap" class="outer">
+    <section id="main_content" class="inner">
+
+      <h1>Welcome to SemToNotes</h1>
+      <p><em>Semantic Topological Notes</em> (SemToNotes) is a topological image annotation and image retrieval system written in JavaScript. It allows the analysis of spatio-topological relations between semantically enriched image areas.</p>
+      <img src="./client/demo/images/SemToNotes.png" alt="SemToNotes"/>
+      <p>SemToNotes is currently developed at the <a href="http://hki.uni-koeln.de">Institute of Humanities Computer Science</a> at the University of Cologne as part of the <a href="https://de.dariah.eu/">DARIAH-DE Project</a> (Phase II, March 2014 - February 2016).</p>
+      <p>
+        <a href="./client/demo/components.html">&gt;&gt; Documentation of HTML5 Components</a><br>
+        <a href="https://github.com/HKIKoeln/SemToNotes">&gt;&gt; Source Code</a>
+      </p>
+
+      <h1 id="technical-milestones">Feature Overview</h1>
+      <h2>Topological Retrieval</h2>
+      <p>Currently under development.</p>
+      <h2>Cross-browser Rendering and Drawing</h2>
+      <p>The graphical editor of SemToNotes combines the features of a pan-zoom-rotate image viewer with those of a drawing application. All common desktop and mobile browsers (optionally <a href="http://www.w3.org/TR/2014/CR-2dcontext-20140821/">Canvas</a>, <a href="http://www.w3.org/TR/SVG/">SVG</a> or <a href="http://www.w3.org/TR/NOTE-VML">VML</a> rendering) are supported including Internet Explorer before version 9.</p>
+
+      <!--**
+       * Common model for all rendering examples
+       **-->
+      <div>
+        <div class="xrx-instance"                            id="i-origin"
+            data-resource="./client/demo/data/rendering.1.xml.txt"></div>
+        <div class="xrx-instance"                            id="i-target"
+            data-resource="./client/demo/data/rendering.2.xml.txt"></div>
+        <div class="xrx-bind"                                id="b-origin"
+             data-ref="xrx:instance('i-origin')//polygon"></div>
+        <div class="xrx-bind"                                id="b-origin-coords"
+             data-ref="xrx:bind('b-origin')/@points"></div>
+        <div class="xrx-bind"                                id="b-console"
+             data-ref="xrx:instance('i-target')"></div>
+        <div class="xrx-bind"                                id="b-target"
+             data-ref="xrx:instance('i-target')//url"></div>
+        <div class="xrx-bind"                                id="b-polygons"
+             data-ref="xrx:instance('i-target')//polygon"></div>
+        <div class="xrx-bind"                                id="b-url"
+             data-ref="xrx:instance('i-target')//url/text()"></div>
+      </div>
+
+      <!--**
+       * Canvas Rendering
+       **-->
+      <h3>Canvas Rendering</h3>
+      <!-- view -->
+      <div class="toolbar" id="tcanvasRendering" data-for="ccanvasRendering">
+        <span class="xrx-button toolbar-item toolbar-item-selected xrx-icon-openhand32" id="tiview_1">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('ccanvasRendering').setModeView();"></span>
+            <span class="xrx-classes-remove" data-scope="#tcanvasRendering" data-select=".toolbar-item" data-classes="toolbar-item-selected"></span>
+            <span class="xrx-classes-add" data-select="#tiview_1" data-classes="toolbar-item-selected"></span>
+          </span>
+        </span>
+        <span class="xrx-button toolbar-item xrx-icon-zoomIn32">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('ccanvasRendering').zoomIn();"></span>
+          </span>
+        </span>
+        <span class="xrx-button toolbar-item xrx-icon-zoomOut32">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('ccanvasRendering').zoomOut();"></span>
+          </span>
+        </span>
+        <span class="xrx-button toolbar-item xrx-icon-rotateLeft32">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('ccanvasRendering').rotateLeft();"></span>
+          </span>
+        </span>
+        <span class="xrx-button toolbar-item xrx-icon-rotateRight32">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('ccanvasRendering').rotateRight();"></span>
+          </span>
+        </span>
+        <span class="xrx-button toolbar-item xrx-icon-shapePolygon32" id="ticreate_1" title="Draw a polygon">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('ccanvasRendering').setModeCreate('myPolygons_1');"></span>
+            <span class="xrx-classes-remove" data-scope="#tcanvasRendering" data-select=".toolbar-item" data-classes="toolbar-item-selected"></span>
+            <span class="xrx-classes-add" data-select="#ticreate_1" data-classes="toolbar-item-selected"></span>
+          </span>
+        </span>
+        <span class="xrx-button toolbar-item xrx-icon-move32" id="timodify_1">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('ccanvasRendering').setModeModify();"></span>
+            <span class="xrx-classes-remove" data-scope="#tcanvasRendering" data-select=".toolbar-item" data-classes="toolbar-item-selected"></span>
+            <span class="xrx-classes-add" data-select="#timodify_1" data-classes="toolbar-item-selected"></span>
+          </span>
+        </span>
+      </div>
+      <div class="xrx-canvas" id="ccanvasRendering" data-engine="canvas">
+        <div class="xrx-canvas-background-image" data-xrx-bind="b-url"></div>
+        <div class="xrx-canvas-graphics">
+          <div class="xrx-canvas-group" data-name="myPolygons_1">
+            <div class="xrx-repeat" data-bind="b-polygons"> 
+              <div class="xrx-shape-polygon shape"
+                  data-ref="./self::*"
+                  data-ref-coords="./@points">
+              </div>
+            </div>
+            <div class="xrx-shape-polygon-create"
+                data-bind="b-origin"
+                data-bind-coords="b-origin-coords">
+            </div>
+            <div class="xrx-action" data-xrx-event="xrx-event-graphic-created">
+              <div class="xrx-insert">
+                <div class="xrx-origin" data-bind="b-origin"></div>
+                <div class="xrx-target" data-bind="b-target"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--**
+       * SVG Rendering
+       **-->
+      <h3>SVG Rendering</h3>
+      <div class="toolbar" id="tsvgRendering" data-for="csvgRendering">
+        <span class="xrx-button toolbar-item toolbar-item-selected xrx-icon-openhand32" id="tiview_2">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('csvgRendering').setModeView();"></span>
+            <span class="xrx-classes-remove" data-scope="#tsvgRendering" data-select=".toolbar-item" data-classes="toolbar-item-selected"></span>
+            <span class="xrx-classes-add" data-select="#tiview_2" data-classes="toolbar-item-selected"></span>
+          </span>
+        </span>
+        <span class="xrx-button toolbar-item xrx-icon-zoomIn32">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('csvgRendering').zoomIn();"></span>
+          </span>
+        </span>
+        <span class="xrx-button toolbar-item xrx-icon-zoomOut32">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('csvgRendering').zoomOut();"></span>
+          </span>
+        </span>
+        <span class="xrx-button toolbar-item xrx-icon-rotateLeft32">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('csvgRendering').rotateLeft();"></span>
+          </span>
+        </span>
+        <span class="xrx-button toolbar-item xrx-icon-rotateRight32">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('csvgRendering').rotateRight();"></span>
+          </span>
+        </span>
+        <span class="xrx-button toolbar-item xrx-icon-shapePolygon32" id="ticreate_2" title="Draw a polygon">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('csvgRendering').setModeCreate('myPolygons_2');"></span>
+            <span class="xrx-classes-remove" data-scope="#tsvgRendering" data-select=".toolbar-item" data-classes="toolbar-item-selected"></span>
+            <span class="xrx-classes-add" data-select="#ticreate_2" data-classes="toolbar-item-selected"></span>
+          </span>
+        </span>
+        <span class="xrx-button toolbar-item xrx-icon-move32" id="timodify_2">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('csvgRendering').setModeModify();"></span>
+            <span class="xrx-classes-remove" data-scope="#tsvgRendering" data-select=".toolbar-item" data-classes="toolbar-item-selected"></span>
+            <span class="xrx-classes-add" data-select="#timodify_2" data-classes="toolbar-item-selected"></span>
+          </span>
+        </span>
+      </div>
+      <div class="xrx-canvas" id="csvgRendering" data-engine="svg">
+        <div class="xrx-canvas-background-image" data-xrx-bind="b-url"></div>
+        <div class="xrx-canvas-graphics">
+          <div class="xrx-canvas-group" data-name="myPolygons_2">
+            <div class="xrx-repeat" data-bind="b-polygons"> 
+              <div class="xrx-shape-polygon shape"
+                  data-ref="./self::*"
+                  data-ref-coords="./@points">
+              </div>
+            </div>
+            <div class="xrx-shape-polygon-create"
+                data-bind="b-origin"
+                data-bind-coords="b-origin-coords">
+            </div>
+            <div class="xrx-action" data-xrx-event="xrx-event-graphic-created">
+              <div class="xrx-insert">
+                <div class="xrx-origin" data-bind="b-origin"></div>
+                <div class="xrx-target" data-bind="b-target"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--**
+       * VML Rendering
+       **-->
+      <h3>VML Rendering</h3>
+      <div class="toolbar" id="tvmlRendering" data-for="cvmlRendering">
+        <span class="xrx-button toolbar-item toolbar-item-selected xrx-icon-openhand32" id="tiview_3">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('cvmlRendering').setModeView();"></span>
+            <span class="xrx-classes-remove" data-scope="#tvmlRendering" data-select=".toolbar-item" data-classes="toolbar-item-selected"></span>
+            <span class="xrx-classes-add" data-select="#tiview_3" data-classes="toolbar-item-selected"></span>
+          </span>
+        </span>
+        <span class="xrx-button toolbar-item xrx-icon-zoomIn32">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('cvmlRendering').zoomIn();"></span>
+          </span>
+        </span>
+        <span class="xrx-button toolbar-item xrx-icon-zoomOut32">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('cvmlRendering').zoomOut();"></span>
+          </span>
+        </span>
+        <span class="xrx-button toolbar-item xrx-icon-rotateLeft32">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('cvmlRendering').rotateLeft();"></span>
+          </span>
+        </span>
+        <span class="xrx-button toolbar-item xrx-icon-rotateRight32">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('cvmlRendering').rotateRight();"></span>
+          </span>
+        </span>
+        <span class="xrx-button toolbar-item xrx-icon-shapePolygon32" id="ticreate_3" title="Draw a polygon">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('cvmlRendering').setModeCreate('myPolygons_3');"></span>
+            <span class="xrx-classes-remove" data-scope="#tvmlRendering" data-select=".toolbar-item" data-classes="toolbar-item-selected"></span>
+            <span class="xrx-classes-add" data-select="#ticreate_2" data-classes="toolbar-item-selected"></span>
+          </span>
+        </span>
+        <span class="xrx-button toolbar-item xrx-icon-move32" id="timodify_3">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('cvmlRendering').setModeModify();"></span>
+            <span class="xrx-classes-remove" data-scope="#tvmlRendering" data-select=".toolbar-item" data-classes="toolbar-item-selected"></span>
+            <span class="xrx-classes-add" data-select="#timodify_3" data-classes="toolbar-item-selected"></span>
+          </span>
+        </span>
+      </div>
+      <div class="xrx-canvas" id="cvmlRendering" data-engine="vml">
+        <div class="xrx-canvas-background-image" data-xrx-bind="b-url"></div>
+        <div class="xrx-canvas-graphics">
+          <div class="xrx-canvas-group" data-name="myPolygons_3">
+            <div class="xrx-repeat" data-bind="b-polygons"> 
+              <div class="xrx-shape-polygon shape"
+                  data-ref="./self::*"
+                  data-ref-coords="./@points">
+              </div>
+            </div>
+            <div class="xrx-shape-polygon-create"
+                data-bind="b-origin"
+                data-bind-coords="b-origin-coords">
+            </div>
+            <div class="xrx-action" data-xrx-event="xrx-event-graphic-created">
+              <div class="xrx-insert">
+                <div class="xrx-origin" data-bind="b-origin"></div>
+                <div class="xrx-target" data-bind="b-target"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--**
+       * Native TEI and Shared Canvas Support
+       **-->
+      <h2 id="data-model">Native TEI and Shared Canvas Support.</h2>
+      <p>The graphical editor supports arbitrary XML standards such as the <a href="http://www.tei-c.org/index.xml">Text Encoding Initiative (TEI)</a> or the <a href="http://www.w3.org/ns/oa">Open Annotation Data Model (OA)</a> as used in the <a href="http://iiif.io/model/shared-canvas/1.0/index.html">Shared Canvas (SC)</a> standard.
+        Below a TEI facsimile example is shown.
+      </p>
+      <h3>TEI Example</h3>
+      <div>
+        <div class="xrx-namespace" data-prefix="tei" data-uri="http://www.tei-c.org/ns/1.0"></div>
+        <div class="xrx-instance"                            id="i-tei1"
+            data-resource="./client/demo/data/example-tei.1.xml.txt"></div>
+        <div class="xrx-instance"                            id="i-tei2"
+            data-resource="./client/demo/data/example-tei.2.xml.txt"></div>
+        <div class="xrx-bind"                                id="b-tei1"
+            data-ref="xrx:instance('i-tei1')//tei:graphic/@url"></div>
+        <div class="xrx-bind"                                id="b-tei0"
+            data-ref="xrx:instance('i-tei1')//tei:graphic"></div>
+        <div class="xrx-bind"                                id="b-tei2"
+            data-ref="xrx:instance('i-tei1')//tei:zone[@points]"></div>
+        <div class="xrx-bind"                                id="b-tei5"
+            data-ref="xrx:instance('i-tei1')"></div>
+        <div class="xrx-bind"                                id="b-tei6"
+            data-ref="xrx:instance('i-tei2')//tei:zone[1]"></div>
+        <div class="xrx-bind"                                id="b-tei6coords"
+            data-ref="xrx:instance('i-tei2')//tei:zone[1]/@points"></div>
+      </div>
+      <div class="toolbar" id="ttei" data-for="ctei">
+        <span class="xrx-button toolbar-item toolbar-item-selected xrx-icon-openhand32" id="tiview_4">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('ctei').setModeView();"></span>
+            <span class="xrx-classes-remove" data-scope="#ttei" data-select=".toolbar-item" data-classes="toolbar-item-selected"></span>
+            <span class="xrx-classes-add" data-select="#tiview_4" data-classes="toolbar-item-selected"></span>
+          </span>
+        </span>
+        <span class="xrx-button toolbar-item xrx-icon-zoomIn32">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('ctei').zoomIn();"></span>
+          </span>
+        </span>
+        <span class="xrx-button toolbar-item xrx-icon-zoomOut32">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('ctei').zoomOut();"></span>
+          </span>
+        </span>
+        <span class="xrx-button toolbar-item xrx-icon-rotateLeft32">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('ctei').rotateLeft();"></span>
+          </span>
+        </span>
+        <span class="xrx-button toolbar-item xrx-icon-rotateRight32">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('ctei').rotateRight();"></span>
+          </span>
+        </span>
+        <span class="xrx-button toolbar-item xrx-icon-shapePolygon32" id="ticreate_4" title="Draw a polygon">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('ctei').setModeCreate('myPolygons_4');"></span>
+            <span class="xrx-classes-remove" data-scope="#ttei" data-select=".toolbar-item" data-classes="toolbar-item-selected"></span>
+            <span class="xrx-classes-add" data-select="#ticreate_4" data-classes="toolbar-item-selected"></span>
+          </span>
+        </span>
+        <span class="xrx-button toolbar-item xrx-icon-move32" id="timodify_4">
+          <span class="xrx-action" data-event="xrx-event-click">
+            <span class="xrx-script" data-script="xrx.mvc.getComponent('ctei').setModeModify();"></span>
+            <span class="xrx-classes-remove" data-scope="#ttei" data-select=".toolbar-item" data-classes="toolbar-item-selected"></span>
+            <span class="xrx-classes-add" data-select="#timodify_4" data-classes="toolbar-item-selected"></span>
+          </span>
+        </span>
+      </div>
+      <div class="xrx-canvas"                              id="ctei">
+        <div class="xrx-canvas-background-image" data-bind="b-tei1"></div>
+        <div class="xrx-canvas-graphics">
+          <div class="xrx-canvas-group" data-name="myPolygons_4">
+            <div class="xrx-repeat" data-bind="b-tei2">
+              <div class="xrx-shape-polygon shape" data-ref="./self::*"
+                  data-ref-coords="./@points"></div>
+            </div>
+            <div class="xrx-shape-polygon-create"
+                data-bind="b-tei6"
+                data-bind-coords="b-tei6coords"></div>
+            <div class="xrx-action" data-event="xrx-event-graphic-created">
+              <div class="xrx-insert">
+                <div class="xrx-origin" data-bind="b-tei6"></div>
+                <div class="xrx-target" data-bind="b-tei0"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="xrx-console" data-bind="b-tei5"></div>
+
+      <!--**
+       * Form authoring
+       **-->
+      <h2>Form-based XML WYSIWYM Authoring</h2>
+      <div>
+        <div class="xrx-instance"                            id="i-formAuthoring"
+            data-resource="./client/demo/data/form-authoring.xml.txt"></div>
+        <div class="xrx-bind"                                id="b-formAuthoring"
+             data-ref="xrx:instance('i-formAuthoring')"></div>
+        <div class="xrx-bind"                                id="b-formAuthoringA"
+             data-ref="xrx:instance('i-formAuthoring')/data/a"></div>
+        <div class="xrx-bind"                                id="b-formAuthoringB"
+             data-ref="xrx:instance('i-formAuthoring')/data/b"></div>
+        <div class="xrx-bind"                                id="b-formAuthoringC"
+             data-ref="xrx:instance('i-formAuthoring')/data/c"></div>
+      </div>
+      <div>
+        <div class="xrx-console" data-bind="b-formAuthoring"></div>
+        A: <input class="xrx-input" data-bind="b-formAuthoringA" type="text"><br>
+        B: <input class="xrx-input" data-bind="b-formAuthoringB" type="text"><br>
+        C: <input class="xrx-input" data-bind="b-formAuthoringC" type="text"><br>
+        A: <input class="xrx-input" data-bind="b-formAuthoringA" type="text">
+      </div>
+
+      <h2>Native XML User Interface</h2>
+      <p>SemToNotes follows the design of what is called a <a href="http://www.balisage.net/XML-Interfaces/"><i>Native XML User Interface</i></a>. With a native XML user interface, arbitrary XML documents can be loaded into and edited in the browser. XPath data binding expressions can be used to bind arbitrary XML nodes to arbitrary UI components.
+        An XML model-view-controller automatically synchronizes all nodes and components that depend on each other. Besides the XML data model, also the <i>development</i> of user interfaces works in a descriptive way. User interfaces can be build up without JavaScript, with HTML5 components only.</p>
+      <p>Some HTML5 example components are shown <a href="./client/demo/components.html">here</a>. A complete list of all WYSIWYM components will be available at the end of the project.</p>
+
+      <h1 id="contact">Contact</h1>
+      <p>jochen.graf(at)uni-koeln.de</p>
+      <p>manfred.thaller(at)uni-koeln.de</p>
+
+    </section>
+  </div>
+  <div id="footer_wrap" class="outer">
+    <footer class="inner">
+      <p class="copyright">SemToNotes maintained by <a href="https://github.com/HKIKoeln">HKIKoeln</a></p>
+      <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+    </footer>
+  </div>
+  <script>
+    xrx.install(function() {
+      var c1 = xrx.mvc.getComponent('ccanvasRendering');
+      var c2 = xrx.mvc.getComponent('csvgRendering');
+      var c3 = xrx.mvc.getComponent('cvmlRendering');
+      var c4 = xrx.mvc.getComponent('ctei');
+    });
+  </script>
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    try {
+      var pageTracker = _gat._getTracker("UA-53514095-1");
+      pageTracker._trackPageview();
+    } catch(err) {}
+  </script>
+</body>
+</html>

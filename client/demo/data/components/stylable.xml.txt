@@ -1,0 +1,8 @@
+<data>
+  <url>../../data/SachsenspiegelHeidelberg/Bilder-34572-28186-1600.jpg</url>
+  <rectangle1 x="10" y="10" width="50" height="50"/>
+  <rectangle1 x="70" y="10" width="50" height="50"/>
+  <rectangle2 ulx="20" uly="100" lrx="250" lry="300"/>
+  <rectangle2 ulx="260" uly="100" lrx="400" lry="300"/>
+  <polygon points="200,10 300,15 250,310 240,31 230,100"/>
+</data>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SemToNotes</title>
+<link href="client/demo/stylesheets/demo.css" rel="stylesheet">
+<link href="client/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+<!--script src='client/lib/closure-library/closure/goog/base.js'></script>
+<script src='client/src/deps.js'></script>
+<script type="text/javascript">
+goog.require('xrx.demo');
+</script-->
+<script src="./client/xrx.demo.min.js"></script>
+<script id="exampleScript"></script>
+</head>
+<body>
+<nav id="nav" class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"></button>
+      <a class="navbar-brand" href="index.html">SemToNotes</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li id="homeLink"><a href="#home">Home</a></li>
+        <li id="apiLink">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">JavaScript API <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li id="documentationLink"><a href="#documentation">API Documentation</a></li>
+            <li><a href="./client/api/drawing/simple/index.html">Simple API Reference <small>(for users)</small></a></li>
+            <li><a href="./client/api/drawing/full/index.html">Full API Reference <small>(for developers)</small></a></li>
+            <li id="aboutLink"><a href="#about">About</a></li>
+          </ul>
+        </li>
+        <li id="retrievalLink"><a href="#retrieval">Topological Retrieval</a></li>
+        <li><a target="_blank" href="https://github.com/HKIKoeln/SemToNotes/">Code</a></li>
+      </ul>
+    </div>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
+<div id="content" class="container"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="client/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<script src="./client/demo/example/complete-application.js"></script>
+<script>
+xrx.demo.install();
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.node</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.array');
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx');
+  goog.require('xrx.node');
+  goog.require('xrx.node.Nodes');
+</script>
+</head>
+<body>
+<script type="text/javascript">
+
+function test02abstractMethods() {
+  var abstractMethods = [
+    'isSameAs',
+    'isBefore',
+    'isAfter',
+    'isAncestorOf',
+    'isAttributeOf',
+    'isChildOf',
+    'isDescendantOf',
+    'isFollowingOf',
+    'isFollowingSiblingOf',
+    'isParentOf',
+    'isPrecedingOf',
+    'isPrecedingSiblingOf',
+    'getName',
+    //'getNameLocal',
+    'getNamespaceUri',
+    //'getNamePrefix',
+    //'getNamePrefixed',
+    //'getNameExpanded',
+    'getStringValue',
+    'getXml',
+    'getNodeAncestor',
+    'getNodeAttribute',
+    'getNodeChild',
+    'getNodeDescendant',
+    'getNodeFollowing',
+    'getNodeFollowingSibling',
+    'getNodeParent',
+    'getNodePreceding',
+    'getNodePrecedingSibling'
+  ];
+
+  // xrx.node.DocumentS, xrx.node.DocumentB
+  goog.array.forEach(abstractMethods, function(method, index, arr) {
+    assertEquals(false, xrx.node.DocumentS.prototype[method] == goog.abstractMethod);
+    assertEquals(false, xrx.node.DocumentB.prototype[method] == goog.abstractMethod);
+  });
+  // xrx.node.ElementS, xrx.node.ElementB
+  goog.array.forEach(abstractMethods, function(method, index, arr) {
+    assertEquals(false, xrx.node.ElementS.prototype[method] == goog.abstractMethod);
+    assertEquals(false, xrx.node.ElementB.prototype[method] == goog.abstractMethod);
+  });
+  // xrx.node.AttributeS, xrx.node.AttributeB
+  goog.array.forEach(abstractMethods, function(method, index, arr) {
+    assertEquals(false, xrx.node.AttributeS.prototype[method] == goog.abstractMethod);
+    assertEquals(false, xrx.node.AttributeB.prototype[method] == goog.abstractMethod);
+  });
+  // xrx.node.TextS, xrx.node.TextB
+  goog.array.forEach(abstractMethods, function(method, index, arr) {
+    assertEquals(false, xrx.node.TextS.prototype[method] == goog.abstractMethod);
+    assertEquals(false, xrx.node.TextB.prototype[method] == goog.abstractMethod);
+  });
+
+};
+
+</script>
+</body>
+</html>

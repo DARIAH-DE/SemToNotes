@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.viewbox.ViewboxZoom</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../deps.js'></script>
+<script src='./viewboxViewbox_test.js'></script>
+<link rel="stylesheet" type="text/css" href="./viewboxViewbox_test.css">
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.dom.DomHelper');
+  goog.require('goog.dom.forms');
+  goog.require('goog.events');
+  goog.require('goog.events.EventType');
+  goog.require('goog.ui.Component.EventType');
+  goog.require('goog.ui.Slider');
+  goog.require('xrx.api.drawing');
+</script>
+</head>
+<body>
+
+<h1>Whether zooming works with all rendering engines</h1>
+<table>
+  <tr>
+    <td></td>
+    <td>Original</td>
+	  <td>Zoom In</td>
+	  <td>Zoom Out</td>
+  </tr>
+  <tr>
+	  <td>Canvas</td>
+    <td><div id="canvasOriginal" class="drawing"></div></td>
+    <td><div id="canvasZoomIn" class="drawing"></div></td>
+    <td><div id="canvasZoomOut" class="drawing"></div></td>
+  </tr>
+  <tr>
+    <td>SVG</td>
+    <td><div id="svgOriginal" class="drawing"></div></td>
+    <td><div id="svgZoomIn" class="drawing"></div></td>
+    <td><div id="svgZoomOut" class="drawing"></div></td>
+  </tr>
+  <tr>
+    <td>VML</td>
+    <td><div id="vmlOriginal" class="drawing"></div></td>
+    <td><div id="vmlZoomIn" class="drawing"></div></td>
+    <td><div id="vmlZoomOut" class="drawing"></div></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td><span>Factor 2</span></td>
+    <td><span>Factor 0.5</span></td>
+  </tr>
+</table>
+
+<h1>Zoom, respecting the mouse pointer as fix-point</h1>
+<div class="wrapper1">
+  <div class="drawing zoom" id="zoom1"></div>
+  <div class="drawing zoom" id="zoom2"></div>
+  <div class="drawing zoom" id="zoom3"></div>
+  <div class="drawing zoom" id="zoom4"></div>
+</div>
+
+<h1>Zoom with Slider</h1>
+<div class="wrapper2">
+  <div class="goog-slider" role="slider" id="slider">
+    <div class="goog-slider-thumb" role="button"></div>
+  </div>
+  <div class="drawing zoom" id="zoom5"></div>
+</div>
+
+<script type="text/javascript">
+
+
+
+function test0Original() {
+  if (xrx.engine.isSupported(xrx.engine.CANVAS)) {
+    var svgDrawing = getDrawingSvg('svgOriginal');
+    svgDrawing.setBackgroundImage(url);
+    svgDrawing.draw();
+  }
+  if (xrx.engine.isSupported(xrx.engine.SVG)) {
+    var canvasDrawing = getDrawingCanvas('canvasOriginal');
+    canvasDrawing.setBackgroundImage(url);
+    canvasDrawing.draw();
+  }
+  if (xrx.engine.isSupported(xrx.engine.VML)) {
+    var vmlDrawing = getDrawingVml('vmlOriginal');
+    vmlDrawing.setBackgroundImage(url);
+    vmlDrawing.draw();
+  }
+};
+
+
+
+function test1ZoomIn() {
+  if (xrx.engine.isSupported(xrx.engine.CANVAS)) {
+    var svgDrawing = getDrawingSvg('svgZoomIn');
+    svgDrawing.setBackgroundImage(url, function() {
+      svgDrawing.getViewbox().zoomTo(2, [0, 0]);
+      svgDrawing.draw();
+    });
+  }
+  if (xrx.engine.isSupported(xrx.engine.SVG)) {
+    var canvasDrawing = getDrawingCanvas('canvasZoomIn');
+    canvasDrawing.setBackgroundImage(url, function() {
+      canvasDrawing.getViewbox().zoomTo(2, [0, 0]);
+      canvasDrawing.draw();
+    });
+  }
+  if (xrx.engine.isSupported(xrx.engine.VML)) {
+    var vmlDrawing = getDrawingVml('vmlZoomIn');
+    vmlDrawing.setBackgroundImage(url, function() {
+      vmlDrawing.getViewbox().zoomTo(2, [0, 0]);
+      vmlDrawing.draw();
+    });
+  }
+};
+
+
+
+function test2ZoomOut() {
+  if (xrx.engine.isSupported(xrx.engine.CANVAS)) {
+    var svgDrawing = getDrawingSvg('svgZoomOut');
+    svgDrawing.setBackgroundImage(url, function() {
+      svgDrawing.getViewbox().zoomTo(.5, [0, 0]);
+      svgDrawing.draw();
+    });
+  }
+  if (xrx.engine.isSupported(xrx.engine.SVG)) {
+    var canvasDrawing = getDrawingCanvas('canvasZoomOut');
+    canvasDrawing.setBackgroundImage(url, function() {
+      canvasDrawing.getViewbox().zoomTo(.5, [0, 0]);
+      canvasDrawing.draw();
+    });
+  }
+  if (xrx.engine.isSupported(xrx.engine.VML)) {
+    var vmlDrawing = getDrawingVml('vmlZoomIn');
+    vmlDrawing.setBackgroundImage(url, function() {
+      vmlDrawing.getViewbox().zoomTo(.5, [0, 0]);
+      vmlDrawing.draw();
+    });
+  }
+};
+
+
+
+function test3zoomRespectingMousePointer() {
+  var canvas1 = new xrx.drawing.Drawing(goog.dom.getElement('zoom1'));
+  var canvas2 = new xrx.drawing.Drawing(goog.dom.getElement('zoom2'));
+  var canvas3 = new xrx.drawing.Drawing(goog.dom.getElement('zoom3'));
+  var canvas4 = new xrx.drawing.Drawing(goog.dom.getElement('zoom4'));
+
+  canvas1.setBackgroundImage(url, function() {
+    canvas1.setModeView();
+    canvas1.draw();
+  });
+  canvas2.setBackgroundImage(url, function() {
+    canvas2.setModeView();
+    canvas2.getViewbox().rotateRight();
+    canvas2.draw();
+  });
+  canvas3.setBackgroundImage(url, function() {
+    canvas3.setModeView();
+    canvas3.getViewbox().rotateRight();
+    canvas3.getViewbox().rotateRight();
+    canvas3.draw();
+  });
+  canvas4.setBackgroundImage(url, function() {
+    canvas4.setModeView();
+    canvas4.getViewbox().rotateRight();
+    canvas4.getViewbox().rotateRight();
+    canvas4.getViewbox().rotateRight();
+    canvas4.draw();
+  });
+};
+
+
+
+function test4zoomWithSlider() {
+  // canvas
+  var canvas = new xrx.drawing.Drawing(goog.dom.getElement('zoom5'));
+  canvas.setBackgroundImage(url2, function() {
+    canvas.setModeView();
+  });
+
+  // slider
+  var element = goog.dom.getElement('slider');
+  var slider = new goog.ui.Slider();
+  var viewbox = canvas.getViewbox();
+  slider.decorate(element);
+
+  // configure the zoom model
+  viewbox.setZoomFactorMin(.5);
+  viewbox.setZoomFactorMax(4);
+  viewbox.setZoomFactor(.1);
+
+  // configure the slider accordingly
+  slider.setMaximum(viewbox.getZoomStep(viewbox.getZoomMax()));
+  slider.setValue(viewbox.getZoomStep(1));
+
+  // synchronize slider --> viewbox
+  slider.addEventListener(goog.ui.Component.EventType.CHANGE, function() {
+    canvas.getViewbox().zoomTo(viewbox.getZoomValue(slider.getValue()));
+    canvas.draw();
+  });
+  // synchronize viewbox --> slider
+  canvas.eventViewboxChange = function() {
+    slider.setValue(viewbox.getZoomStep());
+  };
+};
+
+</script>
+</body>
+</html>

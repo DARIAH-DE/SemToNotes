@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.xpath.Predicates</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/SAXException.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/AttributesImpl.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/LocatorImpls.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/NamespaceSupport.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/sax.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/DefaultHandlers.js"></script>
+<script src='../../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.dom');
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx');
+  goog.require('xrx.node');
+  goog.require('xrx.node.Nodes');
+  goog.require('xrx.mvc.Instance');
+  goog.require('xrx.xpath');
+  goog.require('xrx.xpath.DataType');
+</script>
+</head>
+<body>
+<script type="text/javascript">
+
+var xml= '<a><a><b>1</b><c attr="v"/>2</a></a>';
+var element = goog.dom.createElement('div');
+var element2 = goog.dom.createElement('div');
+goog.dom.classes.set(element2, 'xrx-document');
+goog.dom.setTextContent(element2, xml);
+goog.dom.append(element, element2);
+var instance = new xrx.mvc.Instance(element);
+var doc = new xrx.node.DocumentB(instance.getId());
+
+function resultEquals(expression, hits, xml) {
+  var r = xrx.xpath.evaluate(expression, doc, null, xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(hits, r.snapshotLength);
+  for (var n in xml) {
+    assertEquals(xml[n], r.iterateNext().getXml());
+  }
+};
+
+function test01childText() {
+
+  resultEquals('//*[text()]', 2, ['<a><b>1</b><c attr="v"/>2</a>', '<b>1</b>']);
+  resultEquals('//*[not(text())]', 2, ['<a><a><b>1</b><c attr="v"/>2</a></a>', '<c attr="v"/>']);
+  resultEquals('//*[.="1"]', 1, ['<b>1</b>']);
+};
+
+function test02childAttribute() {
+
+  resultEquals('//*[@attr]', 1, ['<c attr="v"/>']);
+  resultEquals('//*[not(@attr)]', 3, ['<a><a><b>1</b><c attr="v"/>2</a></a>',
+      '<a><b>1</b><c attr="v"/>2</a>', '<b>1</b>']);
+  resultEquals('//*[@attr="v"]', 1, ['<c attr="v"/>']);
+};
+
+</script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.shape.Circle, xrx.shape.CircleModifiable, xrx.shape.CircleCreate</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../deps.js'></script>
+<script src='./shapeTest.js'></script>
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.dom.DomHelper');
+  goog.require('xrx.api.drawing');
+</script>
+<link rel="stylesheet" type="text/css" href="./shapeTest.css">
+</head>
+<body>
+
+<script type="text/javascript">
+
+
+
+createTables('Circle', goog.dom);
+
+
+
+function getCircles(drawing) {
+  var hoverableStyle = new xrx.shape.Style();
+  hoverableStyle.setFillColor('green');
+  hoverableStyle.setFillOpacity(.2);
+  hoverableStyle.setStrokeColor('green');
+  hoverableStyle.setStrokeWidth(2);
+  var selectableStyle = new xrx.shape.Style();
+  selectableStyle.setFillColor('grey');
+  selectableStyle.setFillOpacity(.2);
+  selectableStyle.setStrokeColor('yellow');
+  selectableStyle.setStrokeWidth(2);
+  var circle1 = new xrx.shape.Circle(drawing);
+  var circle2 = new xrx.shape.Circle(drawing);
+  var circle3 = new xrx.shape.Circle(drawing);
+  var circle4 = new xrx.shape.Circle(drawing);
+  circle1.setCenter(20, 20);
+  circle1.setRadius(50);
+  circle1.setStrokeWidth(2);
+  circle1.getHoverable().setStyle(hoverableStyle);
+  circle1.getSelectable().setStyle(selectableStyle);
+  circle2.setCenter(200, 200);
+  circle2.setRadius(10);
+  circle2.setStrokeWidth(2);
+  circle2.getHoverable().setStyle(hoverableStyle);
+  circle2.getSelectable().setStyle(selectableStyle);
+  circle3.setCenter(100, 300);
+  circle3.setRadius(100);
+  circle3.setStrokeWidth(2);
+  circle3.getHoverable().setStyle(hoverableStyle);
+  circle3.getSelectable().setStyle(selectableStyle);
+  circle4.setCenter(100, 330);
+  circle4.setRadius(40);
+  circle4.setStrokeWidth(2);
+  circle4.getHoverable().setStyle(hoverableStyle);
+  circle4.getSelectable().setStyle(selectableStyle);
+  return [circle1, circle2, circle4, circle3];
+};
+
+
+
+function test1View() {
+  modeView('Circle');
+};
+
+
+
+function test2Hover() {
+  modeHover('Circle');
+};
+
+
+
+function test3HoverMultiple() {
+  modeHoverMultiple('Circle');
+};
+
+
+
+function test4Select() {
+  modeSelect('Circle');
+};
+
+
+
+function test5Modify() {
+  modeModify('Circle');
+};
+
+
+
+function test6Create() {
+  modeCreate('Circle');
+};
+
+</script>
+</body>
+</html>

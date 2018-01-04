@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="xar" name="geo">
+
+    <description>Build descriptor for the Geo extension of eXist-db</description>
+
+    <property file="build.properties"/>
+
+    <property name="build.dir" value="build"/>
+    <property name="build.libs" value="${build.dir}/lib"/>
+    <property name="dist.dir" value="dist"/>
+
+    <property name="java.src" value="java/src"/>
+    <property name="java.classes" value="${build.dir}/classes"/>
+    <property name="java.libs" value="java/lib"/>
+
+    <property name="web.dir" value="web"/>
+    <property name="config.dir" value="config"/>
+    <property name="tmp.dir" value="tmp"/>
+
+    <setproxy nonproxyhosts="${proxy.nonproxyhosts}" proxyhost="${proxy.host}"
+        proxyport="${proxy.port}" proxypassword="${proxy.password}" proxyuser="${proxy.user}"
+        socksproxyhost="${proxy.socks.host}" socksproxyport="${proxy.socks.port}"/>
+
+    <!-- Setup build path -->
+    <path id="classpath">
+        <fileset dir="${exist.dir}">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${exist.dir}/lib/core">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${exist.dir}/lib/optional">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${exist.dir}/tools/jetty/lib">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${java.libs}">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="setup" description="Download Java Topology Suite">
+        <mkdir dir="${build.libs}"/>
+        <mkdir dir="${tmp.dir}"/>
+        <get src="http://www.vividsolutions.com/jts/bin/jts-1.8.0.zip"
+            dest="${tmp.dir}/jts-1.8.0.zip"/>
+        <unzip src="${tmp.dir}/jts-1.8.0.zip" dest="${tmp.dir}/jts"/>
+        <copy file="${tmp.dir}/jts/lib/jts-1.8.jar" todir="${java.libs}"/>
+        <copy file="${tmp.dir}/jts/lib/jtsio-1.8.jar" todir="${java.libs}"/>
+        <delete dir="${tmp.dir}"/>
+    </target>
+
+    <target name="process" description="Process template files">
+        <copy file="config/library/expath-pkg.xml.tmpl" tofile="config/library/expath-pkg.xml">
+            <filterset>
+                <filter token="VERSION" value="${module.version}"/>
+                <filter token="TITLE" value="${module.title}"/>
+            </filterset>
+        </copy>
+        <copy file="config/library/exist.xml.tmpl" tofile="config/library/exist.xml">
+            <filterset>
+                <filter token="VERSION" value="${module.version}"/>
+                <filter token="TITLE" value="${module.title}"/>
+            </filterset>
+        </copy>
+        <copy file="config/library/repo.xml.tmpl" tofile="config/library/repo.xml">
+            <filterset>
+                <filter token="VERSION" value="${module.version}"/>
+                <filter token="TITLE" value="${module.title}"/>
+            </filterset>
+        </copy>
+    </target>
+
+    <target name="prepare" depends="process" description="Create empty directories">
+        <tstamp/>
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${build.libs}"/>
+        <mkdir dir="${java.classes}"/>
+        <mkdir dir="${java.libs}"/>
+    </target>
+
+    <target name="clean" description="Clean up all generated files">
+        <delete dir="${build.dir}" includes="*.jar"/>
+        <delete dir="${build.dir}/classes"/>
+        <delete dir="${dist.dir}"/>
+        <delete dir="${tmp.dir}"/>
+        <delete dir="config/application" includes="*.xml"/>
+        <delete dir="config/library" includes="*.xml"/>
+    </target>
+
+    <target name="clean-all" depends="clean" description="Reset to clean state">
+        <delete dir="${build.dir}"/>
+        <delete dir="${tmp.dir}"/>
+        <delete dir="${java.libs}"/>
+    </target>
+
+    <target name="compile" depends="prepare" description="Compile java sources">
+        <javac srcdir="${java.src}" destdir="${java.classes}" optimize="true" debug="true"
+            target="${javac.target}" source="${javac.source}" includeantruntime="false">
+            <classpath>
+                <path refid="classpath"/>
+            </classpath>
+            <compilerarg value="-Xlint"/>
+        </javac>
+    </target>
+
+    <target name="rebuild" depends="clean,xar"/>
+
+    <target name="jar" depends="compile" description="Create JAR file">
+        <jar basedir="${java.classes}"
+            jarfile="${build.dir}/exist-${module.name}-${module.version}.jar">
+            <manifest>
+                <attribute name="Project-Name" value="${module.name}"/>
+                <attribute name="Project-Version" value="${module.version}"/>
+                <attribute name="Project-Build" value="${DSTAMP}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="xar" depends="jar" description="Create XAR files">
+        <zip destfile="${dist.dir}/${module.name}-${module.version}.xar">
+            <zipfileset dir="${build.dir}" includes="*.jar" prefix="content"/>
+            <zipfileset dir="${java.libs}" prefix="content">
+                <include name="*.jar"/>
+                <exclude name="*-javadoc.jar"/>
+                <exclude name="*-sources.jar"/>
+            </zipfileset>
+            <zipfileset dir="${config.dir}/library" includes="*.xml"/>
+        </zip>
+    </target>
+
+    <target name="install" description="Install jar files into ${exist.dir}/lib/extensions">
+        <copy file="${build.dir}/exist-${module.name}-${module.version}.jar"
+            todir="${exist.dir}/lib/user"/>
+        <copy todir="${exist.dir}/lib/user">
+            <fileset dir="${java.libs}" includes="*.jar" excludes="*sources*,*javadoc*"/>
+        </copy>
+        <copy file="${exist.dir}/conf.xml" tofile="${exist.dir}/conf.xml.original" />
+        <xslt in="${exist.dir}/conf.xml.original" style="exist.conf.xsl"
+            out="${exist.dir}/conf.xml">
+        </xslt>
+    </target>
+
+</project>

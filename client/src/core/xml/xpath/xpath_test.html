@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.xpath</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/SAXException.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/AttributesImpl.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/LocatorImpls.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/NamespaceSupport.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/sax.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/DefaultHandlers.js"></script>
+<script src='../../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.dom.DomHelper');
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx');
+  goog.require('xrx.xpath');
+</script>
+</head>
+<body>
+<script type="text/javascript">
+
+var xml = '<a>1<b>2</b>3<c/>4<d>t<e type="attrValue">5</e>6</d><d id="test"/></a>';
+var element = goog.dom.createElement('div');
+var element2 = goog.dom.createElement('div');
+goog.dom.classes.set(element2, 'xrx-document');
+goog.dom.setTextContent(element2, xml);
+goog.dom.append(element, element2);
+var instance = new xrx.mvc.Instance(element);
+var node = new xrx.node.DocumentB(instance.getId());
+xrx.xpath.declareNamespace('xrx', 'http://www.monasterium.net/NS/xrx');
+
+
+
+function test01declareNamespace() {
+};
+
+function test02declareFunction() {
+
+  var funcHelloWorld = new xrx.xpath.Function(
+      'xrx:echo', // name of the function
+      xrx.xpath.DataType.STRING_TYPE, // return type
+      true,
+      true,
+      true,
+      function(ctx, expr1, expr2) { // evaluation function
+        var val1 = expr1.evaluate(ctx);
+        var val2 = expr2 ? expr2.evaluate(ctx) : null;
+        return !expr2 ? val1 : val1 + val2;
+      }, 
+      1, // min number of arguments required for the XPath function
+      2 // max number of arguments allowed for the XPath function
+      );
+  xrx.xpath.declareFunction(funcHelloWorld);
+  
+  // function called with one parameter
+  var result1 = xrx.xpath.evaluate('xrx:echo("Hello World!")', node, null,
+      xrx.xpath.XPathResultType.STRING_TYPE);
+  assertEquals('Hello World!', result1.stringValue);
+  
+  // function called with two parameters
+  var result2 = xrx.xpath.evaluate('xrx:echo("Hello", " World!")', node, null,
+      xrx.xpath.XPathResultType.STRING_TYPE);
+  assertEquals('Hello World!', result2.stringValue);
+  
+  // function called with node as parameter
+  var result2 = xrx.xpath.evaluate('xrx:echo(//e/@type)', node, null,
+      xrx.xpath.XPathResultType.STRING_TYPE);
+  assertEquals('attrValue', result2.stringValue);
+};
+
+</script>
+</body>
+</html>

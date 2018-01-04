@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.mvc.Instance</title>
+<script type="text/javascript" src="../../../lib/jssaxparser/SAXException.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/AttributesImpl.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/LocatorImpls.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/NamespaceSupport.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/sax.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/DefaultHandlers.js"></script>
+<script src='../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.dom.DomHelper');
+  goog.require('goog.dom.classes');
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx');
+</script>
+</head>
+<body>
+
+<!-- REST -->
+<span id="i1" class="xrx-instance" data-resource="../xml/data/hamlet.xml.txt"></span>
+<span id="i2" class="xrx-instance" data-resource="../xml/data/hamlet.xml.txt"></span>
+<span id="i3" class="xrx-instance">&lt;dummy/&gt;</span>
+<span id="b1" class="xrx-bind" data-xrx-ref="xrx:instance('i1')"></span>
+
+<!-- GitHub -->
+<span id="igithub" class="xrx-github" data-resource="https://api.github.com/repos/JochenGraf/eCodicology/contents/SKOS.test.rdf"></span>
+
+<script type="text/javascript">
+
+
+
+function createComponent(opt_tagName, opt_id, opt_className, opt_datasets, opt_text) {
+  var tagName = opt_tagName || 'span';
+  var e = goog.dom.createElement(tagName);
+  if (opt_id) e.id = opt_id;
+  if (opt_className) goog.dom.classes.set(e, opt_className);
+  for (var key in opt_datasets) {
+    goog.dom.dataset.set(e, key, opt_datasets[key]);
+  };
+  if (opt_text) goog.dom.setTextContent(e, opt_text);
+  return e;
+};
+
+
+
+function testUidl() {
+  var e;
+  var uri = '../xml/data/hamlet.xml.txt';
+
+  // VALID
+  /* dataset regular */ e = createComponent('span', undefined, 'xrx-instance', { 'xrxResource': uri }, undefined);
+  assertNotThrows(function() { new xrx.mvc.Instance(e) });
+  /* dataset short   */ e = createComponent('span', undefined, 'xrx-instance', { 'src': uri }, undefined);
+  assertNotThrows(function() { new xrx.mvc.Instance(e) });
+
+  // INVALID
+  /* invalid tag name     */ e = createComponent('b', undefined, 'xrx-instance', undefined, '<dummy/>');
+  //assertThrows(function() { new xrx.mvc.Instance(e) });
+  /* invalid class name   */ e = createComponent('span', undefined, 'test', undefined, '<dummy/>');
+  //assertThrows(function() { new xrx.mvc.Instance(e) });
+  /* src dataset AND text */ e = createComponent('span', undefined, 'xrx-instance', { 'src': uri }, '<dummy/>');
+  //assertThrows(function() { new xrx.mvc.Instance(e) });
+  /* neither src NOR text */ e = createComponent('span', undefined, 'xrx-instance');
+  //assertThrows(function() { new xrx.mvc.Instance(e) });
+};
+
+
+
+function testCallback() {
+  assertTrue(xrx.mvc.getModelComponent('i1').xml() !== undefined);
+  assertTrue(xrx.mvc.getModelComponent('i2').xml() !== undefined);
+  assertTrue(xrx.mvc.getModelComponent('i3').xml() !== undefined);
+  assertEquals('<dummy/>', xrx.mvc.getModelComponent('i3').xml());
+  assertTrue(xrx.mvc.getModelComponent('b1').getNode(0) !== undefined);
+};
+
+
+
+function testGithubGET() {
+  assertTrue(xrx.mvc.getModelComponent('igithub').xml()[0] === '<');
+};
+
+
+
+function testGithubPUT() {
+  var xml = xrx.mvc.getModelComponent('igithub').xml();
+  xml = xml.split('');
+  xml[22] = parseInt(Math.floor(Math.random() * 10));
+  xml = xml.join('');
+  xrx.mvc.getModelComponent('igithub').xml(xml);
+  xrx.mvc.getModelComponent('igithub').save();
+  var xml = xrx.mvc.getModelComponent('igithub').xml();
+  xml = xml.split('');
+  xml[22] = parseInt(Math.floor(Math.random() * 10));
+  xml = xml.join('');
+  xrx.mvc.getModelComponent('igithub').xml(xml);
+  xrx.mvc.getModelComponent('igithub').save();
+  var xml = xrx.mvc.getModelComponent('igithub').xml();
+  xml = xml.split('');
+  xml[22] = parseInt(Math.floor(Math.random() * 10));
+  xml = xml.join('');
+  xrx.mvc.getModelComponent('igithub').xml(xml);
+  xrx.mvc.getModelComponent('igithub').save();
+};
+
+
+
+</script>
+<script>
+  xrx.install();
+</script>
+</body>
+</html>

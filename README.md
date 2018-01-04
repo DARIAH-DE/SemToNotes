@@ -5,4 +5,4 @@ _Semantic Topological Notes_ (SemToNotes) is a Topological Image Annotation and 
 
 Demo Applications: https://hkikoeln.github.io/SemToNotes
 
-API Documentation: https://hkikoeln.github.io/SemToNotes/client/apidoc
+API Documentation:  http://hkikoeln.github.io/SemToNotes/client/api/drawing/simple/index.html

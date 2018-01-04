@@ -1,0 +1,52 @@
+<div id="content" class="container" data-type="html">
+<h1>Zooming Model</h1>
+<h3>Motivation</h3>
+<p>The view-box offers a configurable grid model for zooming. This is motivated by the fact, that image viewers often
+	provide a range slider for zooming of images. Sliders are normally configured by (1) a minimum value, (2) a maximum
+	value, and (3) a number of steps the slider shall pass when sliding. The view-box offers a grid model that is in
+	line with such slider models.</p>
+<p></p>
+<h3>Example</h3>
+<p>Let's say, the background image has a width of 1500 pixels and you
+	want the zooming model to limit the size of the image to at least 100 pixels and to at most 2000 pixels. In addition you
+	want the image be zoomable in 200 steps from minimum to maximum size, that is, with 200 mouse wheel rotations, independent
+	of image size.
+<ul>
+	<li>The minimum zoom factor results from the question: which factor is needed to zoom the original image size of 1500
+		pixels to the minimum size of 100 pixels. This is simply the question of <code>1500 * minFactor = 100</code>, respectively,
+		<code>minFactor = 100 / 1500 = 0.066 </code>. The maximum factor works accordingly: <code>1500 * maxFactor = 2000</code>,
+		respectively, <code>maxFactor = 2000 / 1500 = 1.33</code>.</li>
+	<li>Set the minimum and maximum zoom factors with <code>drawing.getViewbox().setZoomFactorMin(100 / 1500)</code> and
+		<code>drawing.getViewbox().setZoomFactorMax(2000 / 1500)</code>.
+	</li>
+	<li>The zoom factor for each zoom step at first results from <code>(2000 - 100) / 200 = 9.5</code>. This means that,
+		if you want the image zoom from 100 to 2000 pixels in 200 steps, the image must grow by 9.5 pixels for each step. Since the
+		image has a width of 1500 pixels, the zoom factor relative to the image width in our example is:
+		<code>factor = 9.5 / 1500</code>.</li>
+  <li>Set the zoom factor finally with <code>drawing.getViewbox().setZoomFactor(9.5 / 1500).</code></li>
+</ul>
+<h3>Recommendation</h3>
+<p>Configuring such a model gives nice user experience, especially for applications that deal with images of significantly
+		different sizes.</p>
+	<p>A nice formula for a zoom model dealing with images of different sizes therefore is:</p>
+	<p><em>Let <code>imageWidth</code> be the width of the actual image, <code>minValue</code> the lower limit and <code>maxValue</code>
+		the upper limit, an image can be zoomed to. All values are pixel values. Let <code>steps</code> be the
+		number of steps needed to zoom from maximum to minimum size. Then, the zoom factors can be configured as follows:</em></p>
+	<ul>
+		<li>Minimum zoom factor: <code>drawing.getViewbox.setZoomFactorMin(minValue / imageWidth)</code></li>
+		<li>Maximum zoom factor: <code>drawing.getViewbox.setZoomFactorMax(maxValue / imageWidth)</code></li>
+		<li>Zoom factor per step: <code>drawing.getViewbox.setZoomFactor(((maxValue - minValue) / steps) / imageWidth)</code></li>
+	</ul>
+	<p>Advanced configurations should also respect the height of an image (for extreme upright formats) and must handle cases where the
+		native size of an image is larger or smaller than a normally expected maximum or minimum value.</p>
+	<p>See the example below for implementing a zooming model in combination with a standard HTML range slider:
+	  <code>&lt;input id="slider" type="range" min="" step="" max=""
+          oninput="window.drawing.getViewbox().zoomTo(this.value)"&gt;</code>.</p>
+</p>
+<h3>API Reference</h3>
+<ul>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.viewbox.Viewbox#setZoomFactor">xrx.viewbox.Viewbox.setZoomFactor()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.viewbox.Viewbox#setZoomFactorMax">xrx.viewbox.Viewbox.setZoomFactorMax()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.viewbox.Viewbox#setZoomFactorMin">xrx.viewbox.Viewbox.setZoomFactorMin()</a></li>
+</ul>
+</div>

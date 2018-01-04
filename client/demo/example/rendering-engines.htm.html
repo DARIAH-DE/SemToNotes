@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Browser Support</title>
+    <script src="../../xrx.api.drawing.min.js"></script>
+    <link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      #drawing1, #drawing2, #drawing3 {
+      width: 50%;
+      height: 300px;
+      }
+      #dom1, #dom2, #dom3 {
+      width: 45%;
+      min-height: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>HTML DOM and Browser Support</h1>
+      <h2>Canvas rendering</h2>
+      <div>
+        <div id="drawing1" class="col-sm-6 col-md-6">
+          <span>Your browser does not support HTML Canvas rendering.</span>
+        </div>
+        <div id="dom1" class="col-sm-6 col-md-6"><pre></pre></div>
+      </div>
+      <h2>SVG Rendering</h2>
+      <div>
+        <div id="drawing2" class="col-sm-6 col-md-6">
+          <span>Your browser does not support SVG rendering.</span>
+        </div>
+        <div id="dom2" class="col-sm-6 col-md-6"><pre></pre></div>
+      </div>
+      <h2>VML Rendering</h2>
+      <div>
+        <div id="drawing3" class="col-sm-6 col-md-6">
+          <span>Your browser does not support VML rendering.</span>
+        </div>
+        <div id="dom3" class="col-sm-6 col-md-6"><pre></pre></div>
+      </div>
+    </div>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+    <script>
+      (function() {
+
+        /**
+         * Reusable function that creates some shapes and adds them to the
+         * drawing canvas.
+         * @param {xrx.drawing.Drawing} drawing The drawing canvas.
+         */
+        var addShape = function(drawing) {
+          var polygon = new xrx.shape.Polygon(drawing);
+          polygon.setCoords([[10,10],[50,15],[51,100],[178,120],[3,190]]);
+          polygon.setStrokeColor('#1919A3');
+          polygon.setStrokeWidth(4);
+          polygon.setFillColor('#1919A3');
+          polygon.setFillOpacity(.8);
+          var rect = new xrx.shape.Rect(drawing);
+          rect.setX(120);
+          rect.setY(140);
+          rect.setWidth(80);
+          rect.setHeight(80);
+          rect.setStrokeColor('#AB296A');
+          rect.setStrokeWidth(4);
+          rect.setFillColor('#AB296A');
+          rect.setFillOpacity(.8);
+          drawing.addShapes(polygon, rect);
+        }
+
+        /**
+         * Reusable function that shows the DOM representation of a
+         * drawing canvas in a pretty way.
+         * @param {xrx.drawing.Drawing} drawing The drawing canvas.
+         * @param {string} id The ID of the target element to show
+         *   the stringified DOM.
+         */
+        var showDom = function(drawing, id) {
+          var target = document.getElementById(id).firstChild;
+          var domAsString = drawing.getElement().innerHTML;
+          target.textContent = domAsString;
+          target.className = 'prettyprint lang-html';
+        };
+
+        // create a drawing canvas using the HTML Canvas rendering engine,
+        // only if canvas rendering is supported by the current browser
+        if (xrx.engine.isSupported(xrx.engine.CANVAS)) {
+          var element1 = document.getElementById('drawing1');
+          var drawing1 = new xrx.drawing.Drawing(element1, xrx.engine.CANVAS);
+          addShape(drawing1);
+          showDom(drawing1, 'dom1');
+        }
+
+        // create a drawing canvas using the SVG rendering engine,
+        // only if SVG rendering is supported by the current browser
+        if (xrx.engine.isSupported(xrx.engine.SVG)) {
+          var element2 = document.getElementById('drawing2');
+          var drawing2 = new xrx.drawing.Drawing(element2, xrx.engine.SVG);
+          addShape(drawing2);
+          showDom(drawing2, 'dom2');
+        }
+
+        // create a drawing canvas using the VML rendering engine,
+        // only if VML rendering is supported by the current browser
+        if (xrx.engine.isSupported(xrx.engine.VML)) {
+          var element3 = document.getElementById('drawing3');
+          var drawing3 = new xrx.drawing.Drawing(element3, xrx.engine.VML);
+          addShape(drawing3);
+          showDom(drawing3, 'dom3');
+        }
+
+        return [drawing1, drawing2, drawing3];
+
+      })();
+    </script>
+  </body>
+</html>

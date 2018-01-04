@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.shape.Shape</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.dom.DomHelper');
+  goog.require('xrx.api.drawing');
+</script>
+<style>
+table {
+border-collapse: collapse;
+}
+td {
+border: solid grey 1px;
+}
+</style>
+</head>
+<body>
+
+<img id="testImage" src="./shape_test.png" style="display:none"></img>
+<table>
+  <tr>
+    <td></td>
+	  <td><span>Circle</span></td>
+	  <td><span>Ellipse</span></td>
+	  <td><span>Group</span></td>
+	  <td><span>Image</span></td>
+	  <td><span>Line</span></td>
+	  <td><span>Polygon</span></td>
+	  <td><span>Poly-line</span></td>
+	  <td><span>Rectangle</span></td>
+  </tr>
+  <tr>
+    <td><span>Canvas</span></td>
+	  <td id="canvasCircle"></td>
+	  <td id="canvasEllipse"></td>
+	  <td id="canvasGroup"></td>
+	  <td id="canvasImage"></td>
+	  <td id="canvasLine"></td>
+	  <td id="canvasPolygon"></td>
+	  <td id="canvasPolyline"></td>
+	  <td id="canvasRect"></td>
+  </tr>
+  <tr>
+    <td><span>SVG</span></td>
+	  <td id="svgCircle"></td>
+	  <td id="svgEllipse"></td>
+	  <td id="svgGroup"></td>
+	  <td id="svgImage"></td>
+	  <td id="svgLine"></td>
+	  <td id="svgPolygon"></td>
+	  <td id="svgPolyline"></td>
+	  <td id="svgRect"></td>
+  </tr>
+  <tr>
+    <td><span>VML</span></td>
+	  <td id="vmlCircle"></td>
+	  <td id="vmlEllipse"></td>
+	  <td id="vmlGroup"></td>
+	  <td id="vmlImage"></td>
+	  <td id="vmlLine"></td>
+	  <td id="vmlPolygon"></td>
+	  <td id="vmlPolyline"></td>
+	  <td id="vmlRect"></td>
+  </tr>
+  <tr>
+    <td><span>Comment</span></td>
+	  <td><span>Look alike?</span></td>
+	  <td><span>Look alike?</span></td>
+	  <td><span>Look alike?</span></td>
+	  <td><span>Look alike?</span></td>
+	  <td><span>Look alike?</span></td>
+	  <td><span>Look alike?</span></td>
+	  <td><span>Look alike?</span></td>
+	  <td><span>Look alike?</span></td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+
+
+
+var style = new xrx.shape.Style();
+style.setFillColor('green');
+style.setFillOpacity(.5);
+style.setStrokeColor('red');
+style.setStrokeWidth(2);
+
+
+
+function getDrawingCanvas(id) {
+  var div = goog.dom.getElement(id);
+  var drawing = new xrx.drawing.Drawing(div, xrx.engine.CANVAS);
+  drawing.setWidth(100);
+  drawing.setHeight(100);
+  return drawing;
+};
+
+
+
+function getDrawingSvg(id) {
+  var div = goog.dom.getElement(id);
+  var drawing = new xrx.drawing.Drawing(div, xrx.engine.SVG);
+  drawing.setWidth(100);
+  drawing.setHeight(100);
+  return drawing;
+};
+
+
+
+function getDrawingVml(id) {
+  var div = goog.dom.getElement(id);
+  var drawing = new xrx.drawing.Drawing(div, xrx.engine.VML);
+  drawing.setWidth(100);
+  drawing.setHeight(100);
+  return drawing;
+};
+
+
+
+function getCircle(drawing) {
+  var circle = new xrx.shape.Circle(drawing);
+  circle.setCenter(50, 50);
+  circle.setRadius(30);
+  circle.setStyle(style);
+  return circle;
+};
+
+
+
+function getEllipse(drawing) {
+  var ellipse = new xrx.shape.Ellipse(drawing);
+  ellipse.setCenter(50, 50);
+  ellipse.setRadiusX(10);
+  ellipse.setRadiusY(40);
+  ellipse.setStyle(style);
+  return ellipse;
+};
+
+
+
+function getImage(drawing) {
+  var img = new xrx.shape.Image(drawing);
+  img.setImage(goog.dom.getElement('testImage'));
+  return img;
+};
+
+
+
+function getLine(drawing) {
+  var line = new xrx.shape.Line(drawing);
+  line.setX1(10);
+  line.setY1(10);
+  line.setX2(90);
+  line.setY2(90);
+  line.setStyle(style);
+  return line;
+};
+
+
+
+function getPolygon(drawing) {
+  var coords = new Array(3);
+  coords[0] = [10,10];
+  coords[1] = [90,0];
+  coords[2] = [0,60];
+  var polygon = new xrx.shape.Polygon(drawing);
+  polygon.setCoords(coords);
+  polygon.setStyle(style);
+  return polygon;
+};
+
+
+
+function getPolyline(drawing) {
+  var coords = new Array(4);
+  coords[0] = [10,10];
+  coords[1] = [90,90];
+  coords[2] = [5,60];
+  coords[3] = [30,40];
+  var polyline = new xrx.shape.Polyline(drawing);
+  polyline.setCoords(coords);
+  polyline.setStyle(style);
+  return polyline;
+};
+
+
+
+function getRect(drawing) {
+  var rect = new xrx.shape.Rect(drawing);
+  rect.setX(10);
+  rect.setY(10);
+  rect.setWidth(10);
+  rect.setHeight(10);
+  rect.setStyle(style);
+  return rect;
+};
+
+
+
+function getGroup(drawing) {
+  var group = new xrx.shape.Group(drawing);
+  group.addChildren([this.getCircle(drawing),
+      this.getImage(drawing), this.getPolyline(drawing)]);
+  return group;
+};
+
+
+
+function test1Shapes() {
+  var shapes = ['Circle', 'Ellipse', 'Group', 'Image', 'Line', 'Polygon', 'Polyline', 'Rect'];
+  var shape;
+  for (var i = 0, len = shapes.length; i < len; i++) {
+    shape = shapes[i];
+    // Canvas
+    if (xrx.engine.isSupported(xrx.engine.CANVAS)) {
+      var canvasDrawing = getDrawingCanvas('canvas' + shape);
+      var canvasShape = this['get' + shape](canvasDrawing);
+      canvasDrawing.getLayerShape().addShapes(canvasShape);
+      canvasDrawing.draw();
+    }
+    // SVG
+    if (xrx.engine.isSupported(xrx.engine.SVG)) {
+      var svgDrawing = getDrawingSvg('svg' + shape);
+      var svgShape = this['get' + shape](svgDrawing);
+      svgDrawing.getLayerShape().addShapes(svgShape);
+      svgDrawing.draw();
+    }
+    // VML
+    if (xrx.engine.isSupported(xrx.engine.VML)) {
+      var vmlDrawing = getDrawingVml('vml' + shape);
+      var vmlShape = this['get' + shape](vmlDrawing);
+      vmlDrawing.getLayerShape().addShapes(vmlShape);
+      vmlDrawing.draw();
+    }
+  }
+};
+
+</script>
+</body>
+</html>

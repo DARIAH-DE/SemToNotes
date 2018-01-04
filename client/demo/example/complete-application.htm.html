@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Complete Application</title>
+    <script src="../../xrx.api.drawing.min.js"></script>
+    <link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Basic Template</h1>
+      <div id="drawing"></div>
+    </div>
+    <!-- alternatively include the source file here -->
+    <!--script src="../../xrx.api.drawing.min.js"></script-->
+    <script>
+      (function() {
+        var element = document.getElementById('drawing');
+        var drawing = new xrx.drawing.Drawing(element);
+        var circle = new xrx.shape.Circle(drawing);
+        circle.setCenter(60, 60);
+        circle.setRadius(30);
+        circle.setStrokeColor('magenta');
+        circle.setStrokeWidth(4);
+        drawing.addShapes(circle);
+        return drawing;
+      })();
+    </script>
+  </body>
+</html>

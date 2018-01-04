@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.drawing.Hoverable</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.dom.DomHelper');
+  goog.require('goog.events');
+  goog.require('goog.events.EventType');
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx');
+</script>
+</head>
+<body>
+
+(<span id="debugInNum">0</span>)&nbsp;<span id="debugIn">-</span><br>
+(<span id="debugMoveNum">0</span>)&nbsp;<span id="debugMove">-</span><br>
+(<span id="debugOutNum">0</span>)&nbsp;<span id="debugOut">-</span><br>
+<div id="drawingCanvas"></div>
+<div id="drawingSVG"></div>
+<div id="drawingVML"></div>
+
+<script type="text/javascript">
+
+var drawingCanvas;
+var drawingSVG;
+var drawingVML;
+var debugIn = goog.dom.getElement('debugIn');
+var debugMove = goog.dom.getElement('debugMove');
+var debugOut = goog.dom.getElement('debugOut');
+var debugInNum = goog.dom.getElement('debugInNum');
+var debugMoveNum = goog.dom.getElement('debugMoveNum');
+var debugOutNum = goog.dom.getElement('debugOutNum');
+
+
+
+// create drawing canvases and switch them into mode hover
+function initDrawings_() {
+  drawingCanvas = new xrx.drawing.Drawing(goog.dom.getElement('drawingCanvas'),
+      xrx.engine.CANVAS);
+  drawingCanvas.setModeHover();
+  drawingSVG = new xrx.drawing.Drawing(goog.dom.getElement('drawingSVG'),
+      xrx.engine.SVG);
+  drawingSVG.setModeHover();
+  drawingVML = new xrx.drawing.Drawing(goog.dom.getElement('drawingVML'),
+      xrx.engine.VML, true);
+  drawingVML.setModeHover();
+};
+
+
+
+// create shapes, add them to and render them on the shapes layers
+function initShapes_() {
+  var init = function(drawing) {
+    var rectangle = new xrx.shape.Rect.create(drawing.getCanvas());
+    rectangle.setCoords([[10,10],[100,10],[100,110],[10,110]]);
+    var polygon = new xrx.shape.Polygon.create(drawing.getCanvas());
+    polygon.setCoords([[200,10],[300,15],[250,110],[240,31],[230,100]]);
+    drawing.getLayerShape().addShapes([rectangle,polygon]);
+    drawing.draw();
+  };
+  init(drawingCanvas);
+  init(drawingSVG);
+  init(drawingVML);
+};
+
+
+
+// define what shall happen when shape is hovered
+function initHover_() {
+  var clearDebug = function() {
+    goog.dom.setTextContent(debugIn, '-');
+    goog.dom.setTextContent(debugMove, '-');
+    goog.dom.setTextContent(debugOut, '-');
+    goog.dom.setTextContent(debugInNum, '0');
+    goog.dom.setTextContent(debugMoveNum, '0');
+    goog.dom.setTextContent(debugOutNum, '0');
+  };
+  var incrementDebug = function(element) {
+    var num;
+    num = parseInt(goog.dom.getTextContent(element));
+    num ++;
+    goog.dom.setTextContent(element, num.toString());
+  };
+  var handleIn = function(drawing, shape) {
+    clearDebug();
+    goog.dom.setTextContent(debugIn, 'hoverIn ' + drawing.getElement().id +
+        ' ' + shape.getCoords());
+    incrementDebug(debugInNum);
+  };
+  var handleMove = function(drawing, shape) {
+    goog.dom.setTextContent(debugMove, 'hoverMove ' + drawing.getElement().id +
+        ' ' + shape.getCoords());
+    incrementDebug(debugMoveNum);
+  };
+  var handleOut = function(drawing, shape) {
+    goog.dom.setTextContent(debugOut, 'hoverOut ' + drawing.getElement().id +
+        ' ' + shape.getCoords());
+    incrementDebug(debugOutNum);
+  };
+
+  drawingCanvas.eventShapeHoverIn = function(shape) {
+    handleIn(this, shape);
+  };
+  drawingCanvas.eventShapeHoverMove = function(shape) {
+    shape.setStrokeColor('red');
+    handleMove(this, shape);
+  };
+  drawingCanvas.eventShapeHoverOut = function(shape) {
+    handleOut(this, shape);
+  };
+  drawingSVG.eventShapeHoverIn = function(shape) {
+    handleIn(this, shape);
+  };
+  drawingSVG.eventShapeHoverMove = function(shape) {
+    shape.setStrokeColor('green');
+    handleMove(this, shape);
+  };
+  drawingSVG.eventShapeHoverOut = function(shape) {
+    handleOut(this, shape);
+  };
+  drawingVML.eventShapeHoverIn = function(shape) {
+    handleIn(this, shape);
+  };
+  drawingVML.eventShapeHoverMove = function(shape) {
+    shape.setStrokeColor('blue');
+    handleMove(this, shape);
+  };
+  drawingVML.eventShapeHoverOut = function(shape) {
+    handleOut(this, shape);
+  };
+};
+
+
+
+// create test
+function test() {
+  initDrawings_();
+  initShapes_();
+  initHover_();
+};
+
+</script>
+
+</body>
+</html>

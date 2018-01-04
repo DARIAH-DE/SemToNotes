@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.xml.Serialize</title>
+<script src='../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx.xml.Serialize');
+</script>
+</head>
+<body>
+<script type="text/javascript">
+
+
+
+function test01attribute() {
+  assertEquals(' attr="v"', xrx.xml.Serialize.attribute('attr', 'v'));
+  assertEquals(' x:attr=""',
+      xrx.xml.Serialize.attributeNs('x', 'x:attr', 'http://example.org/x'));
+  assertEquals(' xmlns:x="http://example.org/x" x:attr=""',
+      xrx.xml.Serialize.attributeNs(undefined, 'x:attr', 'http://example.org/x'));
+};
+
+
+
+function test02comment() {
+  assertEquals('<!-- comment -->', xrx.xml.Serialize.comment(' comment '));
+};
+
+
+
+function test03emptyTag() {
+  assertEquals('<a/>', xrx.xml.Serialize.emptyTag('a'));
+  assertEquals('<a/>',
+      xrx.xml.Serialize.emptyTagNs('xmlns', 'a', 'http://example.org/a'));
+  assertEquals('<a:a/>',
+      xrx.xml.Serialize.emptyTagNs('xmlns:a', 'a', 'http://example.org/a'));
+  assertEquals('<a xmlns="http://example.org/a"/>',
+      xrx.xml.Serialize.emptyTagNs(undefined, 'a', 'http://example.org/a'));
+};
+
+
+
+function test04endTag() {
+  assertEquals('</a>', xrx.xml.Serialize.endTag('a'));
+  assertEquals('</a>',
+      xrx.xml.Serialize.endTagNs('xmlns', 'a', 'http://example.org/a'));
+  assertEquals('</a:a>',
+      xrx.xml.Serialize.endTagNs('xmlns:a', 'a', 'http://example.org/a'));
+  assertEquals('</a>',
+      xrx.xml.Serialize.endTagNs(undefined, 'a', 'http://example.org/a'));
+};
+
+
+
+function test05namespace() {
+  assertEquals(' xmlns:n="http://example.org/n"',
+      xrx.xml.Serialize.namespace('xmlns:n', 'http://example.org/n'));
+  assertEquals(' xmlns="http://example.org/m"',
+      xrx.xml.Serialize.namespace('xmlns', 'http://example.org/m'));
+};
+
+
+
+function test06processingInstruction() {
+  assertEquals('<?xml-stylesheet href="shakes.xsl" type="text/xsl"?>',
+      xrx.xml.Serialize.processingInstruction('xml-stylesheet',
+          'href="shakes.xsl" type="text/xsl"'));
+};
+
+
+
+function test07startEmptyTag() {
+  assertEquals('<a', xrx.xml.Serialize.startEmptyTag('a'));
+  assertEquals('<a',
+      xrx.xml.Serialize.startEmptyTagNs('xmlns', 'a', 'http://example.org/a'));
+  assertEquals('<a:a',
+      xrx.xml.Serialize.startEmptyTagNs('xmlns:a', 'a', 'http://example.org/a'));
+  assertEquals('<a xmlns="http://example.org/a"',
+      xrx.xml.Serialize.startEmptyTagNs(undefined, 'a', 'http://example.org/a'));
+};
+
+
+
+function test08startTag() {
+  assertEquals('<a>', xrx.xml.Serialize.startTag('a'));
+  assertEquals('<a>',
+      xrx.xml.Serialize.startTagNs('xmlns', 'a', 'http://example.org/a'));
+  assertEquals('<a:a>',
+      xrx.xml.Serialize.startTagNs('xmlns:a', 'a', 'http://example.org/a'));
+  assertEquals('<a xmlns="http://example.org/a">',
+      xrx.xml.Serialize.startTagNs(undefined, 'a', 'http://example.org/a'));
+};
+
+
+
+</script>
+</body>
+</html>

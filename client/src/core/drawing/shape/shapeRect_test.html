@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.shape.Rect, xrx.shape.RectModifiable, xrx.shape.RectCreatable</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../deps.js'></script>
+<script src='./shapeTest.js'></script>
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.dom.DomHelper');
+  goog.require('xrx.api.drawing');
+</script>
+<link rel="stylesheet" type="text/css" href="./shapeTest.css">
+</head>
+<body>
+<script type="text/javascript">
+
+
+
+createTables('Rect', goog.dom);
+
+
+
+function getRects(drawing) {
+  var hoverableStyle = new xrx.shape.Style();
+  hoverableStyle.setFillColor('green');
+  hoverableStyle.setFillOpacity(.2);
+  hoverableStyle.setStrokeColor('green');
+  hoverableStyle.setStrokeWidth(2);
+  var selectableStyle = new xrx.shape.Selectable();
+  selectableStyle.setFillColor('grey');
+  selectableStyle.setFillOpacity(.2);
+  selectableStyle.setStrokeColor('yellow');
+  selectableStyle.setStrokeWidth(2);
+  var coords1 = [[12,12], [12,25], [25,25], [25,12]];
+  var coords2 = [[112,112], [112,125], [125,125], [125,112]];
+  var coords3 = [[212,212], [212,315], [315,315], [315,212]];
+  var coords4 = [[200,200], [200,300], [300,300], [300,200]];
+  var rect1 = new xrx.shape.Rect(drawing);
+  var rect2 = new xrx.shape.Rect(drawing);
+  var rect3 = new xrx.shape.Rect(drawing);
+  var rect4 = new xrx.shape.Rect(drawing);
+  rect1.setCoords(coords1);
+  rect1.setStrokeWidth(1);
+  rect1.getHoverable().setStyle(hoverableStyle);
+  rect1.getSelectable().setStyle(selectableStyle);
+  rect2.setCoords(coords2);
+  rect2.setStrokeWidth(1);
+  rect2.getHoverable().setStyle(hoverableStyle);
+  rect2.getSelectable().setStyle(selectableStyle);
+  rect3.setCoords(coords3);
+  rect3.setStrokeWidth(1);
+  rect3.getHoverable().setStyle(hoverableStyle);
+  rect3.getSelectable().setStyle(selectableStyle);
+  rect4.setCoords(coords4);
+  rect4.setStrokeWidth(1);
+  rect4.getHoverable().setStyle(hoverableStyle);
+  rect4.getSelectable().setStyle(selectableStyle);
+  return [rect1, rect2, rect3, rect4];
+};
+
+
+
+function test1View() {
+  modeView('Rect');
+};
+
+
+
+function test2Hover() {
+  modeHover('Rect');
+};
+
+
+
+function test3HoverMultiple() {
+  modeHoverMultiple('Rect');
+};
+
+
+
+function test4Select() {
+  modeSelect('Rect');
+};
+
+
+
+function test5Modify() {
+  modeModify('Rect'); 
+};
+
+
+
+function test6Create() {
+  modeCreate('Rect');
+};
+
+
+
+</script>
+</body>
+</html>

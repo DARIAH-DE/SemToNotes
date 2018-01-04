@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.mvc.Submission</title>
+<script type="text/javascript" src="../../../lib/jssaxparser/SAXException.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/AttributesImpl.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/LocatorImpls.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/NamespaceSupport.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/sax.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/DefaultHandlers.js"></script>
+<script src='../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx');
+  goog.require('xrx.mvc');
+  goog.require('xrx.mvc.Auth');
+</script>
+</head>
+<body>
+
+<!-- GitHub -->
+<div id="i1" class="xrx-instance">&lt;dummy&gt;abc&lt;/dummy&gt;</div>
+<div id="b1" class="xrx-bind" data-ref="xrx:instance('i1')"></div>
+
+<div id="sgget" class="xrx-submission" data-method="GET" data-bind="b1"
+    data-resource="https://api.github.com/repos/JochenGraf/eCodicology/contents/test.xml"></div>
+<div id="sgpost" class="xrx-submission" data-method="POST" data-bind="b1"
+    data-resource="https://api.github.com/repos/JochenGraf/eCodicology/contents/test.xml"></div>
+<div id="sgput" class="xrx-submission" data-method="PUT" data-bind="b1"
+    data-resource="https://api.github.com/repos/JochenGraf/eCodicology/contents/test.xml"></div>
+<div id="sgdelete" class="xrx-submission" data-method="DELETE" data-bind="b1"
+    data-resource="https://api.github.com/repos/JochenGraf/eCodicology/contents/test.xml"></div>
+
+<!-- REST -->
+
+<script type="text/javascript">
+
+
+
+function testGithubGet() {
+};
+
+
+
+function testGithubPost() {
+};
+
+
+
+function testGithubPut() {
+  xrx.mvc.Auth.setUser('JochenGraf');
+  xrx.mvc.Auth.setPassword('0iwme00');
+  xrx.mvc.getComponent('sgput').submit();
+};
+
+
+
+function testGithubDelete() {
+};
+
+
+
+function testRestGet() {
+};
+
+
+
+function testRestPost() {
+};
+
+
+
+function testRestPut() {
+};
+
+
+
+function testRestDelete() {
+}
+
+
+
+</script>
+<script>
+  xrx.install();
+</script>
+</body>
+</html>

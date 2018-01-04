@@ -1,0 +1,5230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Class: xrx.drawing.Drawing | API Reference | SemToNotes</title>
+  <script src="scripts/prettify/prettify.js"></script>
+  <script src="scripts/prettify/lang-css.js"></script>
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+  <!--link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css"-->
+  <link href="../../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../../demo/stylesheets/demo.css" rel="stylesheet">
+</head>
+<body>
+  <nav id="nav" class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"></button>
+        <a class="navbar-brand" href="../../../../index.html">SemToNotes</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li id="homeLink"><a href="../../../../index.html#home">Home</a></li>
+          <li id="apiLink" class="active">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">JavaScript API <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="../../../../index.html#documentation">API Documentation</a></li>
+              <li><a href="../simple/index.html">Simple API Reference <small>(for users)</small></a></li>
+              <li><a href="../full/index.html">Full API Reference <small>(for developers)</small></a></li>
+              <li><a href="../../../../index.html#about">About</a></li>
+            </ul>
+          </li>
+          <li id="retrievalLink"><a href="../../../../index.html#retrieval">Topological Retrieval</a></li>
+          <li><a target="_blank" href="https://github.com/HKIKoeln/SemToNotes/">Code</a></li>
+        </ul>
+      </div>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+  <div id="content" class="container">
+    <div id="main" class="col-md-9">
+      <h1 class="page-title">Class: xrx.drawing.Drawing</h1>
+      
+
+
+
+<section>
+
+<header>
+    <h2>
+        <span class="ancestors"><a href="xrx.html">xrx</a><a href="xrx.drawing.html">.drawing</a>.</span>
+    
+    Drawing
+    </h2>
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+
+    
+        
+<dt>
+    <h4 class="name" id="Drawing"><span class="type-signature"></span>new xrx.drawing.Drawing<span class="signature">(element, opt_engine)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        A class representing a drawing canvas. The drawing canvas can have a backgroundimage and thereby can serve as an image annotation tool.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">DOMElement</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The HTML element used to install the canvas.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt_engine</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">xrx.engine.Canvas</span>
+|
+
+<span class="param-type"><a href="xrx.engine.html#SVG">xrx.engine.SVG</a></span>
+|
+
+<span class="param-type"><a href="xrx.engine.html#VML">xrx.engine.VML</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The  rendering engine type.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line45">line 45</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        <dl>
+            
+<dt>
+    <h4 class="name" id="canvas_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#canvas_<span class="type-signature"> :<a href="xrx.shape.Canvas.html">xrx.shape.Canvas</a></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The graphics canvas.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type"><a href="xrx.shape.Canvas.html">xrx.shape.Canvas</a></span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line68">line 68</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="creatable_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#creatable_<span class="type-signature"> :Object</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The shape currently created by the user.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line117">line 117</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="element_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#element_<span class="type-signature"> :DOMElement</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The DOM element used to install the drawing canvas.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">DOMElement</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line54">line 54</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="engine_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#engine_<span class="type-signature"> :<a href="xrx.engine.Engine.html">xrx.engine.Engine</a></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The graphics rendering engine.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type"><a href="xrx.engine.Engine.html">xrx.engine.Engine</a></span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line61">line 61</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="eventBeforeRendering"><span class="type-signature">(private) </span>xrx.drawing.Drawing#eventBeforeRendering<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Just for debugging.
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line144">line 144</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="height_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#height_<span class="type-signature"> :number</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The height of this drawing canvas.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">number</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line138">line 138</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="hoverable_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#hoverable_<span class="type-signature"> :<a href="xrx.drawing.Hoverable.html">xrx.drawing.Hoverable</a></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The shape currently hovered by the user.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type"><a href="xrx.drawing.Hoverable.html">xrx.drawing.Hoverable</a></span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line110">line 110</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="layer_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#layer_<span class="type-signature"> :Array</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The layers of the drawing canvas.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Array</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line75">line 75</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="mode_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#mode_<span class="type-signature"> :number</span></h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">number</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line89">line 89</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="modifiable_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#modifiable_<span class="type-signature"> :<a href="xrx.drawing.Modifiable.html">xrx.drawing.Modifiable</a></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The shape currently modified by the user.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type"><a href="xrx.drawing.Modifiable.html">xrx.drawing.Modifiable</a></span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line96">line 96</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="selectable_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#selectable_<span class="type-signature"> :<a href="xrx.drawing.Selectable.html">xrx.drawing.Selectable</a></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The shape currently selected by the user.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type"><a href="xrx.drawing.Selectable.html">xrx.drawing.Selectable</a></span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line103">line 103</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="shield_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#shield_<span class="type-signature"> :<a href="xrx.shape.Rect.html">xrx.shape.Rect</a></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        A shield in front of the canvas needed by the SVG and theVML rendering engine for smooth dragging of elements.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type"><a href="xrx.shape.Rect.html">xrx.shape.Rect</a></span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line83">line 83</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="timeoutDraw_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#timeoutDraw_<span class="type-signature"> :function</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Timeout function for function draw() to improve performance.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">function</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line159">line 159</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="timeoutResize_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#timeoutResize_<span class="type-signature"> :function</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Timeout function for function handleResize() to improve performance.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">function</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line166">line 166</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="viewbox_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#viewbox_<span class="type-signature"> :<a href="xrx.viewbox.Viewbox.html">xrx.viewbox.Viewbox</a></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The view-box of the drawing canvas.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type"><a href="xrx.viewbox.Viewbox.html">xrx.viewbox.Viewbox</a></span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line124">line 124</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="vsm_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#vsm_<span class="type-signature"> :goog.dom.VieportSizeMonitor</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Viewport size monitor. Fires events whenever the size ofthe browser window changes.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">goog.dom.VieportSizeMonitor</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line152">line 152</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="width_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#width_<span class="type-signature"> :number</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The width of this drawing canvas.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">number</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line131">line 131</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<dt>
+    <h4 class="name" id="addShapes"><span class="type-signature"></span>xrx.drawing.Drawing#addShapes<span class="signature">(var_args)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Adds one or more shapes to this drawing canvas.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>var_args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="xrx.shape.Shape.html">xrx.shape.Shape</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The shapes.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line377">line 377</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="calculateSize_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#calculateSize_<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line605">line 605</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="draw"><span class="type-signature"></span>xrx.drawing.Drawing#draw<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Draws this canvas and all its layers, tools and shapes contained.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line416">line 416</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getBackgroundImage"><span class="type-signature"></span>xrx.drawing.Drawing#getBackgroundImage<span class="signature">()</span><span class="type-signature"> &rarr; {HTMLImage}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the current background image of this drawing canvas.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line342">line 342</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The background image.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">HTMLImage</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getCanvas"><span class="type-signature"></span>xrx.drawing.Drawing#getCanvas<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="xrx.shape.Canvas.html">xrx.shape.Canvas</a>}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the canvas object of this drawing canvas.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line208">line 208</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The canvas object.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="xrx.shape.Canvas.html">xrx.shape.Canvas</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getElement"><span class="type-signature"></span>xrx.drawing.Drawing#getElement<span class="signature">()</span><span class="type-signature"> &rarr; {DOMElement}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the wrapper element of this drawing canvas.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line188">line 188</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The wrapper.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">DOMElement</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getEngine"><span class="type-signature"></span>xrx.drawing.Drawing#getEngine<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="xrx.engine.Engine.html">xrx.engine.Engine</a>}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the engine used for rendering.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line198">line 198</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The engine.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="xrx.engine.Engine.html">xrx.engine.Engine</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getHeight"><span class="type-signature"></span>xrx.drawing.Drawing#getHeight<span class="signature">(height)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the height of this drawing canvas.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>height</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The height in pixel.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line310">line 310</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getLayerBackground"><span class="type-signature"></span>xrx.drawing.Drawing#getLayerBackground<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="xrx.drawing.LayerBackground.html">xrx.drawing.LayerBackground</a>}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the background layer of this drawing canvas.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line218">line 218</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The background layer object.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="xrx.drawing.LayerBackground.html">xrx.drawing.LayerBackground</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getLayerShape"><span class="type-signature"></span>xrx.drawing.Drawing#getLayerShape<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="xrx.drawing.LayerShape.html">xrx.drawing.LayerShape</a>}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the shape layer of this drawing canvas.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line228">line 228</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The shape layer object.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="xrx.drawing.LayerShape.html">xrx.drawing.LayerShape</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getLayerShapeCreate"><span class="type-signature"></span>xrx.drawing.Drawing#getLayerShapeCreate<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="xrx.drawing.LayerShapeCreate.html">xrx.drawing.LayerShapeCreate</a>}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the layer where new shapes can be drawn.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line248">line 248</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The create layer object.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="xrx.drawing.LayerShapeCreate.html">xrx.drawing.LayerShapeCreate</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getLayerShapeModify"><span class="type-signature"></span>xrx.drawing.Drawing#getLayerShapeModify<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="xrx.drawing.LayerShapeModify.html">xrx.drawing.LayerShapeModify</a>}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the layer where shapes can be modified.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line238">line 238</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The shape modify layer object.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="xrx.drawing.LayerShapeModify.html">xrx.drawing.LayerShapeModify</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getLayerTool"><span class="type-signature"></span>xrx.drawing.Drawing#getLayerTool<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="xrx.drawing.LayerTool.html">xrx.drawing.LayerTool</a>}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the layer where tools can be plugged in.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line258">line 258</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The tool layer object.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="xrx.drawing.LayerTool.html">xrx.drawing.LayerTool</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getMode"><span class="type-signature"></span>xrx.drawing.Drawing#getMode<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the current mode of this drawing canvas.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line443">line 443</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The mode.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getShapes"><span class="type-signature"></span>xrx.drawing.Drawing#getShapes<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;<a href="xrx.shape.Shape.html">xrx.shape.Shape</a>>}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the shapes currently rendered by this drawing canvas.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line388">line 388</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The shapes.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;<a href="xrx.shape.Shape.html">xrx.shape.Shape</a>></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getViewbox"><span class="type-signature"></span>xrx.drawing.Drawing#getViewbox<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the view-box of this drawing canvas.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line268">line 268</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The view-box.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getWidth"><span class="type-signature"></span>xrx.drawing.Drawing#getWidth<span class="signature">(width)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the width of this drawing canvas.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>width</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The width in pixel.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line290">line 290</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="handleResize"><span class="type-signature"></span>xrx.drawing.Drawing#handleResize<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Handles resizing of this drawing canvas. This function isautomatically called whenever the size of the browser windowchanges. It can be also called by an application that manuallychanges the size of this drawing canvas during live time.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line587">line 587</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="initEngine_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#initEngine_<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line713">line 713</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="install_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#install_<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line722">line 722</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="installCanvas_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#installCanvas_<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line622">line 622</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="installLayerBackground_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#installLayerBackground_<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line648">line 648</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="installLayerShape_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#installLayerShape_<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line658">line 658</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="installLayerShapecreatable_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#installLayerShapecreatable_<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line678">line 678</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="installLayerShapeModify_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#installLayerShapeModify_<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line668">line 668</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="installLayerTool_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#installLayerTool_<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line704">line 704</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="installShield_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#installShield_<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line688">line 688</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="installViewbox_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#installViewbox_<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line638">line 638</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setBackgroundImage"><span class="type-signature"></span>xrx.drawing.Drawing#setBackgroundImage<span class="signature">(url, opt_callback)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets a background image to this drawing canvas.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The URL of the image.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt_callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A callback function that is evaluated after  the image is loaded.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line354">line 354</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setHeight"><span class="type-signature"></span>xrx.drawing.Drawing#setHeight<span class="signature">(height)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets the height of this drawing canvas.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>height</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The height in pixel.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line320">line 320</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setMode_"><span class="type-signature">(private) </span>xrx.drawing.Drawing#setMode_<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line452">line 452</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setModeCreate"><span class="type-signature"></span>xrx.drawing.Drawing#setModeCreate<span class="signature">(creatable)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Switch the drawing canvas over into mode <i>create</i> to allow drawing of new shapes.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>creatable</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="xrx.shape.Creatable.html">xrx.shape.Creatable</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The shape to be created.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line564">line 564</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="xrx.drawing.html#Mode">xrx.drawing.Mode</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setModeDisabled"><span class="type-signature"></span>xrx.drawing.Drawing#setModeDisabled<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Switch the drawing canvas over into mode <i>disabled</i>.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line464">line 464</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setModeHover"><span class="type-signature"></span>xrx.drawing.Drawing#setModeHover<span class="signature">(opt_overlapping)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Switch the drawing canvas over into mode <i>hover</i> to allow hoveringof shapes.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>opt_overlapping</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Whether to highlight all hovered shapes that  lie on top of each other or just the most forward. opt_overlapping defaults  to false.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line499">line 499</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setModeModify"><span class="type-signature"></span>xrx.drawing.Drawing#setModeModify<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Switch the drawing canvas over into mode <i>modify</i> to allow modification of shapes.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line547">line 547</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="xrx.drawing.html#Mode">xrx.drawing.Mode</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setModeSelect"><span class="type-signature"></span>xrx.drawing.Drawing#setModeSelect<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Switch the drawing canvas over into mode <i>select</i> to allow selectingof shapes.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line520">line 520</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setModeView"><span class="type-signature"></span>xrx.drawing.Drawing#setModeView<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Switch the drawing canvas over into mode <i>view</i> to allow view-box panningzooming and rotating.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line480">line 480</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setSelected"><span class="type-signature"></span>xrx.drawing.Drawing#setSelected<span class="signature">(shape)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets a shape as the selected.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>shape</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="xrx.shape.Shape.html">xrx.shape.Shape</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The shape to be selected.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line536">line 536</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setSize"><span class="type-signature"></span>xrx.drawing.Drawing#setSize<span class="signature">(width, height)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets the size of this drawing canvas.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>width</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The width in pixel.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>height</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The height in pixel.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line279">line 279</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setStyle"><span class="type-signature"></span>xrx.drawing.Drawing#setStyle<span class="signature">(The, The)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets a CSS style for this drawing canvas.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>The</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">style name such as 'padding'.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>The</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">style value such as '20px'.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line331">line 331</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setWidth"><span class="type-signature"></span>xrx.drawing.Drawing#setWidth<span class="signature">(width)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets the width of this drawing canvas.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>width</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The width in pixel.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line300">line 300</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+
+    
+        <h3 class="subsection-title">Events</h3>
+
+        <dl>
+            
+<dt>
+    <h4 class="name" id="event:eventShapeModify">xrx.drawing.Drawing#event:eventShapeModify</h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Event that is thrown whenever a shape is modified.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>shape</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="xrx.shape.Shape.html">xrx.shape.Shape</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The shape that was modified.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawingDrawing.js.html">core/drawing/drawingDrawing.js</a>, <a href="drawingDrawing.js.html#line180">line 180</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        </dl>
+    
+</article>
+
+</section>
+
+
+
+
+    </div>
+    <nav class="col-md-3">
+      <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="xrx.canvas.Canvas.html">xrx.canvas.Canvas</a></li><li><a href="xrx.canvas.Circle.html">xrx.canvas.Circle</a></li><li><a href="xrx.canvas.Container.html">xrx.canvas.Container</a></li><li><a href="xrx.canvas.Element.html">xrx.canvas.Element</a></li><li><a href="xrx.canvas.Ellipse.html">xrx.canvas.Ellipse</a></li><li><a href="xrx.canvas.Group.html">xrx.canvas.Group</a></li><li><a href="xrx.canvas.Image.html">xrx.canvas.Image</a></li><li><a href="xrx.canvas.Line.html">xrx.canvas.Line</a></li><li><a href="xrx.canvas.Polygon.html">xrx.canvas.Polygon</a></li><li><a href="xrx.canvas.Polyline.html">xrx.canvas.Polyline</a></li><li><a href="xrx.canvas.Rect.html">xrx.canvas.Rect</a></li><li><a href="xrx.canvas.Stylable.html">xrx.canvas.Stylable</a></li><li><a href="xrx.drawing.Cursor.html">xrx.drawing.Cursor</a></li><li><a href="xrx.drawing.Drawing.html">xrx.drawing.Drawing</a></li><li><a href="xrx.drawing.EventHandler.html">xrx.drawing.EventHandler</a></li><li><a href="xrx.drawing.Hoverable.html">xrx.drawing.Hoverable</a></li><li><a href="xrx.drawing.Layer.html">xrx.drawing.Layer</a></li><li><a href="xrx.drawing.LayerBackground.html">xrx.drawing.LayerBackground</a></li><li><a href="xrx.drawing.LayerShape.html">xrx.drawing.LayerShape</a></li><li><a href="xrx.drawing.LayerShapeCreate.html">xrx.drawing.LayerShapeCreate</a></li><li><a href="xrx.drawing.LayerShapeModify.html">xrx.drawing.LayerShapeModify</a></li><li><a href="xrx.drawing.LayerTool.html">xrx.drawing.LayerTool</a></li><li><a href="xrx.drawing.Modifiable.html">xrx.drawing.Modifiable</a></li><li><a href="xrx.drawing.Selectable.html">xrx.drawing.Selectable</a></li><li><a href="xrx.drawing.tool.Magnifier.html">xrx.drawing.tool.Magnifier</a></li><li><a href="xrx.engine.Element.html">xrx.engine.Element</a></li><li><a href="xrx.engine.Engine.html">xrx.engine.Engine</a></li><li><a href="xrx.engine.Engines.html">xrx.engine.Engines</a></li><li><a href="xrx.event.HandlerTarget.html">xrx.event.HandlerTarget</a></li><li><a href="xrx.EventTarget.html">xrx.EventTarget</a></li><li><a href="xrx.geometry.Box.html">xrx.geometry.Box</a></li><li><a href="xrx.geometry.Circle.html">xrx.geometry.Circle</a></li><li><a href="xrx.geometry.Ellipse.html">xrx.geometry.Ellipse</a></li><li><a href="xrx.geometry.Geometry.html">xrx.geometry.Geometry</a></li><li><a href="xrx.geometry.Line.html">xrx.geometry.Line</a></li><li><a href="xrx.geometry.Path.html">xrx.geometry.Path</a></li><li><a href="xrx.geometry.Point.html">xrx.geometry.Point</a></li><li><a href="xrx.geometry.Polyline.html">xrx.geometry.Polyline</a></li><li><a href="xrx.geometry.Rect.html">xrx.geometry.Rect</a></li><li><a href="xrx.shape.Canvas.html">xrx.shape.Canvas</a></li><li><a href="xrx.shape.Circle.html">xrx.shape.Circle</a></li><li><a href="xrx.shape.CircleCreatable.html">xrx.shape.CircleCreatable</a></li><li><a href="xrx.shape.CircleHoverable.html">xrx.shape.CircleHoverable</a></li><li><a href="xrx.shape.CircleModifiable.html">xrx.shape.CircleModifiable</a></li><li><a href="xrx.shape.CircleSelectable.html">xrx.shape.CircleSelectable</a></li><li><a href="xrx.shape.Container.html">xrx.shape.Container</a></li><li><a href="xrx.shape.Creatable.html">xrx.shape.Creatable</a></li><li><a href="xrx.shape.DiPolygon.html">xrx.shape.DiPolygon</a></li><li><a href="xrx.shape.DiPolygonArrow.html">xrx.shape.DiPolygonArrow</a></li><li><a href="xrx.shape.DiPolygonArrowModifiable.html">xrx.shape.DiPolygonArrowModifiable</a></li><li><a href="xrx.shape.Dragger.html">xrx.shape.Dragger</a></li><li><a href="xrx.shape.Ellipse.html">xrx.shape.Ellipse</a></li><li><a href="xrx.shape.EllipseCreatable.html">xrx.shape.EllipseCreatable</a></li><li><a href="xrx.shape.EllipseHoverable.html">xrx.shape.EllipseHoverable</a></li><li><a href="xrx.shape.EllipseModifiable.html">xrx.shape.EllipseModifiable</a></li><li><a href="xrx.shape.EllipseSelectable.html">xrx.shape.EllipseSelectable</a></li><li><a href="xrx.shape.Geometry.html">xrx.shape.Geometry</a></li><li><a href="xrx.shape.Group.html">xrx.shape.Group</a></li><li><a href="xrx.shape.Hoverable.html">xrx.shape.Hoverable</a></li><li><a href="xrx.shape.Image.html">xrx.shape.Image</a></li><li><a href="xrx.shape.Line.html">xrx.shape.Line</a></li><li><a href="xrx.shape.LineCreatable.html">xrx.shape.LineCreatable</a></li><li><a href="xrx.shape.LineHoverable.html">xrx.shape.LineHoverable</a></li><li><a href="xrx.shape.LineModifiable.html">xrx.shape.LineModifiable</a></li><li><a href="xrx.shape.LineSelectable.html">xrx.shape.LineSelectable</a></li><li><a href="xrx.shape.Modifiable.html">xrx.shape.Modifiable</a></li><li><a href="xrx.shape.PathLike.html">xrx.shape.PathLike</a></li><li><a href="xrx.shape.Polygon.html">xrx.shape.Polygon</a></li><li><a href="xrx.shape.PolygonCreatable.html">xrx.shape.PolygonCreatable</a></li><li><a href="xrx.shape.PolygonHoverable.html">xrx.shape.PolygonHoverable</a></li><li><a href="xrx.shape.PolygonModifiable.html">xrx.shape.PolygonModifiable</a></li><li><a href="xrx.shape.PolygonSelectable.html">xrx.shape.PolygonSelectable</a></li><li><a href="xrx.shape.Polyline.html">xrx.shape.Polyline</a></li><li><a href="xrx.shape.PolylineCreatable.html">xrx.shape.PolylineCreatable</a></li><li><a href="xrx.shape.PolylineHoverable.html">xrx.shape.PolylineHoverable</a></li><li><a href="xrx.shape.PolylineModifiable.html">xrx.shape.PolylineModifiable</a></li><li><a href="xrx.shape.PolylineSelectable.html">xrx.shape.PolylineSelectable</a></li><li><a href="xrx.shape.Rect.html">xrx.shape.Rect</a></li><li><a href="xrx.shape.RectCreatable.html">xrx.shape.RectCreatable</a></li><li><a href="xrx.shape.RectHoverable.html">xrx.shape.RectHoverable</a></li><li><a href="xrx.shape.RectModifiable.html">xrx.shape.RectModifiable</a></li><li><a href="xrx.shape.RectSelectable.html">xrx.shape.RectSelectable</a></li><li><a href="xrx.shape.RenderStylable.html">xrx.shape.RenderStylable</a></li><li><a href="xrx.shape.Selectable.html">xrx.shape.Selectable</a></li><li><a href="xrx.shape.Shape.html">xrx.shape.Shape</a></li><li><a href="xrx.shape.ShapeGroup.html">xrx.shape.ShapeGroup</a></li><li><a href="xrx.shape.Shapes.html">xrx.shape.Shapes</a></li><li><a href="xrx.shape.Style.html">xrx.shape.Style</a></li><li><a href="xrx.svg.Canvas.html">xrx.svg.Canvas</a></li><li><a href="xrx.svg.Circle.html">xrx.svg.Circle</a></li><li><a href="xrx.svg.Container.html">xrx.svg.Container</a></li><li><a href="xrx.svg.Element.html">xrx.svg.Element</a></li><li><a href="xrx.svg.Ellipse.html">xrx.svg.Ellipse</a></li><li><a href="xrx.svg.Group.html">xrx.svg.Group</a></li><li><a href="xrx.svg.Image.html">xrx.svg.Image</a></li><li><a href="xrx.svg.Line.html">xrx.svg.Line</a></li><li><a href="xrx.svg.Polygon.html">xrx.svg.Polygon</a></li><li><a href="xrx.svg.Polyline.html">xrx.svg.Polyline</a></li><li><a href="xrx.svg.Rect.html">xrx.svg.Rect</a></li><li><a href="xrx.svg.Stylable.html">xrx.svg.Stylable</a></li><li><a href="xrx.Util.html">xrx.Util</a></li><li><a href="xrx.viewbox.FastAffineTransform.html">xrx.viewbox.FastAffineTransform</a></li><li><a href="xrx.viewbox.Viewbox.html">xrx.viewbox.Viewbox</a></li><li><a href="xrx.viewbox.ViewboxGeometry.html">xrx.viewbox.ViewboxGeometry</a></li><li><a href="xrx.viewbox.ViewboxRotate.html">xrx.viewbox.ViewboxRotate</a></li><li><a href="xrx.viewbox.ViewboxTransform.html">xrx.viewbox.ViewboxTransform</a></li><li><a href="xrx.viewbox.ViewboxTranslate.html">xrx.viewbox.ViewboxTranslate</a></li><li><a href="xrx.viewbox.ViewboxZoom.html">xrx.viewbox.ViewboxZoom</a></li><li><a href="xrx.vml.Canvas.html">xrx.vml.Canvas</a></li><li><a href="xrx.vml.Circle.html">xrx.vml.Circle</a></li><li><a href="xrx.vml.Container.html">xrx.vml.Container</a></li><li><a href="xrx.vml.Element.html">xrx.vml.Element</a></li><li><a href="xrx.vml.Ellipse.html">xrx.vml.Ellipse</a></li><li><a href="xrx.vml.Group.html">xrx.vml.Group</a></li><li><a href="xrx.vml.Image.html">xrx.vml.Image</a></li><li><a href="xrx.vml.Line.html">xrx.vml.Line</a></li><li><a href="xrx.vml.Polygon.html">xrx.vml.Polygon</a></li><li><a href="xrx.vml.Polyline.html">xrx.vml.Polyline</a></li><li><a href="xrx.vml.Rect.html">xrx.vml.Rect</a></li><li><a href="xrx.vml.Stylable.html">xrx.vml.Stylable</a></li></ul><h3>Events</h3><ul><li><a href="xrx.drawing.Drawing.html#event:eventShapeModify">xrx.drawing.Drawing#event:eventShapeModify</a></li></ul><h3>Namespaces</h3><ul><li><a href="xrx.html">xrx</a></li><li><a href="xrx.canvas.html">xrx.canvas</a></li><li><a href="xrx.drawing.html">xrx.drawing</a></li><li><a href="xrx.engine.html">xrx.engine</a></li><li><a href="xrx.geometry.html">xrx.geometry</a></li><li><a href="xrx.shape.html">xrx.shape</a></li><li><a href="xrx.svg.html">xrx.svg</a></li><li><a href="xrx.viewbox.html">xrx.viewbox</a></li><li><a href="xrx.vml.html">xrx.vml</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_allTests">_allTests</a></li></ul>
+    </nav>
+  </div>
+  <script>prettyPrint();</script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

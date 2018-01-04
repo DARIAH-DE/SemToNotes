@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.xpath.Step</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/SAXException.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/AttributesImpl.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/LocatorImpls.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/NamespaceSupport.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/sax.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/DefaultHandlers.js"></script>
+<script src='../../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.dom');
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx.xml.Location');
+  goog.require('xrx.mvc');
+  goog.require('xrx.mvc.Instance');
+  goog.require('xrx.node');
+  goog.require('xrx.node.Nodes');
+  goog.require('xrx.xpath');
+</script>
+</head>
+<body>
+<script type="text/javascript">
+
+var xml = '<a>1<b>2</b>3<c/>4<d>t<e type="attrValue">5</e>6</d><d id="test" id2="test2"/></a>';
+var element = goog.dom.createElement('div');
+var element2 = goog.dom.createElement('div');
+goog.dom.classes.set(element2, 'xrx-document');
+goog.dom.setTextContent(element2, xml);
+goog.dom.append(element, element2);
+var instance = new xrx.mvc.Instance(element);
+var node = new xrx.node.DocumentB(instance.getId());
+
+function test01ancestor() {
+
+  // '//e/ancestor::*'
+  var result1 = xrx.xpath.evaluate('//e/ancestor::*', node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(2, result1.snapshotLength);
+  assertEquals('a', result1.iterateNext().getName());
+  assertEquals('d', result1.iterateNext().getName());
+};
+
+function test02ancestorOrSelf() {
+
+  // '//e/ancestor-or-self::*'
+  var result1 = xrx.xpath.evaluate('//e/ancestor-or-self::*', node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(3, result1.snapshotLength);
+  assertEquals('a', result1.iterateNext().getName());
+  assertEquals('d', result1.iterateNext().getName());
+  assertEquals('e', result1.iterateNext().getName());
+};
+
+function test03attribute() {
+  var expr;
+
+  expr = '/a//@type';
+  var result1 = xrx.xpath.evaluate(expr, node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(expr, 1, result1.snapshotLength);
+  assertEquals(expr, 'attrValue', result1.iterateNext().getStringValue());
+
+  expr = '//@id';
+  var result2 = xrx.xpath.evaluate(expr, node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(expr, 1, result2.snapshotLength);
+  assertEquals(expr, 'test', result2.iterateNext().getStringValue());
+
+  expr = '//d/@id';
+  var result3 = xrx.xpath.evaluate(expr, node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(expr, 1, result3.snapshotLength);
+  assertEquals(expr, 'test', result3.iterateNext().getStringValue());
+
+  expr = '//d/@id2';
+  var result4 = xrx.xpath.evaluate(expr, node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(expr, 1, result4.snapshotLength);
+  assertEquals(expr, 'test2', result4.iterateNext().getStringValue());
+
+  expr = '//@id';
+  var result5 = xrx.xpath.evaluate(expr, node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(expr, 1, result5.snapshotLength);
+  assertEquals(expr, 'test', result5.iterateNext().getStringValue());
+
+  expr = '//@*'; // TODO: wrong ordering of attribute nodes
+  var result6 = xrx.xpath.evaluate(expr, node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(expr, 3, result6.snapshotLength);
+  //assertEquals(expr, 'attrValue', result6.iterateNext().getStringValue());
+  //assertEquals(expr, 'test', result6.iterateNext().getStringValue());
+  //assertEquals(expr, 'test2', result6.iterateNext().getStringValue());
+};
+
+function test04child() {
+
+  // '/a/b'
+  var result1 = xrx.xpath.evaluate('/a/b', node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(1, result1.snapshotLength);
+  assertEquals('b', result1.iterateNext().getName());
+
+  // '/a/c'
+  var result2 = xrx.xpath.evaluate('/a/c', node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(1, result2.snapshotLength);
+  assertEquals('c', result2.iterateNext().getName());
+
+  // '/a/d'
+  var result3 = xrx.xpath.evaluate('/a/d', node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(2, result3.snapshotLength);
+  assertEquals('d', result3.iterateNext().getName());
+  assertEquals('d', result3.iterateNext().getName());
+  
+  // '/a/x'
+  var result4 = xrx.xpath.evaluate('/a/x', node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(0, result4.snapshotLength);
+
+  // '/a/@x'
+  var result5 = xrx.xpath.evaluate('/a/x', node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(0, result5.snapshotLength);
+
+  // '//d/e'
+  var result6 = xrx.xpath.evaluate('//d/e', node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(1, result6.snapshotLength);
+  assertEquals('e', result6.iterateNext().getName());
+
+  // '/a/b/text()'
+  var result7 = xrx.xpath.evaluate('//b/text()', node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(1, result7.snapshotLength);
+  assertEquals('2', result7.iterateNext().getXml());
+};
+
+function test05descendant() {
+
+  // '/a//d'
+  var result1 = xrx.xpath.evaluate('/a//d', node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(2, result1.snapshotLength);
+  assertEquals('d', result1.iterateNext().getName());
+  assertEquals('d', result1.iterateNext().getName());
+  
+  // '/a//text()'
+  var result2 = xrx.xpath.evaluate('/a//text()', node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(7, result2.snapshotLength);
+  assertEquals('1', result2.iterateNext().getXml());
+  assertEquals('2', result2.iterateNext().getXml());
+  assertEquals('3', result2.iterateNext().getXml());
+  assertEquals('4', result2.iterateNext().getXml());
+  assertEquals('t', result2.iterateNext().getXml());
+  assertEquals('5', result2.iterateNext().getXml());
+  assertEquals('6', result2.iterateNext().getXml());
+  
+  // '/a//@*'
+  /*
+  var result3 = xrx.xpath.evaluate('/a//@*', node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(2, result3.snapshotLength);
+  assertEquals('type', result3.iterateNext().getName());
+  assertEquals('id', result3.iterateNext().getName());
+  */ 
+  // '//d//d'
+  var result4 = xrx.xpath.evaluate('//d//d', node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(0, result4.snapshotLength);
+};
+
+function test06descendantOrSelf() {
+  
+  // '//d/descendant-or-self::*'
+  var result = xrx.xpath.evaluate('//d/descendant-or-self::*', node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(3, result.snapshotLength);
+  assertEquals('d', result.iterateNext().getName());
+  //assertEquals('e', result.iterateNext().getName());
+  //assertEquals('d', result.iterateNext().getName());
+};
+
+function test07following() {  
+
+  // '//d[1]/text()[1]/following::*'
+  var result = xrx.xpath.evaluate('//d[1]/text()[1]/following::*', node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(2, result.snapshotLength);
+  assertEquals('e', result.iterateNext().getName());
+  assertEquals('d', result.iterateNext().getName());
+  
+};
+
+function test08followingSibling() {
+  
+  // '/a/b/following-sibling::*'
+  var result = xrx.xpath.evaluate('/a/b/following-sibling::*', node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(3, result.snapshotLength);
+  assertEquals('c', result.iterateNext().getName());
+  assertEquals('d', result.iterateNext().getName());
+  assertEquals('d', result.iterateNext().getName());
+  
+};
+
+function test09namespace() {
+  // TODO: implement this
+};
+
+function test10parent() {
+  
+  // '//b/parent::*'
+  var result1 = xrx.xpath.evaluate('//b/parent::*', node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(1, result1.snapshotLength);
+  assertEquals('a', result1.iterateNext().getName());
+  
+  // '//b/text()/parent::*'
+  var result2 = xrx.xpath.evaluate('//b/text()/parent::*', node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(1, result2.snapshotLength);
+  assertEquals('<b>2</b>', result2.iterateNext().getXml());
+  
+  // '//e/@type/parent::*'
+  var result3 = xrx.xpath.evaluate('//e/@type/parent::*', node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(1, result3.snapshotLength);
+  assertEquals('e', result3.iterateNext().getName());
+  
+  // '//e/@type/parent::f'
+  var result4 = xrx.xpath.evaluate('//e/@type/parent::f', node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(0, result4.snapshotLength);
+};
+
+function test11preceding() {
+  // TODO
+};
+
+function test12precedingSibling() {
+  // TODO
+};
+
+function test13self() {
+
+  // '//d/self::d'
+  var result1 = xrx.xpath.evaluate('//d/self::d', node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(2, result1.snapshotLength);
+  assertEquals('d', result1.iterateNext().getName());
+  assertEquals('d', result1.iterateNext().getName());
+
+  // '/a/self::*'
+  var result2 = xrx.xpath.evaluate('/a/self::*', node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(1, result2.snapshotLength);
+  assertEquals('a', result2.iterateNext().getName());
+
+  // '//xyz/self::*'
+  var result3 = xrx.xpath.evaluate('//xyz/self::*', node, null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(0, result3.snapshotLength);
+
+};
+
+</script>
+</body>
+</html>

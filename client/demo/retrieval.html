@@ -1,0 +1,168 @@
+<div id="content" class="container">
+<h1>Topological Retrieval</h1>
+<p>The topological retrieval system of SemToNotes is an implementation of the
+<a href="http://expath.org/spec/geo">EXPath Geo Module</a> for the
+<a href="http://exist-db.org/">eXist Native XML Database</a>.</p>
+<p>It allows textual and topological retrieval in a combined way by means of the
+<a href="https://www.w3.org/TR/xquery-30/">XQuery</a> language.</p>
+<p>Currently, for a limited time, there is a <a href="http://vdu.uni-koeln.de:8181/exist/apps/eXide/">sandbox</a>
+hosted on a University of Cologne server to play with topological queries.</p>
+<h2>Installation</h2>
+<p>In the following it is described how to extend eXist-2.0 (Java 6) on a Windows PC with the EXPath Geo Module of
+SemToNotes. Other eXist versions, Java versions and operating systems work accordingly.</p>
+<h3>Prequisites</h3>
+<p>Install <a href="http://www.oracle.com/technetwork/java/javaee/downloads/java-ee-sdk-6u3-jdk-6u29-downloads-523388.html">Java JDK 6</a>,
+and <a href="https://code.google.com/archive/p/winant/">Ant</a> on your PC.</p>
+<p>Download <a href="https://github.com/eXist-db/exist/archive/eXist-2.0.zip">eXist-2.0.zip</a> and
+<a href="https://github.com/HKIKoeln/SemToNotes/archive/develop.zip">SemToNotes.zip</a>.</p>
+<p>Unzip <samp>eXist.zip</samp> and <samp>SemToNotes.zip</samp>, both in the same folder, e.g., into <samp>C:\Users\me\exist-eXist-2.0</samp>
+and <samp>C:\Users\me\SemToNotes-develop</samp></p>
+<h3>Integrate the EXPath Geo Module into eXist</h3>
+<h4>eXist</h4>
+<p>Open a terminal and move into directory <samp>C:\Users\me\exist-eXist-2.0</samp>.</p>
+<p>Type:<br>
+  <code>mkdir lib\extensions</code><br>
+  <code>mkdir extensions\modules\lib</code><br>
+  <code>.\build.bat</code>
+</p>
+<h4>EXPath Geo Module</h4>
+<p>Move into directory <samp>C:\Users\me\SemToNotes-develop\server</samp>.</p>
+<p>Type:<br>
+  <code>ant setup</code> (downloads the <a href="http://www.vividsolutions.com/jts">Java Topology Suite (JTS)</a>)<br>
+  <code>ant jar</code> (creates <samp>exist-geo-0.5.jar</samp>)<br>
+  <code>ant install</code> (copies <samp>exist-geo-0.5.jar</samp> into the local eXist installation and configures eXist)
+</p>
+<h3>Hello World</h3>
+<p>Move into directory <samp>C:\Users\me\exist-eXist-2.0</samp>.</p>
+<p>Start eXist with <code>.\bin\startup.bat</code></p>
+<p>Open the eXide XQuery editor in a browser, <a href="http://localhost:8080/exist/apps/eXide/index.html">http://localhost:8080/exist/apps/eXide/index.html</a>,
+and paste in the following query:</p>
+<pre class="lang-xquery prettyprint">xquery version "3.0";
+import module namespace geo="http://exist-db.org/xquery/geo";
+geo:num-points('POLYGON ((50 100, 100 100, 100 50, 50 50, 50 100))')
+</pre>
+<p>Evaluate the query. If you get <samp>5</samp> as a result and there are no error messages, everything works fine.</p>
+<h3>Topological XQueries</h3>
+<h4>EXPath Geo Module</h4>
+<p>The EXPath Geo Module expects image annotations encoded in some XML format. XML documents containing image
+annotations can either be stored inside the eXist database or can be generated dynamically by an XQuery script. The following simple
+example defines an XML snippet containing image annotations with XQuery that are immediately evaluated against topological queries.</p>
+<p>
+<h5><samp>Example Query</samp></h5>
+<pre class="lang-xquery prettyprint">xquery version "3.0";
+import module namespace geo="http://exist-db.org/xquery/geo";
+let $annotations :=
+  &lt;canvas&gt;
+    &lt;annotation xml:id="s1" shape="LINESTRING(0 1, 3 3, 2 1)"/&gt;
+    &lt;annotation xml:id="s2" shape="POLYGON((1 1, 2 1, 5 3, 1 1))"/&gt;
+    &lt;annotation xml:id="s3" shape="POINT(4 4)"/&gt;
+  &lt;/canvas&gt;
+let $linestring := $annotations//annotation[@xml:id ='s1']/@shape/string()
+let $polygon := $annotations//annotation[@xml:id ='s2']/@shape/string()
+let $point := $annotations//annotation[@xml:id ='s3']/@shape/string()
+return
+    string-join((
+        'LineString crosses Polygon: ' || geo:crosses($linestring, $polygon),
+        'Polygon contains Point: ' || geo:contains($polygon, $point)
+    ), '; ')
+    
+</pre>
+<h5><samp>Result</samp></h5>
+<pre>LineString crosses Polygon: true; Polygon contains Point: false</pre>
+</p>
+<h4>Well Known Text Format (WKT)</h4>
+<p>Shape coordinates must be encoded according to the so called <em>Well-Known Text</em> format. See chapter 7 of the
+<a href="http://www.opengeospatial.org/standards/sfa">OpenGIS Simple Feature Access Specification</a>
+for more information. Currently, all shapes are supported besides curve shapes.</p>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Geometry</th>
+      <th>Example</th>
+      <th>Support</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="success">
+      <td><var>Point</var></td>
+      <td><samp>POINT(30 10)</samp></td>
+      <td><span class="glyphicon glyphicon-ok"></span></td>
+    </tr>
+    <tr class="success">
+      <td><var>LineString</var></td>
+      <td><samp>LINESTRING(30 10, 10 30, 40 40)</samp></td>
+      <td><span class="glyphicon glyphicon-ok"></span></td>
+    </tr>
+    <tr class="success">
+      <td><var>Polygon</var></td>
+      <td><samp>POLYGON((35 10, 45 45, 15 40, 10 20, 35 10),(20 30, 35 35, 30 20, 20 30))</samp></td>
+      <td><span class="glyphicon glyphicon-ok"></span></td>
+    </tr>
+    <tr class="success">
+      <td><var>MultiPoint</var></td>
+      <td><samp>MULTIPOINT((10 40), (40 30), (20 20), (30 10))</samp></td>
+      <td><span class="glyphicon glyphicon-ok"></span></td>
+    </tr>
+    <tr class="success">
+      <td><var>MultiLineString</var></td>
+      <td><samp>MULTILINESTRING((10 10, 20 20, 10 40),(40 40, 30 30, 40 20, 30 10))</samp></td>
+      <td><span class="glyphicon glyphicon-ok"></span></td>
+    </tr>
+    <tr class="success">
+      <td><var>MultiPolygon</var></td>
+      <td><samp>MULTIPOLYGON(((30 20, 45 40, 10 40, 30 20)),((15 5, 40 10, 10 20, 5 10, 15 5)))</samp></td>
+      <td><span class="glyphicon glyphicon-ok"></span></td>
+    </tr>
+    <tr class="success">
+      <td><var>GeometryCollection</var></td>
+      <td><samp>GEOMETRYCOLLECTION(POINT(4 6), LINESTRING(4 6, 7 10))</samp></td>
+      <td><span class="glyphicon glyphicon-ok"></span></td>
+    </tr>
+    <tr class="success">
+      <td><var>CircularString</var></td>
+      <td><samp></samp></td>
+      <td><span class="glyphicon glyphicon-ok"></td>
+    </tr>
+    <tr class="danger">
+      <td><var>CompoundCurve</var></td>
+      <td><samp></samp></td>
+      <td><span class="glyphicon glyphicon-remove-sign"></td>
+    </tr>
+    <tr class="danger">
+      <td><var>CurvePolygon</var></td>
+      <td><samp></samp></td>
+      <td><span class="glyphicon glyphicon-remove-sign"></td>
+    </tr>
+    <tr class="danger">
+      <td><var>MultiCurve</var></td>
+      <td><samp></samp></td>
+      <td><span class="glyphicon glyphicon-remove-sign"></td>
+    </tr>
+    <tr class="success">
+      <td><var>MultiSurface</var></td>
+      <td><samp></samp></td>
+      <td><span class="glyphicon glyphicon-ok"></td>
+    </tr>
+    <tr class="danger">
+      <td><var>Curve</var></td>
+      <td><samp></samp></td>
+      <td><span class="glyphicon glyphicon-remove-sign"></td>
+    </tr>
+    <tr class="success">
+      <td><var>Surface</var></td>
+      <td><samp></samp></td>
+      <td><span class="glyphicon glyphicon-ok"></td>
+    </tr>
+    <tr class="success">
+      <td><var>PolyhedralSurface</var></td>
+      <td><samp></samp></td>
+      <td><span class="glyphicon glyphicon-ok"></td>
+    </tr>
+    <tr class="success">
+      <td><var>Triangle</var></td>
+      <td><samp></samp></td>
+      <td><span class="glyphicon glyphicon-ok"></td>
+    </tr>
+  </tbody>
+</table>
+</div>

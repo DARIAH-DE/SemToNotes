@@ -1,0 +1,53 @@
+<div id="content" class="container" data-type="js">
+<h1>Modifying Shapes</h1>
+<ul>
+  <li>In order to modify shapes, switch a drawing canvas into mode <em>modify</em>, calling <code>drawing.setModeModify()</code>. Each Shape can then be moved as a whole by touching and dragging it.</li>
+  <li>When touching a shape, <em>helper shapes</em> appear (small circles) that can be used to change the geometry of a shape. For circle and ellipse shapes,
+      the helper shape changes the radius / the radii. For all other shapes (line, polygon, poly-line, rectangle), the helper shape moves one coordinate point of the shape.</li>
+  <li>When modifying a shape, the drawing canvas recalculates all coordinate points and the sizes of a shape incrementally. See the console output on the right.</li>
+  <li>The example below also demonstrates the usage of the <code>drawing.eventShapeModify(shape)</code> event, which is thrown
+      by a drawing canvas whenever a shape is modified.</li>
+  <li>The style of the helper shapes during modification can be defined individually, e.g., with
+      <code>circle.getModifiable().setStrokeColor()</code> or <code>ellipse.getModifiable().setStyle()</code>.</li>
+</ul>
+<div class="container">
+  <div id="drawing" class="col-sm-6 col-md-6"></div>
+  <div id="console" class="col-sm-6 col-md-6 list-group">
+  	<div class="list-group-item">
+      <h4>Circle</h4>
+      <span id="consoleCircle">&#160;</span>
+    </div>
+  	<div class="list-group-item">
+      <h4>Ellipse</h4>
+      <span id="consoleEllipse">&#160;</span>
+    </div>
+    <div class="list-group-item">
+      <h4>Line</h4>
+      <span id="consoleLine">&#160;</span>
+    </div>
+    <div class="list-group-item">
+      <h4>Polygon</h4>
+      <span id="consolePolygon">&#160;</span>
+    </div>
+    <div class="list-group-item">
+      <h4>Polyline</h4>
+      <span id="consolePolyline">&#160;</span>
+    </div>
+    <div class="list-group-item">
+      <h4>Rectangle</h4>
+      <span id="consoleRect">&#160;</span>
+    </div>
+  </div>
+</div>
+<h3>API Reference</h3>
+<ul>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.drawing.Drawing.html#setModeModify">xrx.drawing.Drawing.setModeModify()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.drawing.Drawing.html#event:eventShapeModify">xrx.drawing.Drawing.event:eventShapeModify()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Circle.html#getModifiable">xrx.shape.Circle.getModifiable()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Ellipse.html#getModifiable">xrx.shape.Ellipse.getModifiable()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Line.html#getModifiable">xrx.shape.Line.getModifiable()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Polygon.html#getModifiable">xrx.shape.Polygon.getModifiable()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Polyline.html#getModifiable">xrx.shape.Polyline.getModifiable()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Rect.html#getModifiable">xrx.shape.Rect.getModifiable()</a></li>
+</ul>
+</div>

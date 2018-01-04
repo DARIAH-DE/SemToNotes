@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.drawing.LayerBackground</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.dom.DomHelper');
+  goog.require('xrx.drawing.Drawing');
+  goog.require('xrx');
+</script>
+<style>
+.drawing {
+display: block;
+width: 150px;
+height: 150px;
+}
+</style>
+</head>
+<body>
+
+<table>
+  <tr>
+    <td>Listener</td>
+	  <td>Canvas</td>
+    <td>SVG</td>
+    <td>VML</td>
+	  <td>Comment</td>
+  </tr>
+  <tr>
+    <td>Mouse-wheel</td>
+	  <td><div id="canvasWheel" class="drawing"></div></td>
+    <td><div id="svgWheel" class="drawing"></div></td>
+    <td><div id="vmlWheel" class="drawing"></div></td>
+    <td>Zoom in and out the background image with the mouse-wheel.</td>
+  </tr>
+  <tr>
+    <td>Double click</td>
+	  <td><div id="canvasDblClick" class="drawing"></div></td>
+    <td><div id="svgDblClick" class="drawing"></div></td>
+    <td><div id="vmlDblClick" class="drawing"></div></td>
+    <td>A double click rotates the background image right</td>
+  </tr>
+  <tr>
+    <td>Drag (down, move, up)</td>
+	  <td><div id="canvasDrag" class="drawing"></div></td>
+    <td><div id="svgDrag" class="drawing"></div></td>
+    <td><div id="vmlDrag" class="drawing"></div></td>
+    <td>Touch and move to drag the background image.</td>
+  </tr>
+  <tr>
+    <td>Mouse out</td>
+	  <td><div id="canvasOut" class="drawing"></div></td>
+    <td><div id="svgOut" class="drawing"></div></td>
+    <td><div id="vmlOut" class="drawing"></div></td>
+    <td>Drag the background image and in doing so move the mouse
+      outside the canvas keeping the mouse pressed. Move in again
+      and hover the background image, still keeping the mouse
+      pressed. The background image should not drag when hovered.</td>
+  </tr>
+  <tr>
+    <td>All events</td>
+	  <td><div id="canvasAll" class="drawing"></div></td>
+    <td><div id="svgAll" class="drawing"></div></td>
+    <td><div id="vmlAll" class="drawing"></div></td>
+    <td>All events should be handled as above.</td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+
+
+
+var url = './drawing_test.png';
+
+
+
+function getDrawingCanvas(id) {
+  var canvasDiv = goog.dom.getElement(id);
+  var canvasDrawing = new xrx.drawing.Drawing(canvasDiv,
+    xrx.engine.CANVAS);
+  canvasDrawing.setBackgroundImage(url, function() {
+    canvasDrawing.draw();
+  });
+  return canvasDrawing;
+};
+
+
+
+function getDrawingSvg(id) {
+  var svgDiv = goog.dom.getElement(id);
+  var svgDrawing = new xrx.drawing.Drawing(svgDiv,
+      xrx.engine.SVG);
+  svgDrawing.setBackgroundImage(url, function() {
+    svgDrawing.draw();
+  });
+  return svgDrawing;
+};
+
+
+
+function getDrawingVml(id) {
+  var vmlDiv = goog.dom.getElement(id);
+  var vmlDrawing = new xrx.drawing.Drawing(vmlDiv,
+    xrx.engine.VML, true);
+  vmlDrawing.setBackgroundImage(url, function() {
+    vmlDrawing.draw();
+  });
+  return vmlDrawing;
+};
+
+
+
+function test1Wheel() {
+  if (!xrx.engine.isOldIE()) {
+    var canvasDrawing = getDrawingCanvas('canvasWheel');
+    var svgDrawing = getDrawingSvg('svgWheel');
+
+    canvasDrawing.registerWheel(canvasDrawing.getViewbox());
+    svgDrawing.registerWheel(svgDrawing.getViewbox());
+  }
+  var vmlDrawing = getDrawingVml('vmlWheel');
+  vmlDrawing.registerWheel(vmlDrawing.getViewbox());
+};
+
+
+
+function test2DblClick() {
+  if (!xrx.engine.isOldIE()) {
+    var canvasDrawing = getDrawingCanvas('canvasDblClick');
+    var svgDrawing = getDrawingSvg('svgDblClick');
+
+    canvasDrawing.registerDblClick(canvasDrawing.getViewbox());
+    svgDrawing.registerDblClick(svgDrawing.getViewbox());
+  }
+  var vmlDrawing = getDrawingVml('vmlDblClick');
+  vmlDrawing.registerDblClick(vmlDrawing.getViewbox());
+};
+
+
+
+function test4Drag() {
+  if (!xrx.engine.isOldIE()) {
+    var canvasDrawing = getDrawingCanvas('canvasDrag');
+    var svgDrawing = getDrawingSvg('svgDrag');
+
+    canvasDrawing.registerDrag(canvasDrawing.getViewbox());
+    svgDrawing.registerDrag(svgDrawing.getViewbox());
+  }
+  var vmlDrawing = getDrawingVml('vmlDrag');
+  vmlDrawing.registerDrag(vmlDrawing.getViewbox());
+};
+
+
+
+function test5Out() {
+  if (!xrx.engine.isOldIE()) {
+    var canvasDrawing = getDrawingCanvas('canvasDrag');
+    var svgDrawing = getDrawingSvg('svgDrag');
+
+    canvasDrawing.registerDrag(canvasDrawing.getViewbox());
+    canvasDrawing.registerOut(canvasDrawing.getViewbox());
+    svgDrawing.registerDrag(svgDrawing.getViewbox());
+    svgDrawing.registerOut(svgDrawing.getViewbox());
+  }
+  var vmlDrawing = getDrawingVml('vmlDrag');
+  vmlDrawing.registerDrag(vmlDrawing.getViewbox());
+  vmlDrawing.registerOut(vmlDrawing.getViewbox());
+};
+
+
+
+function test6All() {
+  if (!xrx.engine.isOldIE()) {
+    var canvasDrawing = getDrawingCanvas('canvasAll');
+    var svgDrawing = getDrawingSvg('svgAll');
+
+    canvasDrawing.registerEvents(xrx.drawing.Mode.VIEW);
+    svgDrawing.registerEvents(xrx.drawing.Mode.VIEW);
+  }
+  var vmlDrawing = getDrawingVml('vmlAll');
+  vmlDrawing.registerEvents(xrx.drawing.Mode.VIEW);
+};
+
+</script>
+
+</body>
+</html>

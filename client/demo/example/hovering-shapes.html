@@ -1,0 +1,22 @@
+<div id="content" class="container" data-type="js">
+<h1>Hovering Shapes</h1>
+<ul>
+  <li>In order to style shapes differently when hovered, switch a drawing canvas into mode <em>hover</em>, e.g., with
+      <code>drawing1.setModeHover()</code> or <code>drawing2.setModeHover(true)</code>.</li>
+  <li>Sometimes shapes overlap. As a default, only the foremost shape is styled differently when hovered. One can
+      change this default behaviour by setting the <em>multiple option</em> to true in the function call, e.g.,
+      with <code>drawing2.setModeHover(true)</code></li>
+  <li>Each shape object automatically has a helper shape attached called <em>hoverable</em> that can be reached with the <code>getHoverable()</code> function. One can
+      define the style of hovered shapes, e.g., with <code>rect.getHoverable().setFillColor('#99CCFF')</code> or <code>circle.getHoverable().setFillColor('#99CCFF')</code>.</li>
+</ul>
+<div class="container">
+  <div id="drawing1" class="col-sm-6 col-md-6"></div>
+  <div id="drawing2" class="col-sm-6 col-md-6"></div>
+</div>
+<h3>API Reference</h3>
+<ul>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.drawing.Drawing.html#setModeHover">xrx.drawing.Drawing.setModeHover()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Circle.html#getHoverable">xrx.shape.Circle.getHoverable()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Rect.html#getHoverable">xrx.shape.Rect.getHoverable()</a></li>
+</ul>
+</div>

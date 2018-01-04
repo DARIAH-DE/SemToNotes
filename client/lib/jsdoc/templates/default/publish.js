@@ -318,7 +318,7 @@ function buildNav(members) {
     if (members.classes.length) {
         members.classes.forEach(function(c) {
             if ( !hasOwnProp.call(seen, c.longname) ) {
-                classNav += '<li>' + linkto(c.longname, c.name) + '</li>';
+                classNav += '<li>' + linkto(c.longname, c.longname) + '</li>';
             }
             seen[c.longname] = true;
         });
@@ -334,7 +334,7 @@ function buildNav(members) {
         nav += '<h3>Events</h3><ul>';
         members.events.forEach(function(e) {
             if ( !hasOwnProp.call(seen, e.longname) ) {
-                nav += '<li>' + linkto(e.longname, e.name) + '</li>';
+                nav += '<li>' + linkto(e.longname, e.longname) + '</li>';
             }
             seen[e.longname] = true;
         });
@@ -346,7 +346,7 @@ function buildNav(members) {
         nav += '<h3>Namespaces</h3><ul>';
         members.namespaces.forEach(function(n) {
             if ( !hasOwnProp.call(seen, n.longname) ) {
-                nav += '<li>' + linkto(n.longname, n.name) + '</li>';
+                nav += '<li>' + linkto(n.longname, n.longname) + '</li>';
             }
             seen[n.longname] = true;
         });
@@ -606,7 +606,7 @@ exports.publish = function(taffyData, opts, tutorials) {
     Object.keys(helper.longnameToUrl).forEach(function(longname) {
         var myClasses = helper.find(classes, {longname: longname});
         if (myClasses.length) {
-            generate('Class: ' + myClasses[0].name, myClasses, helper.longnameToUrl[longname]);
+            generate('Class: ' + myClasses[0].longname, myClasses, helper.longnameToUrl[longname]);
         }
 
         var myModules = helper.find(modules, {longname: longname});
@@ -616,7 +616,7 @@ exports.publish = function(taffyData, opts, tutorials) {
 
         var myNamespaces = helper.find(namespaces, {longname: longname});
         if (myNamespaces.length) {
-            generate('Namespace: ' + myNamespaces[0].name, myNamespaces, helper.longnameToUrl[longname]);
+            generate('Namespace: ' + myNamespaces[0].longname, myNamespaces, helper.longnameToUrl[longname]);
         }
 
         var myMixins = helper.find(mixins, {longname: longname});

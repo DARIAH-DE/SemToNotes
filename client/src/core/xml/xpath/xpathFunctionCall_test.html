@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.xpath</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/SAXException.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/AttributesImpl.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/LocatorImpls.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/NamespaceSupport.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/sax.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/DefaultHandlers.js"></script>
+<script src='../../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.dom.DomHelper');
+  goog.require('xrx.xpath.Test');
+  goog.require('xrx');
+</script>
+</head>
+<body>
+<script type="text/javascript">
+
+function createInstance(xml) {
+  var element = goog.dom.createElement('div');
+  var element2 = goog.dom.createElement('div');
+  goog.dom.classes.set(element2, 'xrx-document');
+  goog.dom.setTextContent(element2, xml);
+  goog.dom.append(element, element2);
+  return new xrx.mvc.Instance(element);
+};
+
+function test01FnBoolean() {
+  xrx.xpath.Test.assertEquals(true, 'boolean(1)'); // number
+  xrx.xpath.Test.assertEquals(true, 'boolean(-1)'); // number
+  xrx.xpath.Test.assertEquals(false, 'boolean(0)'); // number
+  // TODO xrx.xpath.Test.assertEquals(false, 'boolean(+0)'); // number
+  // TODO xrx.xpath.Test.assertEquals(false, 'boolean(-0)'); // number
+  xrx.xpath.Test.assertEquals(false, 'boolean(NaN)'); // number
+  xrx.xpath.Test.assertEquals(true, 'boolean("string")'); // string
+  xrx.xpath.Test.assertEquals(false, 'boolean("")'); // string
+  xrx.xpath.Test.assertEquals(true, 'boolean(true())'); // boolean
+  xrx.xpath.Test.assertEquals(false, 'boolean(false())'); // boolean
+  xrx.xpath.Test.assertEquals(true, 'boolean(/)'); // node-set
+  // TODO xrx.xpath.Test.assertEquals(false, 'boolean()'); // node-set
+};
+
+function test02FnCeiling() {
+  xrx.xpath.Test.assertEquals(4, 'ceiling(3.14)');
+};
+
+function test03FnConcat() {
+  xrx.xpath.Test.assertEquals('XML', 'concat("XM", "L")');
+};
+
+function test04FnContains() {
+  xrx.xpath.Test.assertEquals(true, 'contains("XML","XM")');
+  xrx.xpath.Test.assertEquals(false, 'contains("XML","XL")');
+};
+
+function test05FnCount() {
+  xrx.xpath.Test.assertEquals(1, 'count(/)');
+};
+
+function test05_FnCurrentDateTime() {
+  xrx.xpath.Test.assertTrue(function(result) {
+    var test = result.match(/T+/g);
+    return test && test.length >= 1;
+    }, 'current-dateTime()');
+};
+
+function test06FnFalse() {
+  xrx.xpath.Test.assertEquals(false, 'false()');
+};
+
+function test07FnFloor() {
+  xrx.xpath.Test.assertEquals(3, 'floor(3.14)');
+};
+
+function test08FnId() {
+  // TODO
+};
+
+function test09FnLang() {
+  // TODO
+};
+
+function test10FnFirstLast() {
+  var xml = '<a><b/><c/><d/></a>';
+  var instance = createInstance(xml);
+
+  var first = xrx.xpath.evaluate('/a/*[1]', new xrx.node.DocumentB(instance.getId()),
+      null, xrx.xpath.XPathResultType.ANY_TYPE);
+
+  var second = xrx.xpath.evaluate('/a/*[1 + 1]', new xrx.node.DocumentB(instance.getId()),
+      null, xrx.xpath.XPathResultType.ANY_TYPE);
+
+  var last = xrx.xpath.evaluate('/a/*[last()]', new xrx.node.DocumentB(instance.getId()),
+      null, xrx.xpath.XPathResultType.ANY_TYPE);
+
+  assertEquals('<b/>', first.iterateNext().getXml());
+  assertEquals('<c/>', second.iterateNext().getXml());
+  assertEquals('<d/>', last.iterateNext().getXml());
+};
+
+function getDocumentForNametest() {
+  var xml = '<x xmlns="http://example.org/x"><y:y xmlns:y="http://example.org/y"/><z/></x>';
+  var instance = createInstance(xml);
+  return new xrx.node.DocumentB(instance.getId());
+};
+
+function test11FnName() {
+  var r1 = xrx.xpath.evaluate('name(/*/*[last()])', getDocumentForNametest(), null,
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals('z', r1.stringValue);
+  var r2 = xrx.xpath.evaluate('name(/*/*[1])', getDocumentForNametest(), null,
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals('y:y', r2.stringValue);
+};
+
+function test12FnLocalName() {
+  var r1 = xrx.xpath.evaluate('local-name(/*/*[last()])', getDocumentForNametest(), null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals('z', r1.stringValue);
+  var r2 = xrx.xpath.evaluate('local-name(/*/*[1])', getDocumentForNametest(), null, 
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals('y', r2.stringValue);
+};
+
+function test13FnNamespaceUri() {
+  var r1 = xrx.xpath.evaluate('namespace-uri(/*/*[last()])', getDocumentForNametest(), null,
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals('http://example.org/x', r1.stringValue);
+  var r2 = xrx.xpath.evaluate('namespace-uri(/*/*[1])', getDocumentForNametest(), null,
+      xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals('http://example.org/y', r2.stringValue);
+};
+
+function test14FnNormalizeSpace() {
+  xrx.xpath.Test.assertEquals('The XML', 'normalize-space(" The   XML ")');
+};
+
+function test15FnNot() {
+  xrx.xpath.Test.assertEquals(false, 'not(1)'); // number
+  xrx.xpath.Test.assertEquals(false, 'not(-1)'); // number
+  xrx.xpath.Test.assertEquals(true, 'not(0)'); // number
+  // TODO xrx.xpath.Test.assertEquals(true, 'not(+0)'); // number
+  // TODO xrx.xpath.Test.assertEquals(true, 'not(-0)'); // number
+  xrx.xpath.Test.assertEquals(true, 'not(NaN)'); // number
+  xrx.xpath.Test.assertEquals(false, 'not("string")'); // string
+  xrx.xpath.Test.assertEquals(true, 'not("")'); // string
+  xrx.xpath.Test.assertEquals(false, 'not(true())'); // boolean
+  xrx.xpath.Test.assertEquals(true, 'not(false())'); // boolean
+  xrx.xpath.Test.assertEquals(false, 'not(/)'); // node-set
+  // TODO xrx.xpath.Test.assertEquals(false, 'boolean()'); // node-set
+};
+
+function test16FnNumber() {
+  xrx.xpath.Test.assertEquals(-1, 'number(-1)'); // number
+  xrx.xpath.Test.assertEquals(1.5, 'number(1.5)'); // number
+  xrx.xpath.Test.assertEquals(0, 'number(0)'); // number
+  // TODO xrx.xpath.Test.assertEquals(0, 'number(+0)'); // number
+  // TODO xrx.xpath.Test.assertEquals(0, 'number(-0)'); // number
+  // TODO xrx.xpath.Test.assertEquals(Number.NaN, 'number("string")'); // string
+  // TODO xrx.xpath.Test.assertEquals(Number.NaN, 'number("")'); // string
+  xrx.xpath.Test.assertEquals(1, 'number(true())'); // boolean
+  xrx.xpath.Test.assertEquals(0, 'number(false())'); // boolean
+  // TODO xrx.xpath.Test.assertEquals(1, 'number(/)'); // node-set
+  // TODO xrx.xpath.Test.assertEquals(false, 'boolean()'); // node-set
+};
+
+function test17FnPosition() {
+  var xml = '<x><a>1</a><b>2</b><c>3</c><d>4</d></x>';
+  var instance = createInstance(xml);
+  var r = xrx.xpath.evaluate('sum(/x/*[position() <= 3]/text())', new xrx.node.DocumentB(instance.getId()),
+      null, xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(6, r.numberValue);
+};
+
+function test18FnRound() {
+  xrx.xpath.Test.assertEquals(3, 'round(3.14)');
+};
+
+function test19FnStartsWith() {
+  xrx.xpath.Test.assertEquals(true, 'starts-with("XML","X")');
+};
+
+function test20FnString() {
+  xrx.xpath.Test.assertEquals('-1', 'string(-1)'); // number
+  xrx.xpath.Test.assertEquals('1.5', 'string(1.5)'); // number
+  xrx.xpath.Test.assertEquals('0', 'string(0)'); // number
+  // TODO xrx.xpath.Test.assertEquals("0", 'number(+0)'); // number
+  // TODO xrx.xpath.Test.assertEquals("0", 'number(-0)'); // number
+  xrx.xpath.Test.assertEquals('string', 'string("string")'); // string
+  xrx.xpath.Test.assertEquals('', 'string("")'); // string
+  xrx.xpath.Test.assertEquals('true', 'string(true())'); // boolean
+  xrx.xpath.Test.assertEquals('false', 'string(false())'); // boolean
+  // TODO xrx.xpath.Test.assertEquals(1, 'string(/)'); // node-set
+  // TODO xrx.xpath.Test.assertEquals(false, 'string()'); // node-set
+};
+
+function test21FnStringLength() {
+  xrx.xpath.Test.assertEquals(7, 'string-length("Beatles")');
+};
+
+function test22FnSubString() {
+  xrx.xpath.Test.assertEquals('Beat', 'substring("Beatles", 1, 4)');
+  xrx.xpath.Test.assertEquals('eatles', 'substring("Beatles", 2)');
+};
+
+function test23FnSubstringAfter() {
+  xrx.xpath.Test.assertEquals('10', 'substring-after("12/10","/")');
+};
+
+function test24FnSubstringBefore() {
+  xrx.xpath.Test.assertEquals('12', 'substring-before("12/10","/")');
+};
+
+function test25FnSum() {
+  var xml = '<x><a>1</a><b>2</b><c>3</c></x>';
+  var instance = createInstance(xml);
+  var r = xrx.xpath.evaluate('sum(/x/*)', new xrx.node.DocumentB(instance.getId()),
+      null, xrx.xpath.XPathResultType.ANY_TYPE);
+  assertEquals(6, r.numberValue);
+};
+
+function test26FnTranslate() {
+  xrx.xpath.Test.assertEquals('12:45', 'translate("12:30","30","45")');
+  xrx.xpath.Test.assertEquals('12:45', 'translate("12:30","03","54")');
+  xrx.xpath.Test.assertEquals('bc:da', 'translate("12:30","0123","abcd")');
+};
+
+function test27FnTrue() {
+  xrx.xpath.Test.assertEquals(true, 'true()');
+};
+
+</script>
+</body>
+</html>

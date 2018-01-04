@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Initialization</title>
+    <script src="../../xrx.api.drawing.min.js"></script>
+    <link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      /*
+        Set a border style to make the size of the drawing canvas visible,
+        for demonstration only.
+      */
+      .drawing {
+      border: dashed grey 3px;
+      }
+      /*
+        Set a background color to make the size of the engine element (canvas, svg, vml:group)
+        visible. Do not do this in a real application, just for demonstration here. 
+      */
+      canvas, svg, group.xrx-vml {
+      background-color: rgb(230, 230, 230);
+      }
+      /* fixed size */
+      #drawing1 {
+      width: 200px;
+      height: 200px;
+      }
+      /* dynamic size */
+      #drawing2 {
+      width: 50%;
+      min-height: 150px;
+      }
+      /* fixed size, will be overwritten programmatically */
+      #drawing3 {
+      width: 0px;
+      height: 0px;
+      }
+      /* styles, will be overwritten programmatically */
+      #drawing4 {
+      width: 200px;
+      height: 200px;
+      background-color: black;
+      margin: 0px;
+      padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Initialization</h1>
+      <h2>Define a fixed size with CSS</h2>
+      <div id="drawing1" class="drawing"></div>
+      <h2>Define a dynamic size with CSS</h2>
+      <div id="drawing2" class="drawing"></div>
+      <h2>Change the size programmatically</h2>
+      <div id="drawing3" class="drawing"></div>
+      <h2>Change the style programmatically</h2>
+      <div id="drawing4" class="drawing"></div>
+    </div>
+    <script>
+      (function() {
+
+        /**
+         * Reusable function that creates a shape and adds it to the
+         * drawing canvas.
+         * @param {xrx.drawing.Drawing} drawing The drawing canvas.
+         */
+        var addShape = function(drawing) {
+          var rect = new xrx.shape.Rect(drawing);
+          rect.setX(10);
+          rect.setY(10);
+          rect.setWidth(130);
+          rect.setHeight(80);
+          rect.setFillColor('orange');
+          rect.setFillOpacity(.4);
+          drawing.addShapes(rect);
+        }
+
+        // create a drawing canvas for fixed CSS size
+        var element1 = document.getElementById('drawing1');
+        var drawing1 = new xrx.drawing.Drawing(element1);
+        addShape(drawing1);
+
+        // create a drawing canvas for dynamic CSS size
+        var element2 = document.getElementById('drawing2');
+        var drawing2 = new xrx.drawing.Drawing(element2);
+        addShape(drawing2);
+
+        // create a drawing canvas and size it programmatically
+        // this overwrites the existing CSS rules above
+        var element3 = document.getElementById('drawing3');
+        var drawing3 = new xrx.drawing.Drawing(element3);
+        drawing3.setSize(300, 200);
+        addShape(drawing3);
+
+        // create a drawing canvas and style it programmatically
+        // this overwrites the existing CSS rules above
+        var element4 = document.getElementById('drawing4');
+        var drawing4 = new xrx.drawing.Drawing(element4);
+        drawing4.setStyle('padding', '20px');
+        drawing4.setStyle('margin', '20px');
+        drawing4.setStyle('background-color', '#D1F0FF');
+        addShape(drawing4);
+
+        return [drawing1, drawing2, drawing3, drawing4];
+
+      })();
+    </script>
+  </body>
+</html>

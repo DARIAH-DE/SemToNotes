@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.engine.Element</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.dom.DomHelper');
+  goog.require('xrx.api.drawing');
+</script>
+<style>
+table {
+border-collapse: collapse;
+}
+td {
+border: solid grey 1px;
+width: 100;
+height: 100;
+}
+</style>
+</head>
+<body>
+<img id="testImage" src="./engine_test.png" style="display:none"></img>
+<h3>Common Tests</h3>
+<table>
+  <tr>
+    <td></td>
+	  <td><span>Circle</span></td>
+	  <td><span>Ellipse</span></td>
+	  <td><span>Group</span></td>
+	  <td><span>Image</span></td>
+	  <td><span>Line</span></td>
+	  <td><span>Polygon</span></td>
+	  <td><span>Poly-line</span></td>
+	  <td><span>Rectangle</span></td>
+  </tr>
+  <tr>
+    <td><span>Canvas</span></td>
+	  <td id="canvasCircle"></td>
+	  <td id="canvasEllipse"></td>
+	  <td id="canvasGroup"></td>
+	  <td id="canvasImage"></td>
+	  <td id="canvasLine"></td>
+	  <td id="canvasPolygon"></td>
+	  <td id="canvasPolyline"></td>
+	  <td id="canvasRect"></td>
+  </tr>
+  <tr>
+    <td><span>SVG</span></td>
+	  <td id="svgCircle"></td>
+	  <td id="svgEllipse"></td>
+	  <td id="svgGroup"></td>
+	  <td id="svgImage"></td>
+	  <td id="svgLine"></td>
+	  <td id="svgPolygon"></td>
+	  <td id="svgPolyline"></td>
+	  <td id="svgRect"></td>
+  </tr>
+  <tr>
+    <td><span>VML</span></td>
+	  <td id="vmlCircle"></td>
+	  <td id="vmlEllipse"></td>
+	  <td id="vmlGroup"></td>
+	  <td id="vmlImage"></td>
+	  <td id="vmlLine"></td>
+	  <td id="vmlPolygon"></td>
+	  <td id="vmlPolyline"></td>
+	  <td id="vmlRect"></td>
+  </tr>
+  <tr>
+    <td><span>Comment</span></td>
+	  <td><span>Look alike?</span></td>
+	  <td><span>Look alike?</span></td>
+	  <td><span>Look alike?</span></td>
+	  <td><span>Look alike?</span></td>
+	  <td><span>Look alike?</span></td>
+	  <td><span>Look alike?</span></td>
+	  <td><span>Look alike?</span></td>
+	  <td><span>Look alike?</span></td>
+  </tr>
+</table>
+<h3>VML Tests</h3>
+<table>
+  <tr>
+    <td id="VML1_" style="width:200px;height:250px;"></td>
+  </tr>
+  <tr>
+    <td id="VML1" style="width:200px;height:250px;"></td>
+  </tr>
+  <tr>
+    <td>Canvas Size</td>
+  </tr>
+</table>
+<div id="dummy"></div>
+<script type="text/javascript">
+
+
+
+function getCanvasCanvas(id) {
+  var element = goog.dom.getElement(id);
+  var canvasCanvas = xrx.canvas.Canvas.create(element);
+  canvasCanvas.setWidth(100);
+  canvasCanvas.setHeight(100);
+  return canvasCanvas;
+};
+
+
+
+function getCanvasSvg(id) {
+  var element = goog.dom.getElement(id);
+  var svgCanvas = xrx.svg.Canvas.create(element);
+  svgCanvas.setWidth(100);
+  svgCanvas.setHeight(100);
+  return svgCanvas;
+};
+
+
+
+function getCanvasVml(id) {
+  var element = goog.dom.getElement(id);
+  var vmlCanvas = xrx.vml.Canvas.create(element);
+  vmlCanvas.setWidth(100);
+  vmlCanvas.setHeight(100);
+  return vmlCanvas;
+};
+
+
+
+function test1Circle() {
+  // Canvas
+  if (xrx.engine.isSupported(xrx.engine.CANVAS)) {
+    var canvasCanvas = getCanvasCanvas('canvasCircle');
+    var canvasCircle = xrx.canvas.Circle.create(canvasCanvas);
+    canvasCanvas.addChild(canvasCircle);
+    canvasCircle.draw(50, 50, 30, 'green', .5, 'red', 2);
+  }
+  // SVG
+  if (xrx.engine.isSupported(xrx.engine.SVG)) {
+    var svgCanvas = getCanvasSvg('svgCircle');
+    var svgCircle = xrx.svg.Circle.create(svgCanvas);
+    svgCanvas.addChild(svgCircle);
+    svgCircle.draw(50, 50, 30, 'green', .5, 'red', 2);
+    svgCircle.draw(); // undefined test
+  }
+  // VML
+  if (xrx.engine.isSupported(xrx.engine.VML)) {
+    var vmlCanvas = getCanvasVml('vmlCircle');
+    var vmlCircle = xrx.vml.Circle.create(vmlCanvas);
+    vmlCanvas.addChild(vmlCircle);
+    vmlCircle.draw(50, 50, 30, 'green', .5, 'red', 2);
+    vmlCircle.draw(); // undefined test
+  }
+};
+
+
+
+function test2Ellipse() {
+  // Canvas
+  if (xrx.engine.isSupported(xrx.engine.CANVAS)) {
+    var canvasCanvas = getCanvasCanvas('canvasEllipse');
+    var canvasEllipse = xrx.canvas.Ellipse.create(canvasCanvas);
+    canvasCanvas.addChild(canvasEllipse);
+    canvasEllipse.draw(50, 50, 110, 20, 'green', .5, 'red', 2);
+  }
+  // SVG
+  if (xrx.engine.isSupported(xrx.engine.SVG)) {
+    var svgCanvas = getCanvasSvg('svgEllipse');
+    var svgEllipse = xrx.svg.Ellipse.create(svgCanvas);
+    svgCanvas.addChild(svgEllipse);
+    svgEllipse.draw(50, 50, 110, 20, 'green', .5, 'red', 2);
+    svgEllipse.draw(); // undefined test
+  }
+  // VML
+  if (xrx.engine.isSupported(xrx.engine.VML)) {
+    var vmlCanvas = getCanvasVml('vmlEllipse');
+    var vmlEllipse = xrx.vml.Ellipse.create(vmlCanvas);
+    vmlCanvas.addChild(vmlEllipse);
+    vmlEllipse.draw(50, 50, 110, 20, 'green', .5, 'red', 2);
+    vmlEllipse.draw(); // undefined test
+  }
+};
+
+
+
+function test3Group() {
+  var image = goog.dom.getElement('testImage');
+  // Canvas
+  if (xrx.engine.isSupported(xrx.engine.CANVAS)) {
+    var canvasCanvas = getCanvasCanvas('canvasGroup');
+    var canvasGroup = xrx.canvas.Group.create(canvasCanvas);
+    var canvasCircle = xrx.canvas.Circle.create(canvasCanvas);
+    var canvasEllipse = xrx.canvas.Ellipse.create(canvasCanvas);
+    var canvasImage = xrx.canvas.Image.create(canvasCanvas);
+    canvasGroup.addChild(canvasCircle);
+    canvasGroup.addChild(canvasEllipse);
+    canvasGroup.addChild(canvasImage);
+    canvasCanvas.addChild(canvasGroup);
+    canvasCircle.draw(50, 50, 30, 'green', .5, 'red', 2);
+    canvasEllipse.draw(50, 50, 110, 20, 'green', .5, 'red', 2);
+    canvasImage.draw(image);
+  }
+  // SVG
+  if (xrx.engine.isSupported(xrx.engine.SVG)) {
+    var svgCanvas = getCanvasSvg('svgGroup');
+    var svgGroup = xrx.svg.Group.create(svgCanvas);
+    var svgCircle = xrx.svg.Circle.create(svgCanvas);
+    var svgEllipse = xrx.svg.Ellipse.create(svgCanvas);
+    var svgImage = xrx.svg.Image.create(svgCanvas);
+    svgGroup.addChild(svgCircle);
+    svgGroup.addChild(svgEllipse);
+    svgGroup.addChild(svgImage);
+    svgCanvas.addChild(svgGroup);
+    svgCircle.draw(50, 50, 30, 'green', .5, 'red', 2);
+    svgEllipse.draw(50, 50, 110, 20, 'green', .5, 'red', 2);
+    svgImage.draw(image);
+  }
+  // VML
+  if (xrx.engine.isSupported(xrx.engine.VML)) {
+    var vmlCanvas = getCanvasVml('vmlGroup');
+    var vmlGroup = xrx.vml.Group.create(vmlCanvas);
+    var vmlCircle = xrx.vml.Circle.create(vmlCanvas);
+    var vmlEllipse = xrx.vml.Ellipse.create(vmlCanvas);
+    var vmlImage = xrx.vml.Image.create(vmlCanvas);
+    vmlGroup.addChild(vmlCircle);
+    vmlGroup.addChild(vmlEllipse);
+    vmlGroup.addChild(vmlImage);
+    vmlCanvas.addChild(vmlGroup);
+    vmlCircle.draw(50, 50, 30, 'green', .5, 'red', 2);
+    vmlEllipse.draw(50, 50, 110, 20, 'green', .5, 'red', 2);
+    vmlImage.draw(image);
+  }
+};
+
+
+
+function test4Image() {
+  var image = goog.dom.getElement('testImage');
+  // Canvas
+  if (xrx.engine.isSupported(xrx.engine.CANVAS)) {
+    var canvasCanvas = getCanvasCanvas('canvasImage');
+    var canvasImage = xrx.canvas.Image.create(canvasCanvas);
+    canvasCanvas.addChild(canvasImage);
+    canvasImage.draw(image);
+  }
+  // SVG
+  if (xrx.engine.isSupported(xrx.engine.SVG)) {
+    var svgCanvas = getCanvasSvg('svgImage');
+    var svgImage = xrx.svg.Image.create(svgCanvas);
+    svgCanvas.addChild(svgImage);
+    svgImage.draw(image);
+    svgImage.draw();
+  }
+  // VML
+  if (xrx.engine.isSupported(xrx.engine.VML)) {
+    var vmlCanvas = getCanvasVml('vmlImage');
+    var vmlImage = xrx.vml.Image.create(vmlCanvas);
+    vmlCanvas.addChild(vmlImage);
+    vmlImage.draw(image);
+    vmlImage.draw();
+  }
+};
+
+
+
+function test5Line() {
+  // Canvas
+  if (xrx.engine.isSupported(xrx.engine.CANVAS)) {
+    var canvasCanvas = getCanvasCanvas('canvasLine');
+    var canvasLine = xrx.canvas.Line.create(canvasCanvas);
+    canvasCanvas.addChild(canvasLine);
+    canvasLine.draw(10, 10, 100, 100, 'red', 2);
+  }
+  // SVG
+  if (xrx.engine.isSupported(xrx.engine.SVG)) {
+    var svgCanvas = getCanvasSvg('svgLine');
+    var svgLine = xrx.svg.Line.create(svgCanvas);
+    svgCanvas.addChild(svgLine);
+    svgLine.draw(10, 10, 100, 100, 'red', 2);
+  }
+  // VML
+  if (xrx.engine.isSupported(xrx.engine.VML)) {
+    var vmlCanvas = getCanvasVml('vmlLine');
+    var vmlLine = xrx.vml.Line.create(vmlCanvas);
+    vmlCanvas.addChild(vmlLine);
+    vmlLine.draw(10, 10, 100, 100, 'red', 2);
+  }
+};
+
+
+
+function test6Polygon() {
+  var coords = [[10,10], [90,0], [0,60]];
+  if (xrx.engine.isSupported(xrx.engine.CANVAS)) {
+    // Canvas
+    var canvasCanvas = getCanvasCanvas('canvasPolygon');
+    var canvasPolygon = xrx.canvas.Polygon.create(canvasCanvas);
+    canvasCanvas.addChild(canvasPolygon);
+    canvasPolygon.draw(coords, 'green', .5, 'red', 2);
+  }
+  // SVG
+  if (xrx.engine.isSupported(xrx.engine.SVG)) {
+    var svgCanvas = getCanvasSvg('svgPolygon');
+    var svgPolygon = xrx.svg.Polygon.create(svgCanvas);
+    svgCanvas.addChild(svgPolygon);
+    svgPolygon.draw(coords, 'green', .5, 'red', 2);
+    svgPolygon.draw(); // undefined test
+  }
+  // VML
+  if (xrx.engine.isSupported(xrx.engine.VML)) {
+    var vmlCanvas = getCanvasVml('vmlPolygon');
+    var vmlPolygon = xrx.vml.Polygon.create(vmlCanvas);
+    vmlCanvas.addChild(vmlPolygon);
+    vmlPolygon.draw(coords, 'green', .5, 'red', 2);
+    vmlPolygon.draw(); // undefined test
+  }
+};
+
+
+
+function test7Polyline() {
+  var coords = [[10,10], [90,0], [10,60], [100,100]];
+  if (xrx.engine.isSupported(xrx.engine.CANVAS)) {
+    // Canvas
+    var canvasCanvas = getCanvasCanvas('canvasPolyline');
+    var canvasPolyline = xrx.canvas.Polyline.create(canvasCanvas);
+    canvasCanvas.addChild(canvasPolyline);
+    canvasPolyline.draw(coords, '', .0, 'red', 2);
+  }
+  // SVG
+  if (xrx.engine.isSupported(xrx.engine.SVG)) {
+    var svgCanvas = getCanvasSvg('svgPolyline');
+    var svgPolyline = xrx.svg.Polyline.create(svgCanvas);
+    svgCanvas.addChild(svgPolyline);
+    svgPolyline.draw(coords, '', .0, 'red', 2);
+    svgPolyline.draw(); // undefined test
+  }
+  // VML
+  if (xrx.engine.isSupported(xrx.engine.VML)) {
+    var vmlCanvas = getCanvasVml('vmlPolyline');
+    var vmlPolyline = xrx.vml.Polyline.create(vmlCanvas);
+    vmlCanvas.addChild(vmlPolyline);
+    vmlPolyline.draw(coords, '', .0, 'red', 2);
+    vmlPolyline.draw(); // undefined test
+  }
+};
+
+
+
+function test8Rect() {
+  // Canvas
+  if (xrx.engine.isSupported(xrx.engine.CANVAS)) {
+    var canvasCanvas = getCanvasCanvas('canvasRect');
+    var canvasRect = xrx.canvas.Rect.create(canvasCanvas);
+    canvasCanvas.addChild(canvasRect);
+    canvasRect.draw(10, 10, 80, 80, 'green', .5, 'red', 2);
+  }
+  // SVG
+  if (xrx.engine.isSupported(xrx.engine.SVG)) {
+    var svgCanvas = getCanvasSvg('svgRect');
+    var svgRect = xrx.svg.Rect.create(svgCanvas);
+    svgCanvas.addChild(svgRect);
+    svgRect.draw(10, 10, 80, 80, 'green', .5, 'red', 2);
+    svgRect.draw(); // undefined test
+  }
+  // VML
+  if (xrx.engine.isSupported(xrx.engine.VML)) {
+    var vmlCanvas = getCanvasVml('vmlRect');
+    var vmlRect = xrx.vml.Rect.create(vmlCanvas);
+    vmlCanvas.addChild(vmlRect);
+    vmlRect.draw(10, 10, 80, 80, 'green', .5, 'red', 2);
+    vmlRect.draw(); // undefined test
+  }
+};
+
+
+
+function test9VML() {
+  if (xrx.engine.isSupported(xrx.engine.CANVAS)) {
+    var canvasCanvas = getCanvasCanvas('VML1_');
+    var canvasRect = xrx.canvas.Rect.create(canvasCanvas);
+    canvasCanvas.addChild(canvasRect);
+    canvasRect.draw(10, 10, 80, 80, 'green', .5, 'red', 2);
+    canvasRect.draw(); // undefined test
+  }
+  if (xrx.engine.isSupported(xrx.engine.VML)) {
+    var vmlCanvas = getCanvasVml('VML1');
+    var vmlRect = xrx.vml.Rect.create(vmlCanvas);
+    vmlCanvas.addChild(vmlRect);
+    vmlRect.draw(10, 10, 80, 80, 'green', .5, 'red', 2);
+    vmlRect.draw(); // undefined test
+  }
+};
+
+
+
+function xtest9removeChildren() {
+  if (!xrx.engine.isOldIE()) {
+    // Canvas
+    var canvasCanvas = getCanvasCanvas(goog.dom.createElement('div'));
+    var canvasCircle = xrx.canvas.Circle.create(canvasCanvas);
+    var canvasImage = xrx.canvas.Image.create(canvasCanvas);
+    var canvasRect = xrx.canvas.Rect.create(canvasCanvas);
+    var canvasPolygon = xrx.canvas.Polygon.create(canvasCanvas);
+    var canvasPolyline = xrx.canvas.Polyline.create(canvasCanvas);
+    canvasCanvas.addChild(canvasCircle);
+    canvasCanvas.addChild(canvasImage);
+    canvasCanvas.addChild(canvasRect);
+    canvasCanvas.addChild(canvasPolygon);
+    canvasCanvas.addChild(canvasPolyline);
+    assertEquals(5, canvasCanvas.getChildren().length);
+    canvasCanvas.removeChildAt(1);
+    assertEquals(4, canvasCanvas.getChildren().length);
+    canvasCanvas.removeChildren();
+    assertEquals(0, canvasCanvas.getChildren().length);
+    // SVG
+    var svgCanvas = getCanvasSvg(goog.dom.createElement('div'));
+    var svgCircle = xrx.svg.Circle.create(svgCanvas);
+    var svgImage = xrx.svg.Image.create(svgCanvas);
+    var svgRect = xrx.svg.Rect.create(svgCanvas);
+    var svgPolygon = xrx.svg.Polygon.create(svgCanvas);
+    var svgPolyline = xrx.svg.Polyline.create(svgCanvas);
+    svgCanvas.addChild(svgCircle);
+    svgCanvas.addChild(svgImage);
+    svgCanvas.addChild(svgRect);
+    svgCanvas.addChild(svgPolygon);
+    svgCanvas.addChild(svgPolyline);
+    assertEquals(5, svgCanvas.getChildren().length);
+    assertEquals(5, goog.dom.getChildren(svgCanvas.getElement()).length);
+    svgCanvas.removeChildAt(1);
+    assertEquals(4, svgCanvas.getChildren().length);
+    assertEquals(4, goog.dom.getChildren(svgCanvas.getElement()).length);
+    svgCanvas.removeChildren();
+    assertEquals(0, svgCanvas.getChildren().length);
+    assertEquals(0, goog.dom.getChildren(svgCanvas.getElement()).length);
+  }
+  // VML
+  var vmlCanvas = getCanvasVml(goog.dom.createElement('div'));
+  var vmlCircle = xrx.vml.Circle.create(vmlCanvas);
+  var vmlImage = xrx.vml.Image.create(vmlCanvas);
+  var vmlRect = xrx.vml.Rect.create(vmlCanvas);
+  var vmlPolygon = xrx.vml.Polygon.create(vmlCanvas);
+  var vmlPolyline = xrx.vml.Polyline.create(vmlCanvas);
+  vmlCanvas.addChild(vmlCircle);
+  vmlCanvas.addChild(vmlImage);
+  vmlCanvas.addChild(vmlRect);
+  vmlCanvas.addChild(vmlPolygon);
+  vmlCanvas.addChild(vmlPolyline);
+  assertEquals(5, vmlCanvas.getChildren().length);
+  assertEquals(5 + 2, goog.dom.getChildren(vmlCanvas.getElement()).length);
+  vmlCanvas.removeChildAt(1);
+  assertEquals(4, vmlCanvas.getChildren().length);
+  assertEquals(4 + 2, goog.dom.getChildren(vmlCanvas.getElement()).length);
+  vmlCanvas.removeChildren();
+  assertEquals(0, vmlCanvas.getChildren().length);
+  assertEquals(0 + 2, goog.dom.getChildren(vmlCanvas.getElement()).length);
+};
+
+</script>
+</body>
+</html>

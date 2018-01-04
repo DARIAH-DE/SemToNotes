@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.viewbox.FastAffineTransform</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../deps.js'></script>
+<link rel="stylesheet" type="text/css" href="./drawingViewbox_test.css">
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.dom.DomHelper');
+  goog.require('xrx');
+</script>
+</head>
+<body>
+
+<div id="output1">Zoom value: </div>
+<div id="output2">Rotation: </div>
+<div class="drawing" id="drawing"></div>
+<button id="brotateLeft">Rotate left</button>
+<button id="brotateRight">Rotate right</button>
+
+<script type="text/javascript">
+
+
+
+var url = './drawing_test.png';
+var element = goog.dom.getElement('drawing');
+var drawing = new xrx.drawing.Drawing(element);
+var viewbox = drawing.getViewbox();
+var output1 = goog.dom.getElement('output1');
+
+// configure drawing canvas
+drawing.setModeView();
+drawing.setBackgroundImage(url, function() {
+  drawing.draw();
+});
+
+// buttons
+var rotateLeft = goog.dom.getElement('brotateLeft');
+var rotateRight = goog.dom.getElement('brotateRight');
+goog.events.listen(rotateLeft, goog.events.EventType.CLICK, function() {
+  viewbox.rotateBy(-90);
+  drawing.draw();
+});
+goog.events.listen(rotateRight, goog.events.EventType.CLICK, function() {
+  viewbox.rotateBy(90);
+  drawing.draw();
+});
+
+
+drawing.eventViewboxChange = function() {
+  var text1 = 'Zoom value: ' + viewbox.getCTM().getScale();
+  goog.dom.setTextContent(output1, text1);
+  var text2 = 'Rotation: ' + viewbox.getCTM().getRotation();
+  goog.dom.setTextContent(output2, text2);
+};
+
+
+function test() {};
+
+</script>
+</body>
+</html>

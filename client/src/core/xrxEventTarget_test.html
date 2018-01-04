@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.EventTarget</title>
+<script src='../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.dom.DomHelper');
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx.test.EventTargetA');
+  goog.require('xrx.test.EventTargetB');
+  goog.require('xrx');
+</script>
+</head>
+<body>
+
+<script type="text/javascript">
+
+
+
+function test1basic() {
+  var a = new xrx.test.EventTargetA();
+  var b = new xrx.test.EventTargetB();
+  var countA = 0;
+  var countB = 0;
+  var thisA = null;
+  var thisB = null;
+
+  a.eventTest = function() {
+    countA++;
+    thisA = this;
+  };
+
+  b.eventTest = function() {
+    countB++;
+    thisB = this;
+  };
+
+  a.test();
+  b.test();
+
+  assertEquals(1, countA);
+  assertEquals(1, countB);
+  assertTrue(thisA instanceof xrx.test.EventTargetA);
+  assertTrue(thisB instanceof xrx.test.EventTargetB);
+};
+
+
+
+function test2thisObject() {
+  var a = new xrx.test.EventTargetA();
+  var b = new xrx.test.EventTargetB(a);
+  var count = 0;
+  var thisObj = null;
+
+  a.eventThisObject = function() {
+    count++;
+    thisObj = this;
+  };
+
+  b.testThisObject();
+
+  assertEquals(1, count);
+  assertTrue(thisObj instanceof xrx.test.EventTargetA);
+};
+
+
+
+function test3arguments() {
+  var a = new xrx.test.EventTargetA();
+  var arg1;
+  var arg2;
+  var arg3;
+
+  a.eventArguments = function(a1, a2, a3) {
+    arg1 = a1;
+    arg2 = a2;
+    arg3 = a3;
+  };
+
+  a.testArguments(1, 2, 3);
+
+  assertEquals(arg1, 1);
+  assertEquals(arg2, 2);
+  assertEquals(arg3, 3);
+};
+
+</script>
+</body>
+</htmL>

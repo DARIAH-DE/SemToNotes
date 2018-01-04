@@ -1,0 +1,5 @@
+<newData xmlns="http://www.tei-c.org/ns/1.0">
+  <zone points="0,0"/>
+  <zone ulx="0" uly="0" lrx="0" lry="0"/>
+  <zone x="0" y="0" width="0" height="0"/>
+</newData>

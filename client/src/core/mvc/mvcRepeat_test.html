@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.mvc.Repeat</title>
+<script type="text/javascript" src="../../../lib/jssaxparser/SAXException.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/AttributesImpl.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/LocatorImpls.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/NamespaceSupport.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/sax.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/DefaultHandlers.js"></script>
+<script src="../../../lib/closure-library/closure/goog/base.js"></script>
+<script src="../../deps.js"></script>
+<script type="text/javascript">
+  goog.require('goog.array');
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.dom.DomHelper');
+  goog.require('goog.object');
+  goog.require('xrx');
+  goog.require('xrx.mvc');
+  goog.require('xrx.mvc.Controller');
+  goog.require('xrx.mvc.Mvc');
+</script>
+<script type="text/javascript">
+
+
+
+function checkFirstItemExists(repeatComponent) {
+  assertFalse(undefined === repeatComponent.firstItem_);
+};
+
+
+
+function checkNextItemsLength(repeatComponent, length) {
+  assertEquals(length, repeatComponent.nextItems_.length);
+};
+
+
+
+function checkItemElementsLength(repeatComponent, length) {
+  var repeatDiv = repeatComponent.getElement();
+  var children = goog.dom.getChildren(repeatDiv);
+  var repeatItems = goog.dom.getElementsByClass('xrx-repeat-item', repeatDiv);
+  assertEquals(length, children.length);
+  assertEquals(length, repeatItems.length);
+};
+
+
+
+function getComponents_(repeatComponent) {
+  var components = [];
+  var repeatDiv = repeatComponent.getElement();
+  goog.object.forEach(xrx.mvc.getViewComponents(), function(component) {
+    if (goog.dom.contains(repeatDiv, component.getElement()) &&
+        component.getElement() !== repeatDiv) components.push(component);
+  });
+  return components;
+};
+
+
+
+function checkComponentsLength(repeatComponent, length) {
+  assertEquals(length, getComponents_(repeatComponent).length);
+};
+
+
+
+function checkComponentValues(repeatComponent, values) {
+  goog.array.forEach(getComponents_(repeatComponent), function(component, i){
+    assertEquals(values[i], component.getValue());
+  }, this);
+};
+
+
+
+function checkIdsAreUnique(repeatComponent) {
+  var ids = [];
+  var consoles = goog.dom.getElementsByClass('xrx-console', repeatComponent.getElement());
+  goog.array.forEach(consoles, function(cons) {
+    ids.push(cons.id);
+  });
+  var uniqueIds = goog.array.clone(ids);
+  goog.array.removeDuplicates(uniqueIds);
+  assertTrue(ids.length === uniqueIds.length);
+};
+
+
+
+function mvcRefreshTest(repeatId) {
+  var children;
+  var repeatItems;
+  var repeatDiv = goog.dom.getElement(repeatId);
+  var repeatComponent = xrx.mvc.getComponent(repeatId);
+
+  // initial state
+  checkFirstItemExists(repeatComponent);
+  checkNextItemsLength(repeatComponent, 2);
+  checkItemElementsLength(repeatComponent, 6);
+  checkComponentsLength(repeatComponent, 6);
+  checkComponentValues(repeatComponent, ['<a>1</a>', '<a>1</a>', '<b>2</b>',
+      '<b>2</b>', '<c>3</c>', '<c>3</c>']);
+  checkIdsAreUnique(repeatComponent);
+/*
+  // remove components
+  xrx.mvc.removeViewComponents(repeatDiv);
+  checkFirstItemExists(repeatComponent);
+  checkNextItemsLength(repeatComponent, 2);
+  checkItemElementsLength(repeatComponent, 6);
+  checkComponentsLength(repeatComponent, 0);
+  checkIdsAreUnique(repeatComponent);
+
+  // remove items
+  repeatComponent.removeItems_();
+  checkFirstItemExists(repeatComponent);
+  checkNextItemsLength(repeatComponent, 0);
+  checkItemElementsLength(repeatComponent, 2);
+  checkComponentsLength(repeatComponent, 0);
+  // only one ID
+
+  // create items
+  repeatComponent.createItems_();
+  checkFirstItemExists(repeatComponent);
+  checkNextItemsLength(repeatComponent, 2);
+  checkItemElementsLength(repeatComponent, 6);
+  checkComponentsLength(repeatComponent, 0);
+  // elements have no IDs here yet
+
+  // install components
+  xrx.mvc.Mvc.install(repeatDiv);
+  checkFirstItemExists(repeatComponent);
+  checkNextItemsLength(repeatComponent, 2);
+  checkItemElementsLength(repeatComponent, 6);
+  checkComponentsLength(repeatComponent, 6);
+  checkComponentValues(repeatComponent, ['<a>1</a>', '<a>1</a>', '<b>2</b>',
+      '<b>2</b>', '<c>3</c>', '<c>3</c>']);
+  checkIdsAreUnique(repeatComponent);
+*/
+};
+
+
+
+</script>
+</head>
+<body>
+
+<div id="test01" style="display:none">
+  <div id="i01" class="xrx-instance">&lt;data&gt;&lt;a&gt;1&lt;/a&gt;&lt;b&gt;2&lt;/b&gt;&lt;c&gt;3&lt;/c&gt;&lt;/data&gt;</div>
+  <div id="b011" class="xrx-bind" data-xrx-ref="xrx:instance('i01')"></div>
+  <div id="b012" class="xrx-bind" data-xrx-ref="xrx:instance('i01')/data/*"></div>
+  <div id="b013" class="xrx-bind" data-xrx-ref="xrx:instance('i01')/data/a"></div>
+  <div id="b014" class="xrx-bind" data-xrx-ref="xrx:instance('i01')/data/b"></div>
+  <div id="b015" class="xrx-bind" data-xrx-ref="xrx:instance('i01')/data/c"></div>
+  <div id="r01" class="xrx-repeat" data-xrx-bind="b012">
+    <div>
+      <pre class="xrx-console" data-xrx-ref="./self::*"></pre>
+    </div>
+    <div>
+      <pre class="xrx-console" data-xrx-ref="./self::*"></pre>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+function test01MvcRefreshWrapped() {
+  mvcRefreshTest('r01');
+};
+</script>
+
+<div id="test02" style="display:none">
+  <div id="i02" class="xrx-instance">&lt;data&gt;&lt;a&gt;1&lt;/a&gt;&lt;b&gt;2&lt;/b&gt;&lt;c&gt;3&lt;/c&gt;&lt;/data&gt;</div>
+  <div id="b021" class="xrx-bind" data-xrx-ref="xrx:instance('i02')"></div>
+  <div id="b022" class="xrx-bind" data-xrx-ref="xrx:instance('i02')/data/*"></div>
+  <div id="b023" class="xrx-bind" data-xrx-ref="xrx:instance('i02')/data/a"></div>
+  <div id="b024" class="xrx-bind" data-xrx-ref="xrx:instance('i02')/data/b"></div>
+  <div id="b025" class="xrx-bind" data-xrx-ref="xrx:instance('i02')/data/c"></div>
+  <div id="r02" class="xrx-repeat" data-xrx-bind="b022">
+    <pre class="xrx-console" data-xrx-ref="./self::*"></pre>
+    <pre class="xrx-console" data-xrx-ref="./self::*"></pre>
+  </div>
+</div>
+<script type="text/javascript">
+function test02MvcRefreshUnwrapped() {
+  mvcRefreshTest('r02');
+};
+</script>
+
+<div id="test03" style="display:none">
+  <div id="i03" class="xrx-instance">&lt;data&gt;&lt;a/&gt;&lt;b/&gt;&lt;c/&gt;&lt;/data&gt;</div>
+  <div id="b031" class="xrx-bind" data-xrx-ref="xrx:instance('i03')"></div>
+  <div id="b032" class="xrx-bind" data-xrx-ref="xrx:instance('i03')/data/*"></div>
+  <div id="b033" class="xrx-bind" data-xrx-ref="xrx:instance('i03')/data/a"></div>
+  <div id="b034" class="xrx-bind" data-xrx-ref="xrx:instance('i03')/data/b"></div>
+  <div id="b035" class="xrx-bind" data-xrx-ref="xrx:instance('i03')/data/c"></div>
+  <div id="r03" class="xrx-repeat" data-xrx-bind="b032">
+    <pre class="xrx-console" data-xrx-ref="./self::*"></pre>
+    <pre class="xrx-console" data-xrx-ref="./self::*"></pre>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+function test03RemoveNodesForward() {
+  var component;
+  var consoles;
+  var repeatDiv = goog.dom.getElement('r03');
+  var repeatComponent = xrx.mvc.getComponent('r03');
+
+  var removeFirstNode = function() {
+    consoles = goog.dom.getElementsByClass('xrx-console', repeatDiv);
+    component = xrx.mvc.getComponent(consoles[0].id);
+    xrx.mvc.Controller.removeNode(component);
+  };
+
+  // initial state
+  checkFirstItemExists(repeatComponent);
+  checkNextItemsLength(repeatComponent, 2);
+  checkItemElementsLength(repeatComponent, 6);
+  checkComponentsLength(repeatComponent, 6);
+  checkComponentValues(repeatComponent, ['<a/>', '<a/>', '<b/>',
+      '<b/>', '<c/>', '<c/>']);
+  checkIdsAreUnique(repeatComponent);
+
+  // remove first node
+  removeFirstNode();
+  checkFirstItemExists(repeatComponent);
+  checkNextItemsLength(repeatComponent, 1);
+  checkItemElementsLength(repeatComponent, 4);
+  checkComponentsLength(repeatComponent, 4);
+  checkComponentValues(repeatComponent, ['<b/>', '<b/>', '<c/>', '<c/>']);
+  checkIdsAreUnique(repeatComponent);
+
+  // remove first node
+  removeFirstNode();
+  checkFirstItemExists(repeatComponent);
+  checkNextItemsLength(repeatComponent, 0);
+  checkItemElementsLength(repeatComponent, 2);
+  checkComponentsLength(repeatComponent, 2);
+  checkComponentValues(repeatComponent, ['<c/>', '<c/>']);
+  checkIdsAreUnique(repeatComponent);
+
+  // remove first node
+  removeFirstNode();
+  checkFirstItemExists(repeatComponent);
+  checkNextItemsLength(repeatComponent, 0);
+  checkItemElementsLength(repeatComponent, 2);
+  checkComponentsLength(repeatComponent, 2);
+  checkComponentValues(repeatComponent, ['', '']);
+  checkIdsAreUnique(repeatComponent);
+};
+
+</script>
+
+<script type="text/javascript">
+  xrx.install();
+</script>
+</body>
+</html>

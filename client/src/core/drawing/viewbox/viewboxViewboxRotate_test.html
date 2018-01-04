@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.viewbox.ViewboxRotate</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../deps.js'></script>
+<script src='./viewboxViewbox_test.js'></script>
+<link rel="stylesheet" type="text/css" href="./viewboxViewbox_test.css">
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.dom.DomHelper');
+  goog.require('goog.dom.forms');
+  goog.require('goog.events');
+  goog.require('goog.events.EventType');
+  goog.require('goog.ui.Component.EventType');
+  goog.require('goog.ui.Slider');
+  goog.require('xrx.api.drawing');
+</script>
+</head>
+<body>
+
+<h1>Whether rotation works with all rendering engines</h1>
+<table>
+  <tr>
+    <td></td>
+    <td>Rotate Left</td>
+    <td>Rotate Right</td>
+  </tr>
+  <tr>
+    <td>Canvas</td>
+    <td><div class="drawing" id="canvasRotateLeft"></div></td>
+    <td><div class="drawing" id="canvasRotateRight"></div></td>
+  </tr>
+  <tr>
+    <td>SVG</td>
+    <td><div class="drawing" id="svgRotateLeft"></div></td>
+    <td><div class="drawing" id="svgRotateRight"></div></td>
+  </tr>
+  <tr>
+    <td>VML</td>
+    <td><div class="drawing" id="vmlRotateLeft"></div></td>
+    <td><div class="drawing" id="vmlRotateRight"></div></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><span>'N' points to west?</span></td>
+    <td><span>'N' points to east?</span></td>
+    <td><span>'N' points to east?</span></td>
+  </tr>
+</table>
+
+<h1>Rotate, respecting the mouse pointer as fix-point</h1>
+<div class="wrapper1">
+  <div class="drawing" id="rotateMousePointer"></div>
+</div>
+
+<h1>Rotate, respecting a fix-point</h1>
+<div>
+  <form id="frotate">
+    <input type="radio" name="dir" value="C" checked>Center<br>
+    <input type="radio" name="dir" value="NE">Northeast<br>
+    <input type="radio" name="dir" value="SE">Southeast<br>
+    <input type="radio" name="dir" value="SW">Southwest<br>
+    <input type="radio" name="dir" value="NW">Northwest<br>
+  </form>
+  <div class="drawing" id="rotateFixPoint"></div>
+  <button id="brotateLeft1">Rotate left</button>
+  <button id="brotateRight1">Rotate right</button>
+</div>
+
+<script type="text/javascript">
+
+
+
+function test1RotateLeft() {
+  if (xrx.engine.isSupported(xrx.engine.CANVAS)) {
+    var svgDrawing = getDrawingSvg('svgRotateLeft');
+    svgDrawing.setBackgroundImage(url, function() {
+      svgDrawing.getViewbox().rotateLeft();
+      svgDrawing.draw();
+    });
+  }
+  if (xrx.engine.isSupported(xrx.engine.SVG)) {
+    var canvasDrawing = getDrawingCanvas('canvasRotateLeft');
+    canvasDrawing.setBackgroundImage(url, function() {
+      canvasDrawing.getViewbox().rotateLeft();
+      canvasDrawing.draw();
+    });
+  }
+  if (xrx.engine.isSupported(xrx.engine.VML)) {
+    var vmlDrawing = getDrawingVml('vmlRotateLeft');
+    vmlDrawing.setBackgroundImage(url, function() {
+      vmlDrawing.getViewbox().rotateLeft();
+      vmlDrawing.draw();
+    });
+  }
+};
+
+
+
+function test2RotateRight() {
+  if (xrx.engine.isSupported(xrx.engine.CANVAS)) {
+    var svgDrawing = getDrawingSvg('svgRotateRight');
+    svgDrawing.setBackgroundImage(url, function() {
+      svgDrawing.getViewbox().rotateRight();
+      svgDrawing.draw();
+    });
+  }
+  if (xrx.engine.isSupported(xrx.engine.SVG)) {
+    var canvasDrawing = getDrawingCanvas('canvasRotateRight');
+    canvasDrawing.setBackgroundImage(url, function() {
+      canvasDrawing.getViewbox().rotateRight();
+      canvasDrawing.draw();
+    });
+  }
+  if (xrx.engine.isSupported(xrx.engine.VML)) {
+    var vmlDrawing = getDrawingVml('vmlRotateLeft');
+    vmlDrawing.setBackgroundImage(url, function() {
+      vmlDrawing.getViewbox().rotateRight();
+      vmlDrawing.draw();
+    });
+  }
+};
+
+
+
+function test3rotateMousePointer() {
+  var canvas = new xrx.drawing.Drawing(goog.dom.getElement('rotateMousePointer'));
+  canvas.setModeView();
+  canvas.setBackgroundImage(url2);
+};
+
+
+
+function test4rotateFixPoint() {
+  var canvas = new xrx.drawing.Drawing(goog.dom.getElement('rotateFixPoint'));
+  var viewbox = canvas.getViewbox();
+
+  // form
+  var form = goog.dom.getElement('frotate');
+  var orientation = function() {
+    var element = goog.dom.findNode(form, function(n) {
+      return goog.dom.isElement(n) && n.checked;
+    });
+    return element.value;
+  };
+
+  // buttons
+  var rotateLeft = goog.dom.getElement('brotateLeft1');
+  var rotateRight = goog.dom.getElement('brotateRight1');
+  goog.events.listen(rotateLeft, goog.events.EventType.CLICK, function() {
+    viewbox.rotateBy(-90, orientation());
+    canvas.draw();
+  });
+  goog.events.listen(rotateRight, goog.events.EventType.CLICK, function() {
+    viewbox.rotateBy(90, orientation());
+    canvas.draw();
+  });
+
+  // canvas and view-box configuration
+  canvas.setModeView();
+  canvas.getViewbox().setZoomFactorMax(4);
+  canvas.getViewbox().setZoomFactorMin(.4);
+  canvas.getViewbox().getCTM().translate(20, 20);
+  canvas.setBackgroundImage(url2);
+};
+
+</script>
+</body>
+</html>

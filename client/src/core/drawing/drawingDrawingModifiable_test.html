@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.drawing.DrawingModifiable</title>
+<script src='../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.dom.DomHelper');
+  goog.require('goog.style');
+  goog.require('goog.userAgent');
+  goog.require('xrx.api.drawing');
+</script>
+<style>
+.drawing {
+width: 300px;
+height: 300px;
+}
+</style>
+</head>
+<body>
+<h1>Remove Selected Shape</h1>
+<div id="removeSelectedShape" class="drawing"></div>
+<button onclick="window.drawing.removeShape(window.drawing.getSelectedShape());">Remove selected</button>
+
+<script type="text/javascript">
+
+
+function test1removeSelectedShape() {
+  var drawing = new xrx.drawing.Drawing(goog.dom.getElement('removeSelectedShape'));
+  drawing.setModeModify();
+  var rect = new xrx.shape.Rect(drawing);
+  rect.setX(10);
+  rect.setY(10);
+  rect.setWidth(110);
+  rect.setHeight(110);
+  drawing.addShapes(rect);
+  window.drawing = drawing;
+};
+
+
+
+</script>
+</body>
+</html>

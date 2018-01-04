@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Image Viewer</title>
+    <script src="../../xrx.api.drawing.min.js"></script>
+    <link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+    .container, body, html {
+    display: block;
+    height: 100%;
+    }
+    #drawing {
+    display: block;
+    height: 100%;
+    width: 100%;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <button class="btn btn-default" aria-label="Rotate"
+          onclick="window.drawing.getViewbox().rotateRight()">
+        <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Rotate
+      </button>
+      <button class="btn btn-default" aria-label="Zoom in"
+          onclick="window.drawing.getViewbox().zoomIn()">
+        <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span> Zoom in
+      </button>
+      <button class="btn btn-default" aria-label="Zoom out"
+          onclick="window.drawing.getViewbox().zoomOut()">
+        <span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span> Zoom out
+      </button>
+      <button class="btn btn-default" aria-label="Fit"
+          onclick="window.drawing.getViewbox().fit()">
+        <span class="glyphicon glyphicon-resize-small" aria-hidden="true"></span> Fit
+      </button>
+      <span id="message"></span>
+      <div id="drawing"></div>
+    </div>
+    <script>
+    (function() {
+
+      // create and initialize a drawing canvas
+      var element = document.getElementById('drawing');
+      var drawing = new xrx.drawing.Drawing(element);
+      var viewbox = drawing.getViewbox();
+      window.drawing = drawing; // just a hack to realize toolbar functionality
+
+      // switch the drawing canvas into mode view to active view-box functionality
+      drawing.setModeView();
+
+      // set a background image
+      var url = '.../../../../../data/SachsenspiegelHeidelberg/Bilder-34553-28167-1600.jpg';
+      drawing.setBackgroundImage(url, function() {
+        // make the whole view-box visible as soon as the image is loaded
+        viewbox.fit();
+      });
+
+      // output the actual zoom and rotation values
+      var message = document.getElementById('message');
+      window.drawing.eventViewboxChange = function() {
+        message.textContent = '   Rotation: ' + viewbox.getRotation() +
+            ', Zoom: ' + Math.round(viewbox.getZoomValue() * 100) + '%';
+      }
+
+      return window.drawing;
+
+    })();
+    </script>
+  </body>
+</html>

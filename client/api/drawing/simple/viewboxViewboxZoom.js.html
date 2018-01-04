@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Source: core/drawing/viewbox/viewboxViewboxZoom.js | API Reference | SemToNotes</title>
+  <script src="scripts/prettify/prettify.js"></script>
+  <script src="scripts/prettify/lang-css.js"></script>
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+  <!--link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css"-->
+  <link href="../../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../../demo/stylesheets/demo.css" rel="stylesheet">
+</head>
+<body>
+  <nav id="nav" class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"></button>
+        <a class="navbar-brand" href="../../../../index.html">SemToNotes</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li id="homeLink"><a href="../../../../index.html#home">Home</a></li>
+          <li id="apiLink" class="active">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">JavaScript API <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="../../../../index.html#documentation">API Documentation</a></li>
+              <li><a href="../simple/index.html">Simple API Reference <small>(for users)</small></a></li>
+              <li><a href="../full/index.html">Full API Reference <small>(for developers)</small></a></li>
+              <li><a href="../../../../index.html#about">About</a></li>
+            </ul>
+          </li>
+          <li id="retrievalLink"><a href="../../../../index.html#retrieval">Topological Retrieval</a></li>
+          <li><a target="_blank" href="https://github.com/HKIKoeln/SemToNotes/">Code</a></li>
+        </ul>
+      </div>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+  <div id="content" class="container">
+    <div id="main" class="col-md-9">
+      <h1 class="page-title">Source: core/drawing/viewbox/viewboxViewboxZoom.js</h1>
+      
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileoverview A class implementing a zooming model for
+ * the drawing view-box.
+ */
+
+goog.provide('xrx.viewbox.ViewboxZoom');
+
+
+
+goog.require('xrx.viewbox.ViewboxRotate');
+
+
+
+/**
+ * A class implementing a zooming model for the drawing view-box.
+ * @constructor
+ * @extends {xrx.viewbox.ViewboxRotate}
+ * @private
+ */
+xrx.viewbox.ViewboxZoom = function() {
+
+  goog.base(this);
+};
+goog.inherits(xrx.viewbox.ViewboxZoom, xrx.viewbox.ViewboxRotate);
+
+
+
+/**
+ * The current zoom factor, defaults to .1.
+ * @type {number}
+ * @private
+ */
+xrx.viewbox.ViewboxZoom.prototype.zoomFactor_ = .1;
+
+
+
+/**
+ * Returns the current zoom factor, defaults to .1.
+ * @return {number} The zoom factor.
+ */
+xrx.viewbox.ViewboxZoom.prototype.getZoomFactor = function() {
+  return this.zoomFactor_;
+};
+
+
+
+/**
+ * Sets a new zoom factor, e.g. 0.1.
+ * @param {number} factor The new zoom factor.
+ */
+xrx.viewbox.ViewboxZoom.prototype.setZoomFactor = function(factor) {
+  this.zoomFactor_ = factor;
+};
+
+
+
+/**
+ * Returns the current zoom value.
+ * @return {number}
+ */
+xrx.viewbox.ViewboxZoom.prototype.getZoomValue = function(opt_zoomStep) {
+  if (opt_zoomStep === undefined) {
+    return this.ctm_.getScale();
+  } else {
+    return this.zoomMin_ + opt_zoomStep * this.zoomFactor_;
+  }
+};
+
+
+
+/**
+ * The minimum zoom value, defaults to 0.1.
+ * @type {number}
+ * @private
+ */
+xrx.viewbox.ViewboxZoom.prototype.zoomMin_ = .1;
+
+
+
+/**
+ * Returns the current minimum zoom value.
+ * @return {number} The minimum zoom value.
+ */
+xrx.viewbox.ViewboxZoom.prototype.getZoomMin = function() {
+  return this.zoomMin_;
+};
+
+
+
+/**
+ * Sets the minimum zoom value.
+ * @param {number} value The minimum zoom value.
+ */
+xrx.viewbox.ViewboxZoom.prototype.setZoomFactorMin = function(value) {
+  this.zoomMin_ = value;
+};
+
+
+
+/**
+ * The maximum zoom value, defaults to 2.
+ * @type {number}
+ * @private
+ */
+xrx.viewbox.ViewboxZoom.prototype.zoomMax_ = 2;
+
+
+
+/**
+ * Returns the current maximum zoom value.
+ * @return {number} The maximum zoom value.
+ */
+xrx.viewbox.ViewboxZoom.prototype.getZoomMax = function() {
+  return this.zoomMax_;
+};
+
+
+
+/**
+ * Sets the maximum zoom value.
+ * @param {number} value The maximum zoom value.
+ */
+xrx.viewbox.ViewboxZoom.prototype.setZoomFactorMax = function(value) {
+  this.zoomMax_ = value;
+};
+
+
+
+/**
+ * Returns the current zoom step or the zoom step of a zoom value if
+ * opt_zoomValue is defined. 
+ * @param {?number} opt_zoomValue A zoom value.
+ * @return {number} The zoom step.
+ */
+xrx.viewbox.ViewboxZoom.prototype.getZoomStep = function(opt_zoomValue) {
+  var value = opt_zoomValue !== undefined ? opt_zoomValue : this.getZoomValue();
+  return Math.round((value - this.zoomMin_) / this.zoomFactor_);
+};
+
+
+
+/**
+ * @private
+ */
+xrx.viewbox.ViewboxZoom.prototype.zoomOffset_ = function(point, zoomValue) {
+  this.ctm_.setTransform(
+    this.ctm_.getScaleX(), this.ctm_.getShearY(), 
+    this.ctm_.getShearX(), this.ctm_.getScaleY(),
+    (this.ctm_.getTranslateX() - point[0]) * zoomValue + point[0],
+    (this.ctm_.getTranslateY() - point[1]) * zoomValue + point[1]
+  );
+};
+
+
+
+/**
+ * Zooms the view-box to a value, optionally respecting a fix-point.
+ * @param {number} zoomValue The zoom value.
+ * @param {?number} opt_fixPoint A fix-point.
+ */
+xrx.viewbox.ViewboxZoom.prototype.zoomTo = function(zoomValue, opt_fixPoint) {
+  var fixPoint;
+  if (opt_fixPoint !== undefined) {
+    if (!this.containsPoint(opt_fixPoint)) {
+      fixPoint = this.getCenterPoint_(true);
+    } else {
+      fixPoint = opt_fixPoint;
+    }
+  } else {
+    fixPoint = this.getCenterPoint_(true);
+  }
+	if(zoomValue &lt; this.zoomMin_) zoomValue = this.zoomMin_;
+	if(zoomValue > this.zoomMax_) zoomValue = this.zoomMax_;
+
+  var scale = 1 / this.getZoomValue() * zoomValue;
+	this.zoomOffset_(fixPoint, scale);
+	this.ctm_.scale(scale, scale);
+
+  this.drawing_.draw();
+  this.dispatchExternal(xrx.drawing.EventType.VIEWBOX_CHANGE, this.drawing_);
+};
+
+
+
+/**
+ * Zoom in on the view-box, optionally respecting a fix-point.
+ * @param {Array&lt;number>} opt_fixPoint A fix-point.
+ */
+xrx.viewbox.ViewboxZoom.prototype.zoomIn = function(opt_fixPoint) {
+  this.zoomTo(this.ctm_.getScale() + this.zoomFactor_, opt_fixPoint);
+};
+
+
+
+/**
+ * Zoom out the view-box, optionally respecting a fix-point.
+ * @param {Array&lt;number>} opt_fixPoint A fix-point.
+ */
+xrx.viewbox.ViewboxZoom.prototype.zoomOut = function(opt_fixPoint) {
+  this.zoomTo(this.ctm_.getScale() - this.zoomFactor_, opt_fixPoint);
+};
+
+
+
+/**
+ * Disposes this view-box.
+ */
+xrx.viewbox.ViewboxZoom.prototype.disposeInternal = function() {
+  goog.base(this, 'disposeInternal');
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    </div>
+    <nav class="col-md-3">
+      <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="xrx.drawing.Drawing.html">xrx.drawing.Drawing</a></li><li><a href="xrx.shape.Circle.html">xrx.shape.Circle</a></li><li><a href="xrx.shape.DiPolygon.html">xrx.shape.DiPolygon</a></li><li><a href="xrx.shape.DiPolygonArrow.html">xrx.shape.DiPolygonArrow</a></li><li><a href="xrx.shape.DiPolygonArrowModifiable.html">xrx.shape.DiPolygonArrowModifiable</a></li><li><a href="xrx.shape.Ellipse.html">xrx.shape.Ellipse</a></li><li><a href="xrx.shape.Line.html">xrx.shape.Line</a></li><li><a href="xrx.shape.Polygon.html">xrx.shape.Polygon</a></li><li><a href="xrx.shape.Polyline.html">xrx.shape.Polyline</a></li><li><a href="xrx.shape.Rect.html">xrx.shape.Rect</a></li><li><a href="xrx.shape.ShapeGroup.html">xrx.shape.ShapeGroup</a></li><li><a href="xrx.shape.Style.html">xrx.shape.Style</a></li><li><a href="xrx.viewbox.Viewbox.html">xrx.viewbox.Viewbox</a></li></ul><h3>Events</h3><ul><li><a href="xrx.drawing.Drawing.html#event:eventShapeModify">xrx.drawing.Drawing#event:eventShapeModify</a></li></ul><h3>Namespaces</h3><ul><li><a href="xrx.html">xrx</a></li><li><a href="xrx.canvas.html">xrx.canvas</a></li><li><a href="xrx.drawing.html">xrx.drawing</a></li><li><a href="xrx.engine.html">xrx.engine</a></li><li><a href="xrx.shape.html">xrx.shape</a></li><li><a href="xrx.svg.html">xrx.svg</a></li><li><a href="xrx.viewbox.html">xrx.viewbox</a></li><li><a href="xrx.vml.html">xrx.vml</a></li></ul>
+    </nav>
+  </div>
+  <script>prettyPrint();</script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

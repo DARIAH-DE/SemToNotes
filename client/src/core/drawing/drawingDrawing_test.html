@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.drawing.Drawing</title>
+<script src='../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.dom.DomHelper');
+  goog.require('goog.style');
+  goog.require('goog.userAgent');
+  goog.require('xrx.api.drawing');
+</script>
+<style>
+.drawing {
+display: block;
+width: 150px;
+height: 150px;
+}
+#canvasBackground,
+#svgBackground,
+#vmlBackground {
+width: 200px;
+height: 200px;
+background-color: #E8FAE8;
+margin: 10px;
+}
+.bordered-drawing {
+border: dashed grey 5px;
+width: 150px;
+height: 150px;
+background-color: black;
+}
+.bordered-drawing canvas,
+.bordered-drawing svg,
+.bordered-drawing group.xrx-vml {
+background-color: orange;
+}
+</style>
+</head>
+<body>
+<h1>API Functions</h1>
+<table>
+  <tr>
+    <td></td>
+    <td>Drawing</td>
+	  <td>Set Background Image</td>
+	  <td>Add Shapes</td>
+  </tr>
+  <tr>
+	  <td>Canvas</td>
+	  <td><div id="canvasDrawing" class="drawing"></div></td>
+    <td><div id="canvasBackgroundImage" class="drawing"></div></td>
+    <td><div id="canvasAddShapes" class="drawing"></div></td>
+  </tr>
+  <tr>
+    <td>SVG</td>
+    <td><div id="svgDrawing" class="drawing"></div></td>
+    <td><div id="svgBackgroundImage" class="drawing"></div></td>
+    <td><div id="svgAddShapes" class="drawing"></div></td>
+  </tr>
+  <tr>
+	  <td>VML</td>
+	  <td><div id="vmlDrawing" class="drawing"></div></td>
+    <td><div id="vmlBackgroundImage" class="drawing"></div></td>
+    <td><div id="vmlAddShapes" class="drawing"></div></td>
+  </tr>
+</table>
+<h1>Styling Tests</h1>
+<table>
+  <tr>
+    <td></td>
+    <td>Background Color Test</td>
+    <td>Padding Test</td>
+  </tr>
+  <tr>
+    <td>Canvas</td>
+    <td><div id="canvasBackground" class="drawing"></div></td>
+    <td><div id="canvasPadding" class="bordered-drawing" style="padding: 20px;"></div></td>
+  </tr>
+  <tr>
+    <td>SVG</td>
+    <td><div id="svgBackground" class="drawing"></div></td>
+    <td><div id="svgPadding" class="bordered-drawing" style="padding: 20px;"></div></td>
+  </tr>
+  <tr>
+    <td>VML</td>
+    <td><div id="vmlBackground" class="drawing"></div></td>
+    <td><div id="vmlPadding" class="bordered-drawing" style="padding: 20px;"></div></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>The examples should all show the same green background, i.e., the
+    HTMLCanvas, SVGElement and VMLElement background color should not overdraw
+    the background color of the drawing DIV.</td>
+    <td>Is the orange engine element centered and is has 20px of padding?</td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+
+
+
+function getDrawingCanvas(id) {
+  var canvasDiv = goog.dom.getElement(id);
+  return new xrx.drawing.Drawing(canvasDiv,
+    xrx.engine.CANVAS);
+};
+
+
+
+function getDrawingSvg(id) {
+  var svgDiv = goog.dom.getElement(id);
+  return new xrx.drawing.Drawing(svgDiv,
+      xrx.engine.SVG);
+};
+
+
+
+function getDrawingVml(id) {
+  var vmlDiv = goog.dom.getElement(id);
+  return new xrx.drawing.Drawing(vmlDiv,
+      xrx.engine.VML);
+};
+
+
+
+function test1drawing() {
+  if (xrx.engine.isSupported(xrx.engine.CANVAS)) {
+    var canvasDrawing = getDrawingCanvas('canvasDrawing');
+    assertEquals(150, canvasDrawing.getElement().clientWidth);
+    assertEquals(150, canvasDrawing.getElement().offsetWidth);
+    var canvasEngineElement = canvasDrawing.getCanvas().getEngineElement().getElement();
+    assertEquals('150', canvasEngineElement.getAttribute('width'));
+    assertEquals('150', canvasEngineElement.getAttribute('height'));
+  }
+  if (xrx.engine.isSupported(xrx.engine.SVG)) {
+    var svgDrawing = getDrawingSvg('svgDrawing');
+    assertEquals(150, svgDrawing.getElement().clientWidth);
+    assertEquals(150, svgDrawing.getElement().offsetWidth);
+    var svgEngineElement = svgDrawing.getCanvas().getEngineElement().getElement();
+    assertEquals('150', svgEngineElement.getAttribute('width'));
+    assertEquals('150', svgEngineElement.getAttribute('height'));
+  }
+  if (xrx.engine.isSupported(xrx.engine.VML)) {
+    var vmlDrawing = getDrawingVml('vmlDrawing');
+    assertEquals(150, goog.style.getSize(vmlDrawing.getElement()).width);
+    assertEquals(150, goog.style.getSize(vmlDrawing.getCanvas().getElement()).width);
+    assertEquals(150, goog.style.getSize(vmlDrawing.getCanvas().getElement()).height);
+  }
+};
+
+
+
+function test2setBackgroundImage() {
+  var url = './drawing_test.png';
+  if (xrx.engine.isSupported(xrx.engine.CANVAS)) {
+    var canvasDrawing = getDrawingCanvas('canvasBackgroundImage');
+    canvasDrawing.setBackgroundImage(url, function() {
+      canvasDrawing.draw();
+    });
+  }
+  if (xrx.engine.isSupported(xrx.engine.SVG)) {
+    var svgDrawing = getDrawingSvg('svgBackgroundImage');
+    svgDrawing.setBackgroundImage(url, function() {
+      svgDrawing.draw();
+    });
+  }
+  if (xrx.engine.isSupported(xrx.engine.VML)) {
+    var vmlDrawing = getDrawingVml('vmlBackgroundImage');
+    vmlDrawing.setBackgroundImage(url, function() {
+      vmlDrawing.draw();
+    });
+  }
+};
+
+
+
+function test4addShapes() {
+  if (xrx.engine.isSupported(xrx.engine.CANVAS)) {
+    var canvasDrawing = getDrawingCanvas('canvasAddShapes');
+    var canvasRect1 = xrx.shape.Rect.create(canvasDrawing);
+    canvasRect1.setCoords([[10,10],[100,10],[100,100],[10,100]]);
+    var canvasRect2 = xrx.shape.Rect.create(canvasDrawing);
+    canvasRect2.setCoords([[40,40],[140,40],[140,140],[40,140]]);
+    canvasDrawing.getLayerShape().addShapes([canvasRect1, canvasRect2]);
+    canvasDrawing.draw();
+  }
+  if (xrx.engine.isSupported(xrx.engine.SVG)) {
+    var svgDrawing = getDrawingSvg('svgAddShapes');
+    var svgRect1 = xrx.shape.Rect.create(svgDrawing);
+    svgRect1.setCoords([[10,10],[100,10],[100,100],[10,100]]);
+    var svgRect2 = xrx.shape.Rect.create(svgDrawing);
+    svgRect2.setCoords([[40,40],[140,40],[140,140],[40,140]]);
+    svgDrawing.getLayerShape().addShapes([svgRect1, svgRect2]);
+    svgDrawing.draw();
+  }
+  if (xrx.engine.isSupported(xrx.engine.VML)) {
+    var vmlDrawing = getDrawingVml('vmlAddShapes');
+    var vmlRect1 = xrx.shape.Rect.create(vmlDrawing);
+    vmlRect1.setCoords([[10,10],[100,10],[100,100],[10,100]]);
+    var vmlRect2 = xrx.shape.Rect.create(vmlDrawing);
+    vmlRect2.setCoords([[40,40],[140,40],[140,140],[40,140]]);
+    vmlDrawing.getLayerShape().addShapes([vmlRect1, vmlRect2]);
+    vmlDrawing.draw();
+  }
+};
+
+
+
+function test5background() {
+  var url = './drawing_test.png';
+  if (xrx.engine.isSupported(xrx.engine.CANVAS)) {
+    var canvasDrawing = getDrawingCanvas('canvasBackground');
+    canvasDrawing.setModeView();
+    canvasDrawing.setBackgroundImage(url, function() {
+      canvasDrawing.draw();
+    });
+  }
+  if (xrx.engine.isSupported(xrx.engine.SVG)) {
+    var svgDrawing = getDrawingSvg('svgBackground');
+    svgDrawing.setModeView();
+    svgDrawing.setBackgroundImage(url, function() {
+      svgDrawing.draw();
+    });
+  }
+  if (xrx.engine.isSupported(xrx.engine.VML)) {
+    var vmlDrawing = getDrawingVml('vmlBackground');
+    vmlDrawing.setModeView();
+    vmlDrawing.setBackgroundImage(url, function() {
+      vmlDrawing.draw();
+    });
+  }
+};
+
+
+
+function test6paddingFixedSize() {
+  if (xrx.engine.isSupported(xrx.engine.CANVAS)) {
+    getDrawingCanvas('canvasPadding');
+  }
+  if (xrx.engine.isSupported(xrx.engine.SVG)) {
+    getDrawingSvg('svgPadding');
+  }
+  if (xrx.engine.isSupported(xrx.engine.VML)) {
+    getDrawingVml('vmlBackground');
+  }
+};
+
+
+
+function test7dispose() {
+  goog.Disposable.MONITORING_MODE = goog.Disposable.MonitoringMode.INTERACTIVE;
+  if (xrx.engine.isSupported(xrx.engine.CANVAS)) {
+    var canvasDrawing = new xrx.drawing.Drawing(
+        goog.dom.createElement('div'), xrx.engine.CANVAS);
+    canvasDrawing.dispose();
+  }
+  if (xrx.engine.isSupported(xrx.engine.SVG)) {
+    //getDrawingSvg('svgPadding');
+  }
+  if (xrx.engine.isSupported(xrx.engine.VML)) {
+    //getDrawingVml('vmlBackground');
+  }
+};
+
+</script>
+</body>
+</html>

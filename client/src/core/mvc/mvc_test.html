@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.mvc</title>
+<script type="text/javascript" src="../../../lib/jssaxparser/SAXException.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/AttributesImpl.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/LocatorImpls.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/NamespaceSupport.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/sax.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/DefaultHandlers.js"></script>
+<script src='../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.dom.DomHelper');
+  goog.require('goog.dom.classes');
+  goog.require('xrx');
+</script>
+</head>
+<body>
+
+<div id="i1" class="xrx-instance">&lt;data&gt;&lt;a&gt;1&lt;/a&gt;&lt;b&gt;2&lt;/b&gt;&lt;c&gt;3&lt;/c&gt;&lt;/data&gt;</div>
+<div id="b1" class="xrx-bind" data-xrx-ref="xrx:instance('i1')/data/*"></div>
+<div id="r1" class="xrx-repeat" data-xrx-bind="b1">
+  <pre class="xrx-console" data-xrx-ref="./self::*"></pre>
+</div>
+<div id="test02"></div>
+<div id="test04" class="xrx-repeat" data-xrx-bind="b1">
+  <div id="b04" class="xrx-bind" data-xrx-ref="xrx:instance('i1')/data/*"></div>
+  <pre id="c04" class="xrx-console" data-xrx-bind="b04"></pre>
+</div>
+
+<script type="text/javascript">
+
+
+
+function test01mvcComponentStackIsClean() {
+  var viewComponents = xrx.mvc.getViewComponents();
+  var modelComponents = xrx.mvc.getModelComponents();
+  for(var i = 0; i < viewComponents.length; i++) {
+    assertTrue(xrx.mvc.getComponent(i) instanceof xrx.mvc.Component);
+  };
+  for(var i = 0; i < modelComponents.length; i++) {
+    assertTrue(xrx.mvc.getComponent(i) instanceof xrx.mvc.Component);
+  };
+};
+
+
+
+function test02addComponentProgrammatically() {
+  var test02 = goog.dom.getElement('test02');
+  var bindComponent;
+
+  // add a bind control
+  var bind = goog.dom.createElement('div');
+  bind.id = 'b0';
+  goog.dom.classes.add(bind, 'xrx-bind');
+  goog.dom.dataset.set(bind, 'xrxRef', 'xrx:instance("i1")');
+  goog.dom.append(test02, bind);
+  bindComponent = new xrx.mvc.Bind(bind);
+
+  // add a console widget
+  var cons = goog.dom.createElement('pre');
+  cons.id = 'c1';
+  goog.dom.classes.add(cons, 'xrx-mvc-cons');
+  goog.dom.dataset.set(cons, 'xrxBind', bindComponent.getId());
+  goog.dom.append(test02, cons);
+  new xrx.component.Console(cons);
+};
+
+
+
+function test03removeComponentProgrammatically() {
+  xrx.mvc.removeViewComponent('c1');
+  xrx.mvc.removeModelComponent('b0');
+  assertEquals(undefined, xrx.mvc.getViewComponent('c1'));
+  assertEquals(undefined, xrx.mvc.getModelComponent('b0'));
+};
+
+
+
+function test04removeComponentsByParentElement() {
+  var test04 = goog.dom.getElement('test04');
+  xrx.mvc.removeViewComponents(test04);
+  xrx.mvc.removeModelComponents(test04);
+  // descendant components should be removed
+  assertEquals(undefined, xrx.mvc.getViewComponent('c04'));
+  assertEquals(undefined, xrx.mvc.getModelComponent('b04'));
+  // the component itself remains
+  assertFalse(undefined === xrx.mvc.getViewComponent('test04'));
+  // all other components remain
+  assertFalse(undefined === xrx.mvc.getViewComponent('r1'));
+  assertFalse(undefined === xrx.mvc.getModelComponent('b1'));
+};
+
+
+
+</script>
+
+<script type="text/javascript">
+  xrx.install();
+</script>
+</body>
+</html>

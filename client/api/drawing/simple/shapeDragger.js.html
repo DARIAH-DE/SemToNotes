@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Source: core/drawing/shape/helper/shapeDragger.js | API Reference | SemToNotes</title>
+  <script src="scripts/prettify/prettify.js"></script>
+  <script src="scripts/prettify/lang-css.js"></script>
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+  <!--link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css"-->
+  <link href="../../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../../demo/stylesheets/demo.css" rel="stylesheet">
+</head>
+<body>
+  <nav id="nav" class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"></button>
+        <a class="navbar-brand" href="../../../../index.html">SemToNotes</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li id="homeLink"><a href="../../../../index.html#home">Home</a></li>
+          <li id="apiLink" class="active">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">JavaScript API <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="../../../../index.html#documentation">API Documentation</a></li>
+              <li><a href="../simple/index.html">Simple API Reference <small>(for users)</small></a></li>
+              <li><a href="../full/index.html">Full API Reference <small>(for developers)</small></a></li>
+              <li><a href="../../../../index.html#about">About</a></li>
+            </ul>
+          </li>
+          <li id="retrievalLink"><a href="../../../../index.html#retrieval">Topological Retrieval</a></li>
+          <li><a target="_blank" href="https://github.com/HKIKoeln/SemToNotes/">Code</a></li>
+        </ul>
+      </div>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+  <div id="content" class="container">
+    <div id="main" class="col-md-9">
+      <h1 class="page-title">Source: core/drawing/shape/helper/shapeDragger.js</h1>
+      
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileoverview A class representing a vertex dragging element to
+ *   modify the vertexes of a shape.
+ * @private
+ */
+
+goog.provide('xrx.shape.Dragger');
+
+
+
+goog.require('xrx.shape.Circle');
+
+
+
+/**
+ * A class representing a dragger to modify the size or the vertexes
+ * of a shape.
+ * @param {xrx.shape.Modifiable} shape The parent modifiable shape.
+ * @param {number} pos The nth dragger of a shape.
+ * @constructor
+ * @private
+ */
+xrx.shape.Dragger = function(modifiable, pos) {
+
+  var drawing = modifiable.getShape().getDrawing();
+  goog.base(this, drawing,
+      drawing.getEngine().createCircle(drawing.getCanvas().getEngineElement()));
+
+  /**
+   * The parent modifiable shape.
+   * @type {xrx.shape.Modifiable}
+   * @private
+   */
+  this.modifiable_ = modifiable;
+
+  /**
+   * The nth dragger of a shape.
+   * @type {number}
+   * @private
+   */
+  this.pos_ = pos;
+
+  this.init_();
+};
+goog.inherits(xrx.shape.Dragger, xrx.shape.Circle);
+
+
+
+/**
+ * @private
+ */
+xrx.shape.Dragger.prototype.setCoord = function(coord) {
+  this.modifiable_.setCoordAt(this.pos_, coord)
+};
+
+
+
+/**
+ * Returns the position n of the vertex dragging element in the list
+ * of dragging elements.
+ * @return {number} The position.
+ * @private
+ */
+xrx.shape.Dragger.prototype.getPosition = function() {
+  return this.pos_;
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.Dragger.prototype.getRadius = function() {
+  return this.geometry_.r / this.zoomFactor_;
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.Dragger.prototype.init_ = function(modifiable, pos) {
+  this.setRadius(5);
+  this.setStrokeColor('black');
+  this.setStrokeWidth(1);
+  this.setFillColor('white');
+  this.setFillOpacity(1.0);
+};
+
+
+
+/**
+ * Disposes this dragger.
+ */
+xrx.shape.Dragger.prototype.disposeInternal = function() {
+  goog.dispose(this.modifiable_);
+  this.modifiable_ = null;
+  goog.base(this, 'disposeInternal');
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    </div>
+    <nav class="col-md-3">
+      <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="xrx.drawing.Drawing.html">xrx.drawing.Drawing</a></li><li><a href="xrx.shape.Circle.html">xrx.shape.Circle</a></li><li><a href="xrx.shape.DiPolygon.html">xrx.shape.DiPolygon</a></li><li><a href="xrx.shape.DiPolygonArrow.html">xrx.shape.DiPolygonArrow</a></li><li><a href="xrx.shape.DiPolygonArrowModifiable.html">xrx.shape.DiPolygonArrowModifiable</a></li><li><a href="xrx.shape.Ellipse.html">xrx.shape.Ellipse</a></li><li><a href="xrx.shape.Line.html">xrx.shape.Line</a></li><li><a href="xrx.shape.Polygon.html">xrx.shape.Polygon</a></li><li><a href="xrx.shape.Polyline.html">xrx.shape.Polyline</a></li><li><a href="xrx.shape.Rect.html">xrx.shape.Rect</a></li><li><a href="xrx.shape.ShapeGroup.html">xrx.shape.ShapeGroup</a></li><li><a href="xrx.shape.Style.html">xrx.shape.Style</a></li><li><a href="xrx.viewbox.Viewbox.html">xrx.viewbox.Viewbox</a></li></ul><h3>Events</h3><ul><li><a href="xrx.drawing.Drawing.html#event:eventShapeModify">xrx.drawing.Drawing#event:eventShapeModify</a></li></ul><h3>Namespaces</h3><ul><li><a href="xrx.html">xrx</a></li><li><a href="xrx.canvas.html">xrx.canvas</a></li><li><a href="xrx.drawing.html">xrx.drawing</a></li><li><a href="xrx.engine.html">xrx.engine</a></li><li><a href="xrx.shape.html">xrx.shape</a></li><li><a href="xrx.svg.html">xrx.svg</a></li><li><a href="xrx.viewbox.html">xrx.viewbox</a></li><li><a href="xrx.vml.html">xrx.vml</a></li></ul>
+    </nav>
+  </div>
+  <script>prettyPrint();</script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

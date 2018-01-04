@@ -1,0 +1,33 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:oa="http://www.w3.org/ns/oa#"
+         xmlns:foaf="http://xmlns.com/foaf/spec/"
+         xmlns:dc="http://purl.org/dc/terms/"
+         xmlns:cnt="http://www.w3.org/2011/content#">  
+  <rdf:Description rdf:about="">
+    <oa:annotatedAt>2014-07-18T02:03:58Z</oa:annotatedAt>
+    <oa:annotatedBy>
+      <foaf:Person rdf:about="http://hkikoeln.github.io/SemToNotes/Person">
+        <foaf:mbox>person@hkikoeln.github.io</foaf:mbox>
+        <foaf:name>Person</foaf:name>
+      </foaf:Person>
+    </oa:annotatedBy>
+    <oa:serializedAt>2014-07-18T02:03:58Z</oa:serializedAt>
+    <oa:serializedBy rdf:resource="http://hkikoeln.github.io/SemToNotes"/>
+    <oa:motivatedBy rdf:resource="http://www.shared-canvas.org/ns/painting"/>
+    <oa:hasBody>
+      <oa:SemanticTag rdf:about=""/>
+    </oa:hasBody>
+    <oa:hasTarget>
+      <oa:SpecificResource rdf:about="">
+        <oa:hasSelector>
+          <cnt:ContentAsXML rdf:about="">
+            <cnt:rest>
+              <svg:polygon xmlns:svg="http://www.w3.org/2000/svg" points="10,20 30,40 50,60 70,80 90,100"/>
+            </cnt:rest>
+          </cnt:ContentAsXML>
+        </oa:hasSelector>
+        <oa:hasSource>./widgetCanvas_test.jpg</oa:hasSource>
+      </oa:SpecificResource>
+    </oa:hasTarget>
+  </rdf:Description>
+</rdf:RDF>

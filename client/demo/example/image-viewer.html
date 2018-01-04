@@ -1,0 +1,43 @@
+<div id="content" class="container" data-type="html">
+<h1>Image Viewer</h1>
+<p>A drawing canvas offers view-box functionalities (pan, zoom, rotate), optionally in combination with a background image.</p>
+<h3>View-box Functionalities</h3>
+<h4>Programmatically</h4>
+<p>The view-box of a drawing canvas can be reached with the <code>drawing.getViewbox()</code> function.</p>
+<p>There are numerous view-box functions available. For example, <code>drawing.getViewbox().rotateRight()</code>,
+  rotates the view-box by 90° clockwise; <code>drawing.getViewbox().fit()</code> makes the whole view-box visible.
+  See the API reference for more details.</p>
+<h4>Gestures</h4>
+<p>The view-box listens on browser events. With mouse events, one can pan (click and drag), zoom (mouse-wheel) and rotate (double-click)
+  the image. There is also partial support for mobile touch devices: panning the image with touch and drag works,
+  zooming and rotating is not yet supported.</p>
+<p>Pan-zoom-rotate gestures are available for the following modes:</p>
+<ul>
+  <li><code>drawing.setModeHover()</code></li>
+  <li><code>drawing.setModeModify()</code></li>
+  <li><code>drawing.setModeSelect()</code></li>
+	<li><code>drawing.setModeView()</code></li>
+  <li><code>drawing.setModeHover()</code></li>
+</ul>
+<p>And partially for <code>drawing.setModeCreate()</code> (only zooming is possible here).</p>
+<h3>Background Image</h3>
+<p>The <code>drawing.setBackgroundImage(url, opt_callback)</code> function sets a background image to a drawing canvas. The function
+  expects an image URL as its first parameter. The second (optional) parameter expects a function, a so called <em>callback
+  function</em>, that is executed <em>after</em> the image is loaded completely.</p>
+<h3>Combined Usage</h3>
+<p>A typical problem when implementing an image viewer is to fit an image into the drawing canvas as soon as the background image is
+  loaded completely. This can be done by calling the <code>drawing.getViewbox().fit()</code> function from inside the callback function,
+	e.g., in this way: <code>drawing.setBackgroundImage(url, function() { drawing.getViewbox().fit(); })</code>.</p>
+<h3>API Reference</h3>
+<ul>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.drawing.Drawing#setBackgroundImage">xrx.drawing.Drawing.setBackgroundImage()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.viewbox.Viewbox">xrx.viewbox.Viewbox</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.viewbox.Viewbox#fit">xrx.viewbox.Viewbox.fit()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.viewbox.Viewbox#fitToWidth">xrx.viewbox.Viewbox.fitToWidth()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.viewbox.Viewbox#fitToHeight">xrx.viewbox.Viewbox.fitToHeight()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.viewbox.Viewbox#rotateLeft">xrx.viewbox.Viewbox.rotateLeft()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.viewbox.Viewbox#rotateRight">xrx.viewbox.Viewbox.rotateRight()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.viewbox.Viewbox#zoomIn">xrx.viewbox.Viewbox.zoomIn()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.viewbox.Viewbox#zoomOut">xrx.viewbox.Viewbox.zoomOut()</a></li>
+</ul>
+</div>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.component.Component</title>
+<script type="text/javascript" src="../../../lib/jssaxparser/XMLFilterImpls.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/SAXException.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/NamespaceSupport.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/AttributesImpl.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/SAXScanner.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/ReaderWrapper.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/Reader.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/sax.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/DefaultHandlers.js"></script>
+<script src='../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx');
+</script>
+<link rel="stylesheet" type="text/css" href="../../../res/xrx.css">
+<style>
+.xrx-component, .xrx-component-inner,
+.xrx-component-start, .xrx-component-end {
+font-weight: bold;
+font-style: italic;
+}
+.highlight {
+color: red;
+text-decoration: underline;
+}
+.left, .right {
+position: relative;
+float: left;
+width: 50%;
+}
+</style>
+</head>
+<body>
+
+<div>
+  <h1>Selection</h1>
+  <h2>Highlight by hover</h2>
+
+
+
+  <h3>One text node</h3>
+  <!-- action -->
+  <span class="xrx-action" id="highlightOne">
+    <span class="xrx-action" data-event="xrx-event-in">
+      <span class="xrx-classes-add" data-select="#s1" data-classes="highlight"></span>
+    </span>
+    <span class="xrx-action" data-event="xrx-event-out">
+      <span class="xrx-classes-remove" data-select="#s1" data-classes="highlight">
+    </span>
+  </span>
+  <!-- text -->
+  <p>text text <span class="xrx-component" id="s1" data-action="highlightOne">highlight me</span> text text.</p>
+
+
+
+  <h3>Multiple text nodes</h3>
+  <!-- action -->
+  <span class="xrx-action" id="highlightMultiple">
+    <span class="xrx-action" data-event="xrx-event-in">
+      <span class="xrx-classes-add" data-select=".s2" data-classes="highlight"></span>
+    </span>
+    <span class="xrx-action" data-event="xrx-event-out">
+      <span class="xrx-classes-remove" data-select=".s2" data-classes="highlight"></span>
+    </span>
+  </span>
+  <!-- text -->
+  <p>text text <span class="xrx-component s2" data-action="highlightMultiple">highlight me all</span>
+    <span class="xrx-component s2" data-action="highlightMultiple">highlight me all</span>
+    <span>not highlighted</span>
+    <span class="xrx-component s2" data-action="highlightMultiple">highlight me all</span> text text
+  </p>
+
+
+
+  <h3>Multiple text nodes with overlapping elements</h3>
+  <!-- action -->
+  <span class="xrx-action" id="highlightOverlapped">
+    <span class="xrx-action" data-event="xrx-event-in">
+      <span class="xrx-classes-add" data-select=".s3" data-classes="highlight"></span>
+    </span>
+    <span class="xrx-action" data-event="xrx-event-out">
+      <span class="xrx-classes-remove" data-select=".s3" data-classes="highlight"></span>
+    </span>
+  </span>
+  <!-- text -->
+  <p>
+    <ul>
+      <li>text text <span class="xrx-component s3" data-action="highlightOverlapped">highlight me</span></li>
+      <li><span class="xrx-component s3" data-action="highlightOverlapped">overlapped</span> text text.</li>
+    </ul> 
+  </p>
+
+
+
+  <h1>Text-Text-Linking</h1>
+  <!-- action -->
+  <span class="xrx-action" id="a-ttl">
+    <span class="xrx-action" data-event="xrx-event-in">
+      <span class="xrx-classes-add" data-select="$select" data-classes="highlight"></span>
+    </span>
+    <span class="xrx-action" data-event="xrx-event-out">
+      <span class="xrx-classes-remove" data-select="$select" data-classes="highlight"></span>
+    </span>
+  </span>
+  <!-- text -->
+  <div class="left">
+    <p class="xrx-component ttl1" data-action="a-ttl" data-param="select=.ttl1">text1 text1 text1 text1 text1 text1 text1 text1</p>
+    <p class="xrx-component ttl2" data-action="a-ttl" data-param="select=.ttl2">text1 text1 text1 text1 text1 text1 text1 text1</p>
+    <p class="xrx-component ttl3" data-action="a-ttl" data-param="select=.ttl3">text1 text1 text1 text1 text1 text1 text1 text1</p>
+    <p class="xrx-component ttl4" data-action="a-ttl" data-param="select=.ttl4">text1 text1 text1 text1 text1 text1 text1 text1</p>
+    <p class="xrx-component ttl5" data-action="a-ttl" data-param="select=.ttl5">text1 text1 text1 text1 text1 text1 text1 text1</p>
+  </div>
+  <div class="right">
+    <p class="xrx-component ttl1" data-action="a-ttl" data-param="select=.ttl1">text2 text2 text2 text2 text2 text2 text2 text2</p>
+    <p class="xrx-component ttl2" data-action="a-ttl" data-param="select=.ttl2">text2 text2 text2 text2 text2 text2 text2 text2</p>
+    <p class="xrx-component ttl3" data-action="a-ttl" data-param="select=.ttl3">text2 text2 text2 text2 text2 text2 text2 text2</p>
+    <p class="xrx-component ttl4" data-action="a-ttl" data-param="select=.ttl4">text2 text2 text2 text2 text2 text2 text2 text2</p>
+    <p class="xrx-component ttl5" data-action="a-ttl" data-param="select=.ttl5">text2 text2 text2 text2 text2 text2 text2 text2</p>
+  </div>
+
+
+
+  <h1>Text-Graphic-Linking</h1>
+  <div class="xrx-instance"            id="i-1"
+      data-resource="./componentComponent_test.xml.txt"></div>
+  <div class="xrx-bind"                id="b-1"
+      data-ref="xrx:instance('i-1')/zones/zone"></div>
+  <span class="xrx-action" id="a-tgl">
+    <span class="xrx-action" data-event="xrx-event-in">
+      <span class="xrx-classes-add" data-scope="#d-tgl" data-select="$select" data-classes="highlight"></span>
+      <span class="xrx-canvas-stylable-set"
+          data-scope="#c-tgl"
+          data-select="$select"
+          data-stroke-color="red"
+          data-stroke-width="1"
+          data-fill-color="yellow"
+          data-fill-opacity=".1">
+      </span>
+    </span>
+    <span class="xrx-action" data-event="xrx-event-out">
+      <span class="xrx-classes-remove" data-scope="#d-tgl" data-select="$select" data-classes="highlight"></span>
+      <span class="xrx-canvas-stylable-set"
+          data-scope="#c-tgl"
+          data-select="$select"
+          data-stroke-color="black"
+          data-stroke-width="2"
+          data-fill-color="grey"
+          data-fill-opacity="0">
+      </span>
+    </span>
+  </span>
+  <div class="left" id="d-tgl">
+    <p class="xrx-component tgl1" data-action="a-tgl" data-param="select=.tgl1">text1 text1 text1 text1 text1 text1 text1 text1</p>
+    <p class="xrx-component tgl2" data-action="a-tgl" data-param="select=.tgl2">text1 text1 text1 text1 text1 text1 text1 text1</p>
+    <p class="xrx-component tgl3" data-action="a-tgl" data-param="select=.tgl3">text1 text1 text1 text1 text1 text1 text1 text1</p>
+    <p class="xrx-component tgl4" data-action="a-tgl" data-param="select=.tgl4">text1 text1 text1 text1 text1 text1 text1 text1</p>
+    <p class="xrx-component tgl5" data-action="a-tgl" data-param="select=.tgl5">text1 text1 text1 text1 text1 text1 text1 text1</p>
+  </div>
+  <div class="right">
+    <div class="xrx-canvas" id="c-tgl">
+      <div class="xrx-canvas-graphics">
+        <div class="xrx-canvas-group">
+          <div class="xrx-repeat" data-bind="b-1">
+            <div class="xrx-shape-rect"
+                 data-ref-classes="concat('tgl', position())"
+                 data-ref="./self::*"
+                 data-ref-x="./@x"
+                 data-ref-y="./@y"
+                 data-ref-width="./@width"
+                 data-ref-height="./@height"
+                 data-stroke-width="1"
+                 data-stroke-color="black">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <h1>Graphic-Text-Linking</h1>
+</div>
+
+<script type="text/javascript">
+ 
+function test() {};
+
+</script>
+
+<script type="text/javascript">
+  xrx.install();
+</script>
+
+</body>
+</html>

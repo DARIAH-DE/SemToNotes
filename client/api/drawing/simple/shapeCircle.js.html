@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Source: core/drawing/shape/shapeCircle.js | API Reference | SemToNotes</title>
+  <script src="scripts/prettify/prettify.js"></script>
+  <script src="scripts/prettify/lang-css.js"></script>
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+  <!--link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css"-->
+  <link href="../../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../../demo/stylesheets/demo.css" rel="stylesheet">
+</head>
+<body>
+  <nav id="nav" class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"></button>
+        <a class="navbar-brand" href="../../../../index.html">SemToNotes</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li id="homeLink"><a href="../../../../index.html#home">Home</a></li>
+          <li id="apiLink" class="active">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">JavaScript API <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="../../../../index.html#documentation">API Documentation</a></li>
+              <li><a href="../simple/index.html">Simple API Reference <small>(for users)</small></a></li>
+              <li><a href="../full/index.html">Full API Reference <small>(for developers)</small></a></li>
+              <li><a href="../../../../index.html#about">About</a></li>
+            </ul>
+          </li>
+          <li id="retrievalLink"><a href="../../../../index.html#retrieval">Topological Retrieval</a></li>
+          <li><a target="_blank" href="https://github.com/HKIKoeln/SemToNotes/">Code</a></li>
+        </ul>
+      </div>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+  <div id="content" class="container">
+    <div id="main" class="col-md-9">
+      <h1 class="page-title">Source: core/drawing/shape/shapeCircle.js</h1>
+      
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileoverview A class representing an engine-independent
+ * hoverable, selectable, modifiable and creatable circle shape.
+ */
+
+goog.provide('xrx.shape.Circle');
+goog.provide('xrx.shape.CircleCreatable');
+goog.provide('xrx.shape.CircleHoverable');
+goog.provide('xrx.shape.CircleModifiable');
+goog.provide('xrx.shape.CircleSelectable');
+
+
+
+goog.require('xrx.geometry.Circle');
+goog.require('xrx.shape.Creatable');
+goog.require('xrx.shape.Geometry');
+goog.require('xrx.shape.Hoverable');
+goog.require('xrx.shape.Modifiable');
+goog.require('xrx.shape.Selectable');
+
+
+
+/**
+ * A class representing an engine-independent hoverable, selectable,
+ * modifiable and creatable circle shape.
+ * @param {xrx.drawing.Drawing} drawing The parent drawing canvas.
+ * @constructor
+ * @extends {xrx.shape.Style}
+ */
+xrx.shape.Circle = function(drawing) {
+
+  goog.base(this, drawing, new xrx.geometry.Circle());
+
+  /**
+   * The engine element.
+   * @type {(xrx.canvas.Circle|xrx.svg.Circle|xrx.vml.Circle)}
+   * @private
+   */
+  this.engineElement_ = this.drawing_.getEngine().createCircle();
+};
+goog.inherits(xrx.shape.Circle, xrx.shape.Geometry);
+
+
+
+/**
+ * Returns the center point of this circle.
+ * @return {Array&lt;number>}
+ */
+xrx.shape.Circle.prototype.getCenter = function() {
+  return [this.geometry_.cx, this.geometry_.cy];
+};
+
+
+
+/**
+ * Sets the center point of this circle.
+ * @param {number} cx The X coordinate of the center point.
+ * @param {number} cy The Y coordinate of the center point.
+ */
+xrx.shape.Circle.prototype.setCenter = function(cx, cy) {
+  this.geometry_.cx = cx;
+  this.geometry_.cy = cy;
+};
+
+
+
+/**
+ * Returns the radius of this circle.
+ * @return {number} The radius.
+ */
+xrx.shape.Circle.prototype.getRadius = function() {
+  return this.geometry_.r;
+};
+
+
+
+/**
+ * Sets the radius of this circle.
+ * @param {number} r The radius.
+ */
+xrx.shape.Circle.prototype.setRadius = function(r) {
+  this.geometry_.r = r;
+};
+
+
+
+/**
+ * Returns the coordinates of this circle. We assume the center point.
+ * @return {Array&lt;Array&lt;number>>} The coordinates.
+ * @private
+ */
+xrx.shape.Circle.prototype.getCoords = function() {
+  return [this.getCenter()];
+};
+
+
+
+/**
+ * Sets the coordinates of this circle. We assume the center point.
+ * @param {Array&lt;Array&lt;number>>} coords The coordinate.
+ * @private
+ */
+xrx.shape.Circle.prototype.setCoords = function(coords) {
+  this.setCenter(coords[0][0], coords[0][1]);
+};
+
+
+
+/**
+ * Sets the x coordinate of this circle. We assume the center point.
+ * @param {number} coords The x coordinate.
+ * @private
+ */
+xrx.shape.Circle.prototype.setCoordX = function(x) {
+  this.geometry_.cx = x;
+};
+
+
+
+/**
+ * Sets the y coordinate of this circle. We assume the center point.
+ * @param {number} coords The y coordinate.
+ * @private
+ */
+xrx.shape.Circle.prototype.setCoordY = function(y) {
+  this.geometry_.cy = y;
+};
+
+
+
+/**
+ * Draws this circle shape.
+ * @private
+ */
+xrx.shape.Circle.prototype.draw = function() {
+  this.startDrawing_();
+  var center = this.getCenter();
+  this.engineElement_.draw(center[0], center[1], this.getRadius(),
+      this.getRenderingFillColor(), this.getRenderingFillOpacity(),
+      this.getRenderingStrokeColor(), this.getRenderingStrokeWidth());
+  this.finishDrawing_();
+};
+
+
+
+/**
+ * Returns a helper shape that makes this shape hoverable.
+ * @return {xrx.shape.CircleHoverable} The hoverable circle shape.
+ */
+xrx.shape.Circle.prototype.getHoverable = function() {
+  if (!this.hoverable_) this.hoverable_ = new xrx.shape.CircleHoverable(this);
+  return this.hoverable_;
+};
+
+
+
+/**
+ * Returns a helper shape that makes this shape selectable.
+ * @return {xrx.shape.CircleSelectable} The selectable circle shape.
+ */
+xrx.shape.Circle.prototype.getSelectable = function() {
+  if (!this.selectable_) this.selectable_ = new xrx.shape.CircleSelectable(this);
+  return this.selectable_;
+};
+
+
+
+/**
+ * Returns a helper shape that makes this shape modifiable.
+ * @return {xrx.shape.CircleModifiable} The modifiable circle shape.
+ */
+xrx.shape.Circle.prototype.getModifiable = function() {
+  if (!this.modifiable_) this.modifiable_ = new xrx.shape.CircleModifiable(this);
+  return this.modifiable_;
+};
+
+
+
+/**
+ * Returns a helper shape that makes this shape creatable.
+ * @return {xrx.shape.CircleCreatable} The creatable circle shape.
+ */
+xrx.shape.Circle.prototype.getCreatable = function() {
+  if (!this.creatable_) this.creatable_ = new xrx.shape.CircleCreatable(this);
+  return this.creatable_;
+};
+
+
+
+/**
+ * Disposes this circle shape.
+ */
+xrx.shape.Circle.prototype.disposeInternal = function() {
+  goog.base(this, 'disposeInternal');
+};
+
+
+
+/**
+ * A class representing a hoverable circle shape.
+ * @param {xrx.shape.Circle} circle The parent circle shape.
+ * @constructor
+ * @private
+ */
+xrx.shape.CircleHoverable = function(circle) {
+
+  goog.base(this, circle);
+};
+goog.inherits(xrx.shape.CircleHoverable, xrx.shape.Hoverable);
+
+
+
+/**
+ * Disposes this hoverable circle shape.
+ */
+xrx.shape.CircleHoverable.prototype.disposeInternal = function() {
+  goog.base(this, 'disposeInternal');
+};
+
+
+
+
+/**
+ * A class representing a selectable circle shape.
+ * @param {xrx.shape.Circle} circle The circle to be selected.
+ * @constructor
+ * @private
+ */
+xrx.shape.CircleSelectable = function(circle) {
+
+  goog.base(this, circle);
+};
+goog.inherits(xrx.shape.CircleSelectable, xrx.shape.Selectable);
+
+
+
+/**
+ * Disposes this selectable circle shape.
+ * @private
+ */
+xrx.shape.CircleSelectable.prototype.disposeInternal = function() {
+  goog.base(this, 'disposeInternal');
+};
+
+
+
+/**
+ * A class representing a modifiable circle shape.
+ * @param {xrx.shape.Circle} circle The circle to be modified.
+ * @constructor
+ * @private
+ */
+xrx.shape.CircleModifiable = function(circle) {
+
+  goog.base(this, circle);
+
+  this.init_();
+};
+goog.inherits(xrx.shape.CircleModifiable, xrx.shape.Modifiable);
+
+
+
+/**
+ * @private
+ */
+xrx.shape.CircleModifiable.prototype.setCoords = function(coords) {
+  this.shape_.setCoords(coords);
+  this.dragger_[0].setCoordX(coords[0][0] + this.shape_.getRadius());
+  this.dragger_[0].setCoordY(coords[0][1]);
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.CircleModifiable.prototype.setCoordAt = function(pos, coord) {
+  this.shape_.setRadius(Math.abs(coord[0] - this.shape_.getCenter()[0]));
+  this.dragger_[0].setCoordX(coord[0]);
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.CircleModifiable.prototype.move = function(distX, distY) {
+  var coords = this.shape_.getCoordsCopy();
+  coords[0][0] += distX;
+  coords[0][1] += distY;
+  this.setCoords(coords);
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.CircleModifiable.prototype.init_ = function() {
+  var center = this.shape_.getCenter();
+  var radius = this.shape_.getRadius();
+  var dragger = new xrx.shape.Dragger(this, 0);
+  dragger.setCoords([[center[0] + radius, center[1]]]);
+  this.setDragger([dragger]);
+};
+
+
+
+/**
+ * Disposes this modifiable circle shape.
+ * @private
+ */
+xrx.shape.CircleModifiable.prototype.disposeInternal = function() {
+  goog.base(this, 'disposeInternal');
+};
+
+
+
+/**
+ * A class representing a creatable circle shape.
+ * @param {xrx.shape.Circle} circle The target circle to be created.
+ * @constructor
+ * @private
+ */
+xrx.shape.CircleCreatable = function(circle) {
+
+  goog.base(this, circle, new xrx.shape.Circle(circle.getDrawing()));
+
+  /**
+   * Center point helper.
+   * @type {Array&lt;number>}
+   */
+  this.point_ = new Array(2);
+};
+goog.inherits(xrx.shape.CircleCreatable, xrx.shape.Creatable);
+
+
+
+/**
+ * Returns the coordinates of the circle currently created.
+ * @return Array&lt;number> The coordinates.
+ * @private
+ */
+xrx.shape.CircleCreatable.prototype.getCoords = function() {
+  return this.preview_.getCoords();
+};
+
+
+
+/**
+ * Handles down gestures.
+ * @param {goog.events.BrowserEvent} e The browser event.
+ * @param {xrx.drawing.Cursor} cursor The drawing cursor.
+ * @private
+ */
+xrx.shape.CircleCreatable.prototype.handleDown = function(e, cursor) {
+  var point = cursor.getPointTransformed();
+  this.point_[0] = point[0];
+  this.point_[1] = point[1];
+  this.preview_.setCenter(point[0], point[1]);
+  this.preview_.setRadius(0);
+  this.target_.getDrawing().eventShapeCreate([this.preview_]);
+};
+
+
+
+/**
+ * Handles &lt;em>move&lt;/em> gestures.
+ * @param {goog.events.BrowserEvent} e The browser event.
+ * @param {xrx.drawing.Cursor} cursor The drawing cursor.
+ * @private
+ */
+xrx.shape.CircleCreatable.prototype.handleMove = function(e, cursor) {
+  var point = cursor.getPointTransformed();
+  var distX = point[0] - this.point_[0];
+  var distY = point[1] - this.point_[1];
+  this.preview_.setCenter(point[0] - distX / 2, point[1] - distY / 2);
+  this.preview_.setRadius(Math.sqrt(distX * distX + distY * distY) / 2);
+};
+
+
+
+/**
+ * Handles &lt;em>up&lt;/em> gestures.
+ * @param {goog.events.BrowserEvent} e The browser event.
+ * @param {xrx.drawing.Cursor} cursor The drawing cursor.
+ * @private
+ */
+xrx.shape.CircleCreatable.prototype.handleUp = function(e, cursor) {
+  var point = cursor.getPointTransformed();
+  var circle = new xrx.shape.Circle(this.target_.getDrawing());
+  var center = this.preview_.getCenter();
+  circle.setStyle(this.target_);
+  circle.setCenter(center[0], center[1]);
+  circle.setRadius(this.preview_.getRadius());
+  this.target_.getDrawing().eventShapeCreated(circle);
+};
+
+
+/**
+ * Disposes this creatable circle shape.
+ * @private
+ */
+xrx.shape.CircleCreatable.prototype.disposeInternal = function() {
+  this.point_ = null;
+  goog.base(this, 'disposeInternal');
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    </div>
+    <nav class="col-md-3">
+      <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="xrx.drawing.Drawing.html">xrx.drawing.Drawing</a></li><li><a href="xrx.shape.Circle.html">xrx.shape.Circle</a></li><li><a href="xrx.shape.DiPolygon.html">xrx.shape.DiPolygon</a></li><li><a href="xrx.shape.DiPolygonArrow.html">xrx.shape.DiPolygonArrow</a></li><li><a href="xrx.shape.DiPolygonArrowModifiable.html">xrx.shape.DiPolygonArrowModifiable</a></li><li><a href="xrx.shape.Ellipse.html">xrx.shape.Ellipse</a></li><li><a href="xrx.shape.Line.html">xrx.shape.Line</a></li><li><a href="xrx.shape.Polygon.html">xrx.shape.Polygon</a></li><li><a href="xrx.shape.Polyline.html">xrx.shape.Polyline</a></li><li><a href="xrx.shape.Rect.html">xrx.shape.Rect</a></li><li><a href="xrx.shape.ShapeGroup.html">xrx.shape.ShapeGroup</a></li><li><a href="xrx.shape.Style.html">xrx.shape.Style</a></li><li><a href="xrx.viewbox.Viewbox.html">xrx.viewbox.Viewbox</a></li></ul><h3>Events</h3><ul><li><a href="xrx.drawing.Drawing.html#event:eventShapeModify">xrx.drawing.Drawing#event:eventShapeModify</a></li></ul><h3>Namespaces</h3><ul><li><a href="xrx.html">xrx</a></li><li><a href="xrx.canvas.html">xrx.canvas</a></li><li><a href="xrx.drawing.html">xrx.drawing</a></li><li><a href="xrx.engine.html">xrx.engine</a></li><li><a href="xrx.shape.html">xrx.shape</a></li><li><a href="xrx.svg.html">xrx.svg</a></li><li><a href="xrx.viewbox.html">xrx.viewbox</a></li><li><a href="xrx.vml.html">xrx.vml</a></li></ul>
+    </nav>
+  </div>
+  <script>prettyPrint();</script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

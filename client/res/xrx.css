@@ -1,0 +1,108 @@
+
+/* canvas */
+.xrx-canvas {
+overflow: hidden;
+}
+
+.xrx-canvas-graphics {
+display: none;
+}
+
+/* instance */
+.xrx-instance, .xrx-repeat {
+display: none;
+}
+
+/* auth */
+.xrx-user, .xrx-password, .xrx-signin, .xrx-signout {
+display: none;
+}
+
+.xrx-console {
+background-color: white;
+white-space: pre-wrap;       /* css-3 */
+white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+white-space: -pre-wrap;      /* Opera 4-6 */
+white-space: -o-pre-wrap;    /* Opera 7 */
+word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+.xrx-ui-state-mouseover {
+border-bottom: solid grey 4px;
+}
+
+.xrx-ui-state-selected {
+border-bottom: solid #FF6633 4px;
+}
+
+.xrx-icon-openhand32 {
+position: relative;
+display: inline-block;
+width: 32px;
+height: 32px;
+background-image: url('./openhand.png');
+}
+
+.xrx-icon-zoomIn32 {
+position: relative;
+display: inline-block;
+width: 32px;
+height: 32px;
+background-image: url('./zoomIn.png');
+}
+
+.xrx-icon-zoomOut32 {
+position: relative;
+display: inline-block;
+width: 32px;
+height: 32px;
+background-image: url('./zoomOut.png');
+}
+
+.xrx-icon-rotateLeft32 {
+position: relative;
+display: inline-block;
+width: 32px;
+height: 32px;
+background-image: url('./rotateLeft.png');
+}
+
+.xrx-icon-rotateRight32 {
+position: relative;
+display: inline-block;
+width: 32px;
+height: 32px;
+background-image: url('./rotateRight.png');
+}
+
+.xrx-icon-shapeRect32 {
+position: relative;
+display: inline-block;
+width: 32px;
+height: 32px;
+background-image: url('./shapeRect.png');
+}
+
+.xrx-icon-shapePolygon32 {
+position: relative;
+display: inline-block;
+width: 32px;
+height: 32px;
+background-image: url('./shapePolygon.png');
+}
+
+.xrx-icon-move32 {
+position: relative;
+display: inline-block;
+width: 32px;
+height: 32px;
+background-image: url('./move.png');
+}
+
+.xrx-icon-delete32 {
+position: relative;
+display: inline-block;
+width: 32px;
+height: 32px;
+background-image: url('./delete.png');
+}

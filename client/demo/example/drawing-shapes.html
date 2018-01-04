@@ -1,0 +1,32 @@
+<div id="content" class="container" data-type="js">
+<h1>Drawing Shapes</h1>
+<div>
+  <p>In order to draw shapes, switch a drawing canvas into mode <em>create</em> by calling <code>drawing.setModeCreate(creatable)</code>.</p>
+  <p>The <code>drawing.setModeCreate(circle.getCreatable())</code> function expects a helper shape called "creatable" that can be reached by the
+      <code>circle.getCreatable()</code>, <code>ellipse.getCreatable()</code>, etc. functions.</p>
+  <p>Creatable helper shapes can have individual styles different from the shape that is finally created. To define the style
+      for the helper shape, all functions of <code>xrx.shape.Style</code> such as <code>line.getCreatable().setStyle()</code> or
+      <code>polygon.getCreatable().setFillColor()</code> are available. In the example below all shapes have transparent fill opacity
+      during creation of shapes. The fill color disappears when the shape is finally created.</p>
+</div>
+<div class="btn-group" role="group">
+  <button class="btn btn-default" onclick="window.drawing.setModeCreate(window.circle.getCreatable())">Circle</button>
+  <button class="btn btn-default" onclick="window.drawing.setModeCreate(window.ellipse.getCreatable())">Ellipse</button>
+  <button class="btn btn-default" onclick="window.drawing.setModeCreate(window.line.getCreatable())">Line</button>
+  <button class="btn btn-default" onclick="window.drawing.setModeCreate(window.polygon.getCreatable())">Polygon</button>
+  <button class="btn btn-default" onclick="window.drawing.setModeCreate(window.polyline.getCreatable())">Polyline</button>
+  <button class="btn btn-default" onclick="window.drawing.setModeCreate(window.rect.getCreatable())">Rectangle</button>
+</div>
+<div id="drawing"></div>
+<h3>API Reference</h3>
+<ul>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.drawing.Drawing.html#setModeCreate">xrx.drawing.Drawing.setModeCreate()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Circle.html#getCreatable">xrx.shape.Circle.getCreatable()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Ellipse.html#getCreatable">xrx.shape.Ellipse.getCreatable()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Line.html#getCreatable">xrx.shape.Line.getCreatable()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Polygon.html#getCreatable">xrx.shape.Polygon.getCreatable()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Polyline.html#getCreatable">xrx.shape.Polyline.getCreatable()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Rect.html#getCreatable">xrx.shape.Rect.getCreatable()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Style.html">xrx.shape.Style</a></li>
+</ul>
+</div>

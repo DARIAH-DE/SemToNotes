@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.node.Attribute, xrx.node.AttributeS, xrx.node.AttributeB</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../deps.js'></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/SAXException.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/AttributesImpl.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/LocatorImpls.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/NamespaceSupport.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/sax.js"></script>
+<script type="text/javascript" src="../../../../lib/jssaxparser/DefaultHandlers.js"></script>
+<script type="text/javascript">
+  goog.require('goog.dom');
+  goog.require('goog.dom.classes');
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx');
+</script>
+</head>
+<body>
+
+<script type="text/javascript">
+
+
+
+function createInstance(xml) {
+  var element = goog.dom.createElement('div');
+  var element2 = goog.dom.createElement('div');
+  goog.dom.classes.set(element2, 'xrx-document');
+  goog.dom.setTextContent(element2, xml);
+  goog.dom.append(element, element2);
+  return new xrx.mvc.Instance(element);
+};
+
+
+
+function test01basic() {
+  var xml = '<a xmlns="http://example.org/y" attr1="v" attr2="v"/>';
+  //         0         10        20          32
+  var instance = createInstance(xml);
+  var struct = instance.getIndex().getStructuralIndex();
+
+  // binary node
+  var dB = new xrx.node.DocumentB(instance.getId());
+  var eB = new xrx.node.ElementB(dB,
+      struct.createKey(xrx.token.EMPTY_TAG, new xrx.xml.Label([1])));
+  var aB = new xrx.node.AttributeB(2, eB);
+
+  assertEquals(32, aB.getOffset());
+  assertEquals(9, aB.getLength());
+
+  // streaming node
+  var tok = new xrx.token.StartTag(new xrx.xml.Label([1]), 0, 53);
+  var dS = new xrx.node.DocumentS(instance.getId());
+  var eS = new xrx.node.ElementS(dS, tok);
+  var aS = new xrx.node.AttributeS(2, eS);
+
+  assertEquals(32, aS.getOffset());
+  assertEquals(9, aS.getLength());
+};
+
+
+
+function test01nameFunctions() {
+  var xml = '<x:x xmlns:x="http://example.org/x"><y:y xmlns:y="http://example.org/y" y:a=""/><z x:b=""/></x:x>';
+  var instance = createInstance(xml);
+  var struct = instance.getIndex().getStructuralIndex();
+
+  // binary node
+  var dB = new xrx.node.DocumentB(instance.getId());
+  var eB1 = new xrx.node.ElementB(dB,
+      struct.createKey(xrx.token.EMPTY_TAG, new xrx.xml.Label([1,1])));
+  var eB2 = new xrx.node.ElementB(dB,
+      struct.createKey(xrx.token.EMPTY_TAG, new xrx.xml.Label([1,2])));
+  var aB1 = new xrx.node.AttributeB(2, eB1);
+  var aB2 = new xrx.node.AttributeB(1, eB2);
+
+  assertEquals('y:a', aB1.getName());
+  assertEquals('x:b', aB2.getName());
+  assertEquals('http://example.org/y', aB1.getNamespaceUri('y'));
+  assertEquals('http://example.org/x', aB2.getNamespaceUri('x'));
+
+  // streaming node
+  var pilot = new xrx.xml.Pilot(instance.xml());
+  var t1 = pilot.location(null, new xrx.token.EmptyTag(new xrx.xml.Label([1,1])));
+  var t2 = pilot.location(null, new xrx.token.EmptyTag(new xrx.xml.Label([1,2])));
+  var dS = new xrx.node.DocumentS(instance.getId());
+  var eS1 = new xrx.node.ElementS(dS, t1);
+  var eS2 = new xrx.node.ElementS(dS, t2);
+  var aS1 = new xrx.node.AttributeS(2, eS1);
+  var aS2 = new xrx.node.AttributeS(1, eS2);
+
+  assertEquals('y:a', aS1.getName());
+  assertEquals('x:b', aS2.getName());
+  assertEquals('http://example.org/y', aS1.getNamespaceUri('y'));
+  assertEquals('http://example.org/x', aS2.getNamespaceUri('x'));
+};
+
+
+
+function test02identityFunctions() {
+  var xml = '<a a="v">1<b/></a>';
+  var instance = createInstance(xml);
+  var struct = instance.getIndex().getStructuralIndex();
+
+  // binary node
+  var dB = new xrx.node.DocumentB(instance.getId());
+  var eB1 = new xrx.node.ElementB(dB,
+      struct.createKey(xrx.token.START_TAG, new xrx.xml.Label([1])));
+  var aB = new xrx.node.AttributeB(1, eB1);
+  var eB2 = new xrx.node.ElementB(dB,
+      struct.createKey(xrx.token.START_TAG, new xrx.xml.Label([1,1])));
+
+  assertEquals(false, eB2.isSameAs(aB));
+  assertEquals(true, eB2.isAfter(aB));
+  assertEquals(true, eB1.isBefore(aB));
+  assertEquals(true, aB.isAttributeOf(eB1));
+
+  // streaming node
+  var dS = new xrx.node.DocumentS(instance.getId());
+  var t1 = new xrx.token.StartTag(new xrx.xml.Label([1]), 0, 9);
+  var t2 = new xrx.token.StartTag(new xrx.xml.Label([1,1]), 10, 4);
+  var eS1 = new xrx.node.ElementS(dS, t1);
+  var aS = new xrx.node.AttributeS(1, eS1);
+  var eS2 = new xrx.node.ElementS(dS, t2);
+
+  assertEquals(false, eS2.isSameAs(aS));
+  assertEquals(true, eS2.isAfter(aS));
+  assertEquals(true, eS1.isBefore(aS));
+  assertEquals(true, aS.isAttributeOf(eS1));
+};
+
+
+
+function test03contentFunctions() {
+  var xml = '<a attr1="v1" attr2="v2"/>';
+  var instance = createInstance(xml);
+
+  // binary node
+  var dB = new xrx.node.DocumentB(instance.getId());
+  var eB = new xrx.node.ElementB(dB, 0);
+  var aB1 = new xrx.node.AttributeB(1, eB);
+  var aB2 = new xrx.node.AttributeB(2, eB);
+
+  assertEquals('attr1="v1"', aB1.getXml());
+  assertEquals('attr2="v2"', aB2.getXml());
+  assertEquals('v1', aB1.getStringValue());
+  assertEquals('v2', aB2.getStringValue());
+
+  // streaming node
+  var t = new xrx.token.EmptyTag(new xrx.xml.Label([1]), 0, 26);
+  var dS = new xrx.node.DocumentS(instance.getId());
+  var eS = new xrx.node.ElementS(dS, t);
+  var aS1 = new xrx.node.AttributeS(1, eS);
+  var aS2 = new xrx.node.AttributeS(2, eS);
+
+  assertEquals('attr1="v1"', aS1.getXml());
+  assertEquals('attr2="v2"', aS2.getXml());
+  assertEquals('v1', aS1.getStringValue());
+  assertEquals('v2', aS2.getStringValue());
+};
+
+
+
+function axisTest(func, expected) {
+  var xml = '<a>1<b>2</b>3<c/>4<d>t<e type="attrValue">5</e>6</d><d id="test"/></a>';
+  var instance = createInstance(xml);
+  var struct = instance.getIndex().getStructuralIndex();
+
+  // binary node
+  var dB = new xrx.node.DocumentB(instance.getId());
+  var eB = new xrx.node.ElementB(dB,
+      struct.createKey(xrx.token.START_TAG, new xrx.xml.Label([1,3,1])));
+  var aB = new xrx.node.AttributeB(1, eB);
+  var test = {
+    node: aB[func](new xrx.xpath.KindTest('node')),
+    element: aB[func](new xrx.xpath.NameTest('*')),
+    text: aB[func](new xrx.xpath.KindTest('text')),
+    attribute: aB[func](new xrx.xpath.KindTest('attribute'))
+  }
+
+  assertEquals(expected.node, test.node.getLength());
+  assertEquals(expected.element, test.element.getLength());
+  assertEquals(expected.text, test.text.getLength());
+  assertEquals(expected.attribute, test.attribute.getLength());
+
+  // streaming node
+  var t = new xrx.token.StartEmptyTag(eB.getLabel(), eB.getOffset(), eB.getLength());
+  var dS = new xrx.node.DocumentS(instance.getId());
+  var eS = new xrx.node.ElementS(dS, t);
+  var aS = new xrx.node.AttributeS(1, eS);
+  var test = {
+    node: aS[func](new xrx.xpath.KindTest('node')),
+    element: aS[func](new xrx.xpath.NameTest('*')),
+    text: aS[func](new xrx.xpath.KindTest('text')),
+    attribute: aS[func](new xrx.xpath.KindTest('attribute'))
+  }
+
+  assertEquals(expected.node, test.node.getLength());
+  assertEquals(expected.element, test.element.getLength());
+  assertEquals(expected.text, test.text.getLength());
+  assertEquals(expected.attribute, test.attribute.getLength());  
+};
+
+
+
+function test04nodeFunctions() {
+  // ancestor
+  axisTest('getNodeAncestor', { node: 3, element: 2, text: 0, attribute: 0 });
+  // child
+  axisTest('getNodeChild', { node: 0, element: 0, text: 0, attribute: 0 });
+  // descendant
+  axisTest('getNodeDescendant', { node: 0, element: 0, text: 0, attribute: 0 });
+  // following
+  axisTest('getNodeFollowing', { node: 0, element: 0, text: 0, attribute: 0 });
+  // following sibling
+  axisTest('getNodeFollowingSibling', { node: 0, element: 0, text: 0, attribute: 0 });
+  // parent
+  axisTest('getNodeParent', { node: 1, element: 1, text: 0, attribute: 0 });
+  // preceding
+  axisTest('getNodePreceding', { node: 0, element: 0, text: 0, attribute: 0 });
+  // preceding sibling
+  axisTest('getNodePrecedingSibling', { node: 0, element: 0, text: 0, attribute: 0 });
+};
+
+
+
+function test05attributeFunction() {
+  var xml = '<a><b xmlns="http://example.org" attr1="v1" attr2="v2"/></a>';
+  var instance = createInstance(xml);
+  var struct = instance.getIndex().getStructuralIndex();
+
+  // binary node
+  var dB = new xrx.node.DocumentB(instance.getId());
+  var eB0 = new xrx.node.ElementB(dB,
+      struct.createKey(xrx.token.START_TAG, new xrx.xml.Label([1])));
+  var eB1 = new xrx.node.ElementB(dB,
+      struct.createKey(xrx.token.EMPTY_TAG, new xrx.xml.Label([1,1])));
+
+  assertEquals(0, eB0.getNodeAttribute(new xrx.xpath.NameTest('*')).getLength());
+  assertEquals(2, eB1.getNodeAttribute(new xrx.xpath.NameTest('*')).getLength());
+
+  // streaming node
+  var t0 = new xrx.token.EmptyTag(new xrx.xml.Label([1]), 0, 3);
+  var t1 = new xrx.token.EmptyTag(new xrx.xml.Label([1,1]), 3, 53);
+  var dS = new xrx.node.DocumentS(instance.getId());
+  var eS0 = new xrx.node.ElementS(dS, t0);
+  var eS1 = new xrx.node.ElementS(dS, t1);
+
+  assertEquals(0, eS0.getNodeAttribute(new xrx.xpath.NameTest('*')).getLength());
+  assertEquals(2, eS1.getNodeAttribute(new xrx.xpath.NameTest('*')).getLength());
+};
+
+</script>
+</body>
+</html>
+

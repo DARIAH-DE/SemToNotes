@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - Test whether the rendering classes are implemented identical.</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.array');
+  goog.require('goog.object');
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx.api.drawing');
+</script>
+</head>
+<body>
+
+<script type="text/javascript">
+
+
+
+function methodsTest(impl, methods) {
+  goog.array.forEach(methods, function(e, i, a) {
+    assertFalse('Function ' + e + '() is not implemented for class ' + impl +
+          ' in engine ' + xrx.engine.CANVAS + '.',
+          !xrx[xrx.engine.CANVAS][impl].prototype[e]);
+    assertFalse('Function ' + e + '() is not implemented for class ' + impl +
+          ' in engine ' + xrx.engine.SVG + '.',
+          !xrx[xrx.engine.SVG][impl].prototype[e]);
+    assertFalse('Function ' + e + '() is not implemented for class ' + impl +
+          ' in engine ' + xrx.engine.VML + '.',
+          !xrx[xrx.engine.VML][impl].prototype[e]);
+  });
+};
+
+
+
+function staticsTest(impl, methods) {
+  goog.array.forEach(methods, function(e, i, a) {
+    assertFalse('Static function ' + e + '() is not implemented for class ' + impl +
+          ' in engine ' + xrx.engine.CANVAS + '.',
+          !e);
+    assertFalse('Static function ' + e + '() is not implemented for class ' + impl +
+          ' in engine ' + xrx.engine.SVG + '.',
+          !e);
+    assertFalse('Static function ' + e + '() is not implemented for class ' + impl +
+          ' in engine ' + xrx.engine.VML + '.',
+          !e);
+  });
+};
+
+
+
+function test1Canvas() {
+  var methods = [
+      'getWidth',
+      'setWidth',
+      'getHeight',
+      'setHeight',
+      'getElement',
+      'getEventTarget'
+  ];
+  var statics = [
+      'create'
+  ];
+  methodsTest('Canvas', methods);
+  staticsTest('Canvas', statics);
+};
+
+
+
+function test2Circle() {
+  var methods = [
+      'draw'
+  ];
+  var statics = [
+      'create'
+  ];
+  methodsTest('Circle', methods);
+  staticsTest('Circle', statics);
+};
+
+
+
+function test3Element() {
+  // individual methods
+};
+
+
+
+function test4Container() {
+  var methods = [
+      'addChild',
+      'getChildren',
+      'removeChildren',
+      'removeChildAt'
+  ];
+  var statics = [
+      'create'
+  ];
+  methodsTest('Container', methods);
+  staticsTest('Container', statics);
+};
+
+
+
+function test5Image() {
+  var methods = [
+      'draw'
+  ];
+  var statics = [
+      'create'
+  ];
+  methodsTest('Image', methods);
+  staticsTest('Image', statics);
+};
+
+
+
+function test6Polyline() {
+  var methods = [
+      'draw'
+  ];
+  var statics = [
+      'create'
+  ];
+  methodsTest('Polyline', methods);
+  staticsTest('Polyline', statics);
+};
+
+
+
+function test7Polygon() {
+  var methods = [
+      'draw'
+  ];
+  var statics = [
+      'create'
+  ];
+  methodsTest('Polygon', methods);
+  staticsTest('Polygon', statics);
+};
+
+
+
+function test8Rect() {
+  var methods = [
+      'draw'
+  ];
+  var statics = [
+      'create'
+  ];
+  methodsTest('Rect', methods);
+  staticsTest('Rect', statics);
+};
+
+
+
+function test9Stylable() {
+  var methods = [
+      'strokeAndFill_'
+  ];
+  methodsTest('Stylable', methods);
+};
+
+
+
+function test10Group() {
+  var statics = [
+      'create'
+  ];
+  staticsTest('Group', statics);
+};
+
+
+
+</script>
+
+</body>
+</html>

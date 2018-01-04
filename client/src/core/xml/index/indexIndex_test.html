@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.index</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.array');
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx');
+</script>
+</head>
+<body>
+<script type="text/javascript">
+
+function test01basic() {
+  var xml = '<start><empty/><empty/><start><start></end></end><start><empty/></end><start></end><empty/></end>';
+  //         [1]    [1,1]   [1,2]   [1,3]  [1,3,1][1,3,1][1,3][1,4]  [1,4,1] [1,4] [1,5]  [1,5] [1,6]   [1]
+  var index = new xrx.index.Index(xml);
+  var struct = index.getStructuralIndex();
+
+  var containsKey = function(type, arr) {
+    var key = struct.createKey(type, new xrx.xml.Label(arr));
+    return struct.containsKey(key);
+  };
+
+  assertTrue(containsKey(xrx.token.START_TAG, [1]));
+  assertTrue(containsKey(xrx.token.EMPTY_TAG, [1,1]));
+  assertTrue(containsKey(xrx.token.EMPTY_TAG, [1,2]));
+  assertTrue(containsKey(xrx.token.START_TAG, [1,3]));
+  assertTrue(containsKey(xrx.token.START_TAG, [1,3,1]));
+  assertTrue(containsKey(xrx.token.END_TAG, [1,3,1]));
+  assertTrue(containsKey(xrx.token.END_TAG, [1,3]));
+  assertTrue(containsKey(xrx.token.START_TAG, [1,4]));
+  assertTrue(containsKey(xrx.token.EMPTY_TAG, [1,4,1]));
+  assertTrue(containsKey(xrx.token.END_TAG, [1,4]));
+  assertTrue(containsKey(xrx.token.START_TAG, [1,5]));
+  assertTrue(containsKey(xrx.token.END_TAG, [1,5]));
+  assertTrue(containsKey(xrx.token.EMPTY_TAG, [1,6]));
+  assertTrue(containsKey(xrx.token.END_TAG, [1]));
+  assertFalse(containsKey(xrx.token.END_TAG, [1,8]));
+};
+
+function test02iter() {
+  var xml = '<a>1<b>2</b>3<c/>4<d><e>5</e>6</d></a>';
+  var startTags = [], endTags = [], emptyTags = [], notTags = [];
+  var index = new xrx.index.Index(xml);
+  var struct = index.getStructuralIndex();
+
+  do {
+    offset = struct.getOffset();
+    length1 = struct.getLength1();
+    length2 = struct.getLength2();
+    if (struct.getType() === xrx.token.START_TAG) {
+      startTags.push(xml.substr(offset, length1));
+    } else if (struct.getType() === xrx.token.EMPTY_TAG) {
+      emptyTags.push(xml.substr(offset, length1));
+    } else {
+      endTags.push(xml.substr(offset, length1));
+    }
+    
+    notTags.push(xml.substr(offset + length1, length2 - length1));
+  } while (struct.next());
+
+  assertTrue(goog.array.equals(startTags, ['<a>', '<b>', '<d>', '<e>']));
+  assertTrue(goog.array.equals(emptyTags, ['<c/>']));
+  assertTrue(goog.array.equals(endTags, ['</b>', '</e>', '</d>', '</a>']));
+  assertTrue(goog.array.equals(notTags, ['1', '2', '3', '4', '', '5', '6', '', '']));
+};
+
+function test03namespaceFunctions() {
+  var xml = '<x><y/><a xmlns="http://www.example.org/a"><b:b xmlns:b="http://www.example.org/b"><c/></b:b></a></x>';
+  var index = new xrx.index.Index(xml);
+  var pilot = new xrx.xml.Pilot(xml);
+
+  // default namespace uri
+  var t1 = pilot.location(null, new xrx.token.EmptyTag(new xrx.xml.Label([1,2,1,1])));
+  var uriDefault = index.getNamespaceUri(t1.label(), 'xmlns');
+  //assertEquals('http://www.example.org/a', uriDefault);
+
+  // namespace uri with prefix
+  var uriPrefix = index.getNamespaceUri(t1.label(), 'b');
+  assertEquals('http://www.example.org/b', uriPrefix);
+
+  // namespace uri with undefined prefix
+  var uriPrefixUndefined = index.getNamespaceUri(t1.label(), 'a');
+  assertEquals(undefined, uriPrefixUndefined);
+
+  // default namespace prefix
+  var t2 = pilot.location(null, new xrx.token.EmptyTag(new xrx.xml.Label([1,2,1,1])));
+  var prefixDefault = index.getNamespacePrefix(t2.label(), 'http://www.example.org/a');
+  //assertEquals('xmlns', prefixDefault);
+
+  // namespace prefix
+  var prefix = index.getNamespacePrefix(t2.label(), 'http://www.example.org/b');
+  assertEquals('b', prefix);
+
+  // undefined prefix
+  var prefixUndefined = index.getNamespacePrefix(t1.label(), 'http://www.example.org/c');
+  assertEquals(undefined, prefixUndefined);
+};
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.shape.Rect, xrx.shape.RectModifiable, xrx.shape.RectCreatable</title>
+<script src='../../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.dom.DomHelper');
+  goog.require('xrx.api.drawing');
+</script>
+</head>
+<body>
+<script type="text/javascript">
+
+
+
+function testCanvas() {
+  var drawing = new xrx.drawing.Drawing(goog.dom.createElement('div'),
+      xrx.engine.CANVAS);
+  var polygon = new xrx.shape.Polygon(drawing);
+
+  // test hasDom
+  assertFalse(polygon.hasDom_);
+  // test setStyle()
+  var style = new xrx.shape.Style();
+  polygon.setStyle(style);
+  assertTrue(polygon.getRenderingFillColor() !== undefined);
+  assertTrue(polygon.getRenderingFillOpacity() !== undefined);
+  assertTrue(polygon.getRenderingStrokeColor() !== undefined);
+  assertTrue(polygon.getRenderingStrokeWidth() !== undefined);
+  assertTrue(polygon.getRenderingFillColor() !== undefined);
+  assertTrue(polygon.getRenderingFillOpacity() !== undefined);
+  assertTrue(polygon.getRenderingStrokeColor() !== undefined);
+  assertTrue(polygon.getRenderingStrokeWidth() !== undefined);
+  // test setfillColor()
+  polygon.setFillColor('red');
+  assertEquals('red', polygon.getRenderingFillColor());
+  assertEquals('red', polygon.getRenderingFillColor());
+  // test setFillOpacity()
+  polygon.setFillOpacity(.1);
+  assertEquals(.1, polygon.getRenderingFillOpacity());
+  assertEquals(.1, polygon.getRenderingFillOpacity());
+  // test setStrokeColor()
+  polygon.setStrokeColor('red');
+  assertEquals('red', polygon.getRenderingStrokeColor());
+  assertEquals('red', polygon.getRenderingStrokeColor());
+  // test setStrokeWidth()
+  polygon.setStrokeWidth(1);
+  assertEquals(1, polygon.getRenderingStrokeWidth());
+  assertEquals(1, polygon.getRenderingStrokeWidth());
+};
+
+
+
+function testSvg() {
+  var drawing = new xrx.drawing.Drawing(goog.dom.createElement('div'),
+      xrx.engine.SVG);
+  var polygon = new xrx.shape.Polygon(drawing);
+
+  // test hasDom
+  assertTrue(polygon.hasDom_);
+  // test setStyle()
+  var style = new xrx.shape.Style();
+  polygon.setStyle(style);
+  assertTrue(polygon.getRenderingFillColor() !== undefined);
+  assertTrue(polygon.getRenderingFillOpacity() !== undefined);
+  assertTrue(polygon.getRenderingStrokeColor() !== undefined);
+  assertTrue(polygon.getRenderingStrokeWidth() !== undefined);
+  assertEquals(undefined, polygon.getRenderingFillColor());
+  assertEquals(undefined, polygon.getRenderingFillOpacity());
+  assertEquals(undefined, polygon.getRenderingStrokeColor());
+  assertEquals(undefined, polygon.getRenderingStrokeWidth());
+  // test setfillColor()
+  polygon.setFillColor('red');
+  assertEquals('red', polygon.getRenderingFillColor());
+  assertEquals(undefined, polygon.getRenderingFillColor());
+  // test setFillOpacity()
+  polygon.setFillOpacity(.1);
+  assertEquals(.1, polygon.getRenderingFillOpacity());
+  assertEquals(undefined, polygon.getRenderingFillOpacity());
+  // test setStrokeColor()
+  polygon.setStrokeColor('red');
+  assertEquals('red', polygon.getRenderingStrokeColor());
+  assertEquals(undefined, polygon.getRenderingStrokeColor());
+  // test setStrokeWidth()
+  polygon.setStrokeWidth(1);
+  assertEquals(1, polygon.getRenderingStrokeWidth());
+  assertEquals(undefined, polygon.getRenderingStrokeWidth());
+};
+
+
+
+</script>
+</body>
+</html>

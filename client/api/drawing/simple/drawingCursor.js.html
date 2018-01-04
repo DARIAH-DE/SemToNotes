@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Source: core/drawing/drawingCursor.js | API Reference | SemToNotes</title>
+  <script src="scripts/prettify/prettify.js"></script>
+  <script src="scripts/prettify/lang-css.js"></script>
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+  <!--link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css"-->
+  <link href="../../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../../demo/stylesheets/demo.css" rel="stylesheet">
+</head>
+<body>
+  <nav id="nav" class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"></button>
+        <a class="navbar-brand" href="../../../../index.html">SemToNotes</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li id="homeLink"><a href="../../../../index.html#home">Home</a></li>
+          <li id="apiLink" class="active">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">JavaScript API <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="../../../../index.html#documentation">API Documentation</a></li>
+              <li><a href="../simple/index.html">Simple API Reference <small>(for users)</small></a></li>
+              <li><a href="../full/index.html">Full API Reference <small>(for developers)</small></a></li>
+              <li><a href="../../../../index.html#about">About</a></li>
+            </ul>
+          </li>
+          <li id="retrievalLink"><a href="../../../../index.html#retrieval">Topological Retrieval</a></li>
+          <li><a target="_blank" href="https://github.com/HKIKoeln/SemToNotes/">Code</a></li>
+        </ul>
+      </div>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+  <div id="content" class="container">
+    <div id="main" class="col-md-9">
+      <h1 class="page-title">Source: core/drawing/drawingCursor.js</h1>
+      
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileoverview A class offering configurable information
+ * about the mouse, respectively, the touch point.
+ * @private
+ */
+
+goog.provide('xrx.drawing.Cursor');
+
+
+
+goog.require('goog.Disposable');
+
+
+
+/**
+ * @constructor
+ * @private
+ */
+xrx.drawing.Cursor = function(drawing) {
+
+  goog.base(this);
+
+  this.drawing_ = drawing;
+
+  this.needPoint_ = false;
+
+  this.point = null;
+
+  this.needPointTransformed_ = false;
+
+  this.pointTransformed_ = null;
+
+  this.needShape_ = false;
+
+  this.shape_ = null;
+
+  this.needShapes_ = false;
+
+  this.shapes_ = null;
+};
+goog.inherits(xrx.drawing.Cursor, goog.Disposable);
+
+
+
+xrx.drawing.Cursor.prototype.getPoint = function() {
+  return this.point_;
+};
+
+
+
+xrx.drawing.Cursor.prototype.getPointTransformed = function() {
+  return this.pointTransformed_;
+};
+
+
+
+xrx.drawing.Cursor.prototype.getShape = function() {
+  return this.shape_;
+};
+
+
+
+xrx.drawing.Cursor.prototype.getShapes = function() {
+  return this.shapes_;
+};
+
+
+
+xrx.drawing.Cursor.prototype.reset = function() {
+  this.needPoint_ = false;
+  this.needPointTransformed_ = false;
+  this.needShape_ = false;
+  this.needShapes_ = false;
+};
+
+
+
+xrx.drawing.Cursor.prototype.needPoint = function() {
+  this.needPoint_ = true;
+};
+
+
+
+xrx.drawing.Cursor.prototype.needPointTransformed = function() {
+  this.needPointTransformed_ = true;
+};
+
+
+
+xrx.drawing.Cursor.prototype.needShape = function() {
+  this.needShape_ = true;
+};
+
+
+
+xrx.drawing.Cursor.prototype.needShapes = function() {
+  this.needShapes_ = true;
+};
+
+
+
+/**
+ * @private
+ */
+xrx.drawing.Cursor.prototype.calculatePoint_ = function(e) {
+  this.needPoint_ ? this.point_ = this.drawing_.getOffsetPoint(e) :
+      this.point_ = null;
+};
+
+
+
+/**
+ * @private
+ */
+xrx.drawing.Cursor.prototype.calculatePointTransformed_ = function(e) {
+  if (this.point_ === null) this.calculatePoint_(e);
+  this.needPointTransformed_ ? this.pointTransformed_ =
+      this.drawing_.getViewbox().getCTM().transformPoint(this.point_) :
+      this.pointTransformed_ = null;
+};
+
+
+
+/**
+ * @private
+ */
+xrx.drawing.Cursor.prototype.calculateShape_ = function(e) {
+  if (this.pointTransformed_ === null) this.calculatePointTransformed_(e);
+  this.needShape_ ? this.shape_ = this.drawing_.getShapeSelected(this.pointTransformed_) :
+      this.shape_ = null;
+};
+
+
+
+/**
+ * @private
+ */
+xrx.drawing.Cursor.prototype.calculateShapes_ = function(e) {
+  if (this.pointTransformed_ === null) this.calculatePointTransformed_(e);
+  this.needShapes_ ? this.shapes_ = this.drawing_.getShapesSelected(this.pointTransformed_) :
+      this.shapes_ = null;
+};
+
+
+
+/**
+ * Calculates cursor information as configured.
+ */
+xrx.drawing.Cursor.prototype.calculate = function(e) {
+  this.calculatePoint_(e);
+  this.calculatePointTransformed_(e);
+  this.calculateShape_(e);
+  this.calculateShapes_(e);
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    </div>
+    <nav class="col-md-3">
+      <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="xrx.drawing.Drawing.html">xrx.drawing.Drawing</a></li><li><a href="xrx.shape.Circle.html">xrx.shape.Circle</a></li><li><a href="xrx.shape.DiPolygon.html">xrx.shape.DiPolygon</a></li><li><a href="xrx.shape.DiPolygonArrow.html">xrx.shape.DiPolygonArrow</a></li><li><a href="xrx.shape.DiPolygonArrowModifiable.html">xrx.shape.DiPolygonArrowModifiable</a></li><li><a href="xrx.shape.Ellipse.html">xrx.shape.Ellipse</a></li><li><a href="xrx.shape.Line.html">xrx.shape.Line</a></li><li><a href="xrx.shape.Polygon.html">xrx.shape.Polygon</a></li><li><a href="xrx.shape.Polyline.html">xrx.shape.Polyline</a></li><li><a href="xrx.shape.Rect.html">xrx.shape.Rect</a></li><li><a href="xrx.shape.ShapeGroup.html">xrx.shape.ShapeGroup</a></li><li><a href="xrx.shape.Style.html">xrx.shape.Style</a></li><li><a href="xrx.viewbox.Viewbox.html">xrx.viewbox.Viewbox</a></li></ul><h3>Events</h3><ul><li><a href="xrx.drawing.Drawing.html#event:eventShapeModify">xrx.drawing.Drawing#event:eventShapeModify</a></li></ul><h3>Namespaces</h3><ul><li><a href="xrx.html">xrx</a></li><li><a href="xrx.canvas.html">xrx.canvas</a></li><li><a href="xrx.drawing.html">xrx.drawing</a></li><li><a href="xrx.engine.html">xrx.engine</a></li><li><a href="xrx.shape.html">xrx.shape</a></li><li><a href="xrx.svg.html">xrx.svg</a></li><li><a href="xrx.viewbox.html">xrx.viewbox</a></li><li><a href="xrx.vml.html">xrx.vml</a></li></ul>
+    </nav>
+  </div>
+  <script>prettyPrint();</script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

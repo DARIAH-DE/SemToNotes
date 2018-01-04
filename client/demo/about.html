@@ -1,0 +1,106 @@
+<div id="content" class="container">
+<h1>About</h1>
+<p><em>Semantic Topological Notes (SemToNotes)</em> is a JavaScript API to develop browser-based image annotation tools. The
+  API allows rendering, hovering, modifaction and drawing of shapes in front of a pan-zoom-rotate image viewer.</p>
+<p>The main features are:
+<ul>
+  <li>Stylable shapes (circle, ellipse, line, polygon, polyline, rectangle, shape groups)</li>
+  <li>Drawing and modification of shapes, also on touch devices</li>
+  <li>Mouse over effects, also for overlapping image annotations</li>
+  <li>Pan-zoom-rotate image viewer with extensive view-box functionalities</li>
+  <li>Shape coordinates are always present in their native form, independent of current view-box transformation</li>
+  <li>Constant line width of image annotations when zooming the image</li>
+  <li>Compatible with JavaScript frameworks such as Angular or jQuery</li>
+  <li>Two API references: a simple one for API users and a full reference for API developers</li>
+  <li>API documentation with many usage examples</li>
+  <li>Minified JavaScript source in one file</li>
+  <li>Support for single page applications</li>
+  <li>Larger image support. At least 3000px of width and height are possible</li>
+</ul>
+</p>
+<p><em>SemToNotes</em> is completely free, released under the GNU LESSER GENERAL PUBLIC LICENSE.</p>
+<h2>Dependencies</h2>
+<p>SemToNotes makes use of the <a href="https://developers.google.com/closure">Closure Tools</a>: (1) The
+  <a href="https://developers.google.com/closure/library">Closure Library</a> handles all kinds of cross-browser aspects,
+  optimizes code modularity and helps with test-driven development; (2) The <a href="https://developers.google.com/closure/compiler">Closure
+  Compiler</a> is used for code minification.</p>
+<p>The documentation of SemToNotes is based on <a href="http://usejsdoc.org/">JSDoc</a> to realize the API Reference and on
+  <a href="http://getbootstrap.com/">Bootstrap</a> for the overall look and feel.</p>
+<p>Many thanks to the University Library of Heidelberg for offering an
+  <a href="https://github.com/HKIKoeln/SemToNotes/tree/develop/data/SachsenspiegelHeidelberg">image collection</a> for demonstration
+  and testing purposes.</p>
+<h2>Developers</h2>
+<ol>
+  <li>Jochen Graf (University of Cologne)</li>
+  <li>Jochen Barth, Leonhard Maylein, Dulip Withanage (University Library Heidelberg)</li>
+</ol>
+<h2>Related Projects</h2>
+<ol>
+  <li><a href="http://openlayers.org/">OpenLayers</a></li>
+  <li><a href="https://github.com/SVG-Edit/svgedit">SVG-Edit</a></li>
+  <li><a href="http://mith.umd.edu/tile/">TILE</a></li>
+  <li><a href="https://github.com/IIIF/mirador">Mirador</a></li>
+  <li><a href="http://annotorious.github.io/">Annotorious</a></li>
+  <li><a href="http://t-pen.org/TPEN/">T-PEN</a></li>
+  <li><a href="http://literallycanvas.com/">Literally Canvas</a></li>
+</ol>
+<h2>Projects using SemToNotes</h2>
+<ol>
+  <li><a href="http://www.gda.bayern.de/DigitaleSchriftkunde/">Digitale Schriftkunde</a>, a text-image-linking environment of the <a href="http://www.gda.bayern.de/">
+    Staatliche Archive Bayerns</a>.</li>
+  <li><a href="http://www.ub.uni-heidelberg.de/helios/digi/dwork.html">DWork – Heidelberg Digitization Workflow</a> of the
+    <a href="http://www.ub.uni-heidelberg.de/">University Library of Heidelberg</a>.</a>
+    Example: <a href="http://archivum-laureshamense-digital.de/view/saw_mainz72/0005">http://archivum-laureshamense-digital.de/view/saw_mainz72/0005</a>.</li>
+</ol>
+<h2>The Drawing Canvas</h2>
+<p>The SVG rendering engine with its DOM representation gives insight into the internal mode of operation of a drawing canvas.</p>
+<pre class="prettyprint lang-html">&lt;svg height=&quot;300&quot; width=&quot;540&quot; style=&quot;overflow: hidden;&quot;&gt;
+&lt;g transform=&quot;matrix(1,0,0,1,0,0)&quot;&gt; &lt;!-- view-box --&gt;
+  &lt;g&gt; &lt;!-- background layer --&gt;
+    &lt;image&gt;&lt;/image&gt;
+  &lt;/g&gt;
+  &lt;g&gt; &lt;!-- shape-layer --&gt;
+    &lt;polygon points=&quot;10,10 50,15 51,100 178,120 3,190 &quot; stroke=&quot;#1919A3&quot; stroke-color=&quot;#1919A3&quot; stroke-width=&quot;4&quot;&gt;&lt;/polygon&gt;
+  &lt;/g&gt;
+  &lt;g&gt;&lt;/g&gt; &lt;!-- shape-modify-layer --&gt;
+  &lt;g&gt;&lt;/g&gt; &lt;!-- shape-create-layer --&gt;
+&lt;/g&gt;
+&lt;g&gt;&lt;/g&gt;  &lt;!-- tool-layer --&gt;
+&lt;polygon points=&quot;0,0 540,0 540,300 0,300 &quot; fill=&quot;&quot; fill-opacity=&quot;0&quot; stroke=&quot;black&quot; stroke-color=&quot;black&quot; stroke-width=&quot;0&quot;&gt;&lt;/polygon&gt; &lt;!-- shield --&gt;
+&lt;/svg&gt;
+</pre>
+<dl>
+  <dt>View-box</dt>
+  <dd>The first child element of a drawing canvas is a group <code>&lt;g&gt;</code> representing the <strong>view-box</strong> of a drawing 
+    canvas. The view-box group has a transformation matrix attached that is used to realize pan-zoom-rotate functionality.</dd>
+  <dt>Layers</dt>
+  <dd>Inside the view-box group there are four more groups representing different layers: <strong>background-layer</strong>, <strong>shape-layer</strong>, <strong>shape-modify-layer</strong>, and <strong>shape-create-layer</strong>. These four groups
+      automatically take part in the matrix transformations of the view-box.</dd>
+  <dl class="dl-horizontal">
+    <dt>Background Layer</dt>
+    <dd>The <strong>background-layer</strong> is useful to realize annotation functionality with a drawing canvas. Annotation tools aim to draw 
+      shapes not just on a blank paper but in front of an image.</dd>
+    <dt>Shape Layer</dt>
+    <dd>The <strong>shape-layer</strong> holds all shapes that shall be rendered on the drawing canvas.</dd>
+    <dt>Shape Modify Layer</dt>
+    <dd>The <strong>shape-modify</strong> layer is a temporary layer for helper shapes. It holds dragging elements, for example, with which one 
+      can change the size of a shape or one point of a polygon.</dd>
+    <dt>Shape Create Layer</dt>
+    <dd>The <strong>shape-create</strong> layer is a temporary layer for helper shapes as well. It holds the preview of a shape during creation
+      of a shape, for example.</dd>
+  </dl>
+  <dt>Tools</dt>
+  <dd>The last layer group is a <strong>tool-layer</strong> reserved for magnifiers, image thumbs and similar things. Remarkably, this layer is 
+    not inside the view-box since tools normally shall have a fixed size and position and shall not be affected by any matrix transformations 
+    of the view-box.</dd>
+  <dt>Shield</dt>
+  <dd>The last polygon shape is just a 'rectangular shield' introduced for the SVG and VML rendering engine for technical reasons. The drawing 
+    canvas ensures that the rectangular shield always sits in front of all other groups and shapes and always has the same size as the drawing 
+    canvas itself. This shield, therefore, receives all incoming browser events at first (in the case of SVG and VML). All other SVG or VML DOM
+    elements are hidden for browser events. In this way, the SVG and VML drawing canvas can make use of the same internal event handling 
+    mechanisms as for HTML Canvas rendering. Remember that HTML Canvas by nature has only one DOM element <code>&lt;canvas&gt;</code> accessible for browser events.</dd>
+</dl>
+<p>The layer-wise organization is the same for all rendering engines, besides that VML rendering uses different DOM elements and attributes and
+   the Canvas rendering engine has only one DOM element <code>&lt;canvas&gt;</code> but no DOM representation for shapes and groups.</p>
+<p>The layer-wise organization of the drawing canvas is highly inspired by <a href="https://github.com/SVG-Edit/svgedit">SVG-Edit</a>.</p>
+</div>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.xml.Parser</title>
+<script src='../../../lib/closure-library/closure/goog/base.js'></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/SAXException.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/LocatorImpls.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/NamespaceSupport.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/sax.js"></script>
+<script type="text/javascript" src="../../../lib/jssaxparser/DefaultHandlers.js"></script>
+<script src='../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.net.XhrIo');
+  goog.require('goog.events');
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx');
+  goog.require('xrx.xml.Parser');
+</script>
+</head>
+<body>
+
+<script type="text/javascript">
+
+
+
+function test01remote() {
+  var input;
+  var normalized;
+  var parser = new xrx.xml.Parser();
+  var request = new goog.net.XhrIo();
+  goog.events.listen(request, 'complete', function() {
+    input = request.getResponseText();
+    normalized = parser.normalize(input);
+  });
+  request.send('./data/hamlet.xml.txt', 'GET');
+};
+
+
+
+function test02emptyElement() {
+  var parser = new xrx.xml.Parser();
+  var input = '<test>text<empty/>text</test>';
+  var output = parser.normalize(input);
+  assertEquals(input, output);
+};
+
+
+
+function test03namespace() {
+  var parser = new xrx.xml.Parser();
+  var input = '<n:test xmlns:n="http://example.org/n" xmlns:m="http://example.org/m"></n:test>';
+  var output = parser.normalize(input);
+  assertEquals(input, output);
+};
+
+
+
+function test04defaultNamespace() {
+  var parser = new xrx.xml.Parser();
+  var input = '<test xmlns="http://example.org"/>';
+  var output = parser.normalize(input);
+  assertEquals(input, output);
+};
+
+
+
+function test05attributes() {
+  var parser = new xrx.xml.Parser();
+  var input = '<test attr1="value1" attr2="value2"/>';
+  var output = parser.normalize(input);
+  assertEquals(input, output);
+};
+
+
+
+function test06singleQuotes() {
+  var parser = new xrx.xml.Parser();
+  var input = "<test attr='\"'/>";
+  var output = '<test attr="\'"/>';
+  var normalized = parser.normalize(input);
+  assertEquals(normalized, output);
+};
+
+
+
+function test07comments() {
+  var input;
+  var output;
+  var parser = new xrx.xml.Parser();
+  input = "<test><!-- test --></test>";
+  output = parser.normalize(input);
+  assertEquals(input, output);
+  input = "<test>text<!-- test -->text</test>";
+  output = parser.normalize(input);
+  assertEquals(input, output);
+  input = "<test><empty/><!-- test --><empty/></test>";
+  output = parser.normalize(input);
+  assertEquals(input, output);
+};
+
+
+
+function test08processingInstructions() {
+  var input;
+  var output;
+  var parser = new xrx.xml.Parser();
+  // at document start
+  input = '<?xml-stylesheet href="shakes.xsl" type="text/xsl"?>';
+  input += '<test></test>';
+  output = parser.normalize(input);
+  assertEquals(input, output);
+  // inside start-tag and end-tag
+  input = '<test><?xml-stylesheet href="shakes.xsl" type="text/xsl"?></test>';
+  output = parser.normalize(input);
+  assertEquals(input, output);
+  // inside character data
+  input = '<test>text<?xml-stylesheet href="shakes.xsl" type="text/xsl"?>text</test>';
+  output = parser.normalize(input);
+  assertEquals(input, output);
+  // inside empty tags
+  input = '<test><empty/><?xml-stylesheet href="shakes.xsl" type="text/xsl"?><empty/></test>';
+  output = parser.normalize(input);
+  assertEquals(input, output);
+};
+
+
+
+function test09CDATA() {
+  var input;
+  var output;
+  var parser = new xrx.xml.Parser();
+  // inside start-tag and end-tag
+  input = '<test><![CDATA[<greeting>Hello, world!</greeting>]]></test>';
+  output = parser.normalize(input);
+  assertEquals(input, output);
+  // inside character data
+  input = '<test>text<![CDATA[<greeting>Hello, world!</greeting>]]>text</test>';
+  output = parser.normalize(input);
+  assertEquals(input, output);
+  // inside empty tags
+  input = '<test><empty/><![CDATA[<greeting>Hello, world!</greeting>]]><empty/></test>';
+  output = parser.normalize(input);
+  assertEquals(input, output);
+};
+
+
+function test10entity() {
+  var parser = new xrx.xml.Parser();
+  var input = '<test>&amp;</test>';
+  var output = parser.normalize(input);
+  assertEquals(input, output);
+};
+
+
+
+function test11xmlDeclaration() {
+  var parser = new xrx.xml.Parser();
+  var input = '<?xml version="1.0"?><test></test>';
+  var output = parser.normalize(input);
+  assertEquals(input, output);
+};
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.viewbox.ViewboxTranslate</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../deps.js'></script>
+<link rel="stylesheet" type="text/css" href="./viewboxViewbox_test.css">
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.dom.DomHelper');
+  goog.require('goog.events');
+  goog.require('goog.events.EventType');
+  goog.require('xrx.api.drawing');
+</script>
+</head>
+<body>
+
+<h1>Center horizontally</h1>
+<div class="drawing" id="horizontally"></div>
+<button id="bhorizontally">Center horizontally</button>
+
+<h1>Center vertically</h1>
+<div class="drawing" id="vertically"></div>
+<button id="bvertically">Center vertically</button>
+
+<h1>Center (horizontally and vertically)</h1>
+<div class="drawing" id="center"></div>
+<button id="bcenter">Center</button>
+
+<h1>Set Position</h1>
+<div class="drawing" id="setPosition"></div>
+<button id="bnw">NW</button>
+<button id="bne">NE</button>
+<button id="bse">SE</button>
+<button id="bsw">SW</button>
+
+<script type="text/javascript">
+
+
+
+var canvas1 = new xrx.drawing.Drawing(goog.dom.getElement('horizontally'));
+var canvas2 = new xrx.drawing.Drawing(goog.dom.getElement('vertically'));
+var canvas3 = new xrx.drawing.Drawing(goog.dom.getElement('center'));
+var canvas4 = new xrx.drawing.Drawing(goog.dom.getElement('setPosition'));
+
+
+
+canvas1.setModeView();
+canvas2.setModeView();
+canvas3.setModeView();
+canvas4.setModeView();
+
+
+
+canvas1.setBackgroundImage('./viewbox_test_center.png');
+canvas2.setBackgroundImage('./viewbox_test_center.png');
+canvas3.setBackgroundImage('./viewbox_test_center.png');
+canvas4.setBackgroundImage('./viewbox_test_center.png');
+
+
+
+goog.events.listen(goog.dom.getElement('bhorizontally'),
+    goog.events.EventType.CLICK, function() {
+  canvas1.getViewbox().centerHorizontally();
+});
+goog.events.listen(goog.dom.getElement('bvertically'),
+    goog.events.EventType.CLICK, function() {
+  canvas2.getViewbox().centerVertically();
+});
+goog.events.listen(goog.dom.getElement('bcenter'),
+    goog.events.EventType.CLICK, function() {
+  canvas3.getViewbox().center();
+});
+goog.events.listen(goog.dom.getElement('bnw'),
+    goog.events.EventType.CLICK, function() {
+  canvas4.getViewbox().setPosition(xrx.drawing.Position.NW);
+});
+goog.events.listen(goog.dom.getElement('bne'),
+    goog.events.EventType.CLICK, function() {
+  canvas4.getViewbox().setPosition(xrx.drawing.Position.NE);
+});
+goog.events.listen(goog.dom.getElement('bsw'),
+    goog.events.EventType.CLICK, function() {
+  canvas4.getViewbox().setPosition(xrx.drawing.Position.SW);
+});
+goog.events.listen(goog.dom.getElement('bse'),
+    goog.events.EventType.CLICK, function() {
+  canvas4.getViewbox().setPosition(xrx.drawing.Position.SE);
+});
+
+
+
+function test() {};
+
+</script>
+</body>
+</html>

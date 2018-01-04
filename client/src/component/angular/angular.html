@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<head>
+    <meta charset="UTF-8">
+    <script src='../../../lib/closure-library/closure/goog/base.js'></script>
+    <script src="../../../xrx-minified.js"></script>
+    <script type="text/javascript">
+        goog.require('xrx');
+    </script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.1.js"></script>
+    <script src="angularShape.js"></script>
+    <script src="app.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+<div ng-app="app" class="container" ng-controller="Ctrl" >
+    <button ng-click="rotateLeftCanvas();">Links</button>
+    <button ng-click="rotateRightCanvas();">Rechts</button>
+    <button ng-click="zoomInCanvas();">In</button>
+    <button ng-click="zoomOutCanvas();">Out</button>
+
+    <div class="row">
+        <div id="drawingCanvas"  style="height: 500px; width: 1000px; background-color: #FFFFFF"></div>
+    </div>
+<br>
+    {{currentTab}}
+
+    <div>
+        <accordion close-others="oneAtATime">
+
+            <accordion-group is-open="currentTab[1]"  heading="Dynamic Body Content" ng-click="setTabAndDraw(1);">
+                <p>The body of the accordion group grows to fit the contents</p>
+
+                <div ng-repeat="item in items">{{item}}</div>
+            </accordion-group>
+            <accordion-group is-open="currentTab[2]" ng-click="setTab(2);">
+                <accordion-heading>
+                    I can have markup, too!
+                </accordion-heading>
+                This is just some content to illustrate fancy headings.
+                </accordion-group>
+            <accordion-group is-open="currentTab[3]"  heading="Dynamic Body Content" ng-click="setTab(3);">
+                <p>The body of the accordion group grows to fit the contents</p>
+
+                <div ng-repeat="item in items">{{item}}</div>
+            </accordion-group>
+            </accordion>
+
+    </div>
+
+    </div>
+
+
+</body>
+
+</html>

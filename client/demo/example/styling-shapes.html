@@ -1,0 +1,36 @@
+<div id="content" class="container" data-type="js">
+<h1>Styling Shapes</h1>
+<p>The following styles are available: <strong>Fill Color</strong>,
+    <strong>Fill Opacity</strong>, <strong>Stroke Color</strong>,
+    <strong>Stroke Width</strong>.</p>
+<p>One can define the style of a shape directly with <code>circle.setFillColor('rgb(153, 0, 153)')</code> or with
+    <code>polygon.setFillOpacity(.2)</code>; alternatively by creating a style definition object with
+    <code>var style = new xrx.shape.Style()</code>, <code>style.setStrokeColor('#805C6E')</code>, which can then be set to one or various shapes, e.g., with <code>polygon.setStyle(style);</code>.</p>
+<ul>
+  <li>Stroke and fill colors can be defined as HTML colors such as <code>green</code>, <code>rgb(153, 0, 153)</code> or <code>#805C6E</code>.</li>
+  <li>Fill opacity expects a decimal number (<code>.4</code> or <code>0.25</code>) between <code>0</code> and <code>1</code>, where <code>0</code> means full transparency and <code>1</code> means full color.</li>
+  <li>Stroke width expects an integer number such as <code>1</code>, <code>2</code> or <code>5</code>that represents the stroke width in pixel.</li>
+  <li><span class="text-danger"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+      <strong>Stroke width by default is set to <code>1</code> pixel (black color). To make the stroke invisible you have to set the stroke width to <code>0</code>.</strong></span> See the circle example below: <code>circle.setStrokeWidth(0)</code>.</li>
+</ul>
+<div id="drawing"></div>
+<h3>API Reference</h3>
+<ul>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Style.html">xrx.shape.Style</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Style.html#setFillColor">xrx.shape.Style.setFillColor()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Style.html#setFillOpacity">xrx.shape.Style.setFillOpacity()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Style.html#setStrokeColor">xrx.shape.Style.setStrokeColor()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Style.html#setStrokeWidth">xrx.shape.Style.setStrokeWidth()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Circle.html#setFillColor">xrx.shape.Circle.setFillColor()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Circle.html#setFillOpacity">xrx.shape.Circle.setFillOpacity()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Circle.html#setStrokeColor">xrx.shape.Circle.setStrokeColor()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Circle.html#setStrokeWidth">xrx.shape.Circle.setStrokeWidth()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Circle.html#setStyle">xrx.shape.Circle.setStyle()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Ellipse.html#setFillColor">xrx.shape.Ellipse.setFillColor()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Ellipse.html#setFillOpacity">xrx.shape.Ellipse.setFillOpacity()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Ellipse.html#setStrokeColor">xrx.shape.Ellipse.setStrokeColor()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Ellipse.html#setStrokeWidth">xrx.shape.Ellipse.setStrokeWidth()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Ellipse.html#setStyle">xrx.shape.Ellipse.setStyle()</a></li>
+  <li>all other shapes accordingly</li>
+</ul>
+</div>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Source: core/drawing/shape/shapeLine.js | API Reference | SemToNotes</title>
+  <script src="scripts/prettify/prettify.js"></script>
+  <script src="scripts/prettify/lang-css.js"></script>
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+  <!--link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css"-->
+  <link href="../../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../../demo/stylesheets/demo.css" rel="stylesheet">
+</head>
+<body>
+  <nav id="nav" class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"></button>
+        <a class="navbar-brand" href="../../../../index.html">SemToNotes</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li id="homeLink"><a href="../../../../index.html#home">Home</a></li>
+          <li id="apiLink" class="active">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">JavaScript API <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="../../../../index.html#documentation">API Documentation</a></li>
+              <li><a href="../simple/index.html">Simple API Reference <small>(for users)</small></a></li>
+              <li><a href="../full/index.html">Full API Reference <small>(for developers)</small></a></li>
+              <li><a href="../../../../index.html#about">About</a></li>
+            </ul>
+          </li>
+          <li id="retrievalLink"><a href="../../../../index.html#retrieval">Topological Retrieval</a></li>
+          <li><a target="_blank" href="https://github.com/HKIKoeln/SemToNotes/">Code</a></li>
+        </ul>
+      </div>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+  <div id="content" class="container">
+    <div id="main" class="col-md-9">
+      <h1 class="page-title">Source: core/drawing/shape/shapeLine.js</h1>
+      
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileoverview A class representing an engine-independent
+ * hoverable, selectable, modifiable and creatable line shape.
+ */
+
+goog.provide('xrx.shape.Line');
+goog.provide('xrx.shape.LineCreatable');
+goog.provide('xrx.shape.LineHoverable');
+goog.provide('xrx.shape.LineModifiable');
+goog.provide('xrx.shape.LineSelectable');
+
+
+
+goog.require('xrx.geometry.Line');
+goog.require('xrx.shape.Creatable');
+goog.require('xrx.shape.Geometry');
+goog.require('xrx.shape.Hoverable');
+goog.require('xrx.shape.Modifiable');
+goog.require('xrx.shape.Selectable');
+
+
+
+/**
+ * Classes representing an engine-independent line shape.
+ * @param {xrx.drawing.Drawing} drawing The parent drawing canvas.
+ * @extends {xrx.shape.Style}
+ * @constructor
+ */
+xrx.shape.Line = function(drawing) {
+
+  goog.base(this, drawing, new xrx.geometry.Line());
+
+  /**
+   * The engine element.
+   * @type {(xrx.canvas.Line|xrx.svg.Line|xrx.vml.Line)}
+   * @private
+   */
+  this.engineElement_ = this.drawing_.getEngine().createLine();
+};
+goog.inherits(xrx.shape.Line, xrx.shape.Geometry);
+
+
+
+/**
+ * Returns the x coordinate of the line's start point.
+ * @return {number} The x coordinate of the line's start point.
+ */
+xrx.shape.Line.prototype.getX1 = function() {
+  return this.geometry_.x1;
+};
+
+
+
+/**
+ * Sets the x coordinate of the line's start point.
+ * @param {number} x1 The x coordinate.
+ */
+xrx.shape.Line.prototype.setX1 = function(x1) {
+  this.geometry_.x1 = x1;
+};
+
+
+
+/**
+ * Returns the y coordinate of the line's start point.
+ * @return {number} The y coordinate of the line's start point.
+ */
+xrx.shape.Line.prototype.getY1 = function() {
+  return this.geometry_.y1;
+};
+
+
+
+/**
+ * Sets the y coordinate of the line's start point.
+ * @param {number} y1 The y coordinate.
+ */
+xrx.shape.Line.prototype.setY1 = function(y1) {
+  this.geometry_.y1 = y1;
+};
+
+
+
+/**
+ * Returns the x coordinate of the line's end point.
+ * @return {number} The x coordinate of the line's end point.
+ */
+xrx.shape.Line.prototype.getX2 = function() {
+  return this.geometry_.x2;
+};
+
+
+
+/**
+ * Sets the x coordinate of the line's end point.
+ * @param {number} x2 The x coordinate.
+ */
+xrx.shape.Line.prototype.setX2 = function(x2) {
+  this.geometry_.x2 = x2;
+};
+
+
+
+/**
+ * Returns the x coordinate of the line's end point.
+ * @return {number} The x coordinate of the line's end point.
+ */
+xrx.shape.Line.prototype.getY2 = function() {
+  return this.geometry_.y2;
+};
+
+
+
+/**
+ * Sets the y coordinate of the line's end point.
+ * @param {number} y2 The y coordinate.
+ */
+xrx.shape.Line.prototype.setY2 = function(y2) {
+  this.geometry_.y2 = y2;
+};
+
+
+
+/**
+ * Returns the coordinates of this line.
+ * @return {Array&lt;Array&lt;Number>>} The coordinates.
+ */
+xrx.shape.Line.prototype.getCoords = function() {
+  return [[this.geometry_.x1, this.geometry_.y1], [this.geometry_.x2,
+      this.geometry_.y2]];
+};
+
+
+
+/**
+ * Sets the coordinates of this line.
+ * @param {Array&lt;Array&lt;Number>>} coords The coordinates.
+ */
+xrx.shape.Line.prototype.setCoords = function(coords) {
+  this.geometry_.x1 = coords[0][0];
+  this.geometry_.y1 = coords[0][1];
+  this.geometry_.x2 = coords[1][0];
+  this.geometry_.y2 = coords[1][1];
+};
+
+
+
+/**
+ * Draws this line shape.
+ * @private
+ */
+xrx.shape.Line.prototype.draw = function() {
+  this.startDrawing_();
+  this.engineElement_.draw(this.geometry_.x1, this.geometry_.y1, this.geometry_.x2,
+      this.geometry_.y2, this.getRenderingStrokeColor(), this.getRenderingStrokeWidth());
+  this.finishDrawing_();
+};
+
+
+
+/**
+ * Returns a helper shape that makes this shape hoverable.
+ * @return {xrx.shape.LineHoverable} The hoverable line shape.
+ */
+xrx.shape.Line.prototype.getHoverable = function() {
+  if (!this.hoverable_) this.hoverable_ = new xrx.shape.LineHoverable(this);
+  return this.hoverable_;
+};
+
+
+
+/**
+ * Returns a helper shape that makes this shape selectable.
+ * @return {xrx.shape.LineSelectable} The selectable line shape.
+ */
+xrx.shape.Line.prototype.getSelectable = function() {
+  if (!this.selectable_) this.selectable_ = new xrx.shape.LineSelectable(this);
+  return this.selectable_;
+};
+
+
+
+/**
+ * Returns a helper shape that makes this shape modifiable.
+ * @return {xrx.shape.LineModifiable} The modifiable line shape.
+ */
+xrx.shape.Line.prototype.getModifiable = function(drawing) {
+  if (!this.modifiable_) this.modifiable_ = new xrx.shape.LineModifiable(this);
+  return this.modifiable_;
+};
+
+
+
+/**
+ * Returns a helper shape that makes this shape creatable.
+ * @return {xrx.shape.LineCreatable} The creatable line shape.
+ */
+xrx.shape.Line.prototype.getCreatable = function() {
+  if (!this.creatable_) this.creatable_ = new xrx.shape.LineCreatable(this);
+  return this.creatable_;
+};
+
+
+
+/**
+ * Disposes this line shape.
+ */
+xrx.shape.Line.prototype.disposeInternal = function() {
+  goog.base(this, 'disposeInternal');
+};
+
+
+
+/**
+ * A class representing a hoverable line shape.
+ * @param {xrx.shape.Line} line The parent line shape.
+ * @constructor
+ * @private
+ */
+xrx.shape.LineHoverable = function(line) {
+
+  goog.base(this, line);
+};
+goog.inherits(xrx.shape.LineHoverable, xrx.shape.Hoverable);
+
+
+
+/**
+ * Disposes this hoverable line shape.
+ */
+xrx.shape.LineHoverable.prototype.disposeInternal = function() {
+  goog.base(this, 'disposeInternal');
+};
+
+
+
+/**
+ * A class representing a selectable line shape.
+ * @param {xrx.shape.Line} line The parent line shape.
+ * @constructor
+ * @private
+ */
+xrx.shape.LineSelectable = function(line) {
+
+  goog.base(this, line);
+};
+goog.inherits(xrx.shape.LineSelectable, xrx.shape.Selectable);
+
+
+
+/**
+ * Disposes this selectable line shape.
+ */
+xrx.shape.LineSelectable.prototype.disposeInternal = function() {
+  goog.base(this, 'disposeInternal');
+};
+
+
+
+/**
+ * A class representing a modifiable line shape.
+ * @param {xrx.shape.Line} line The parent line shape.
+ * @constructor
+ * @private
+ */
+xrx.shape.LineModifiable = function(line, dragger) {
+
+  goog.base(this, line, dragger);
+
+  this.init_();
+};
+goog.inherits(xrx.shape.LineModifiable, xrx.shape.Modifiable);
+
+
+
+/**
+ * Disposes this modifiable line shape.
+ */
+xrx.shape.LineModifiable.prototype.disposeInternal = function() {
+  goog.base(this, 'disposeInternal');
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.LineModifiable.prototype.setCoords = function(coords) {
+  this.shape_.setCoords(coords);
+  this.dragger_[0].setCoordX(coords[0][0]);
+  this.dragger_[0].setCoordY(coords[0][1]);
+  this.dragger_[1].setCoordX(coords[1][0]);
+  this.dragger_[1].setCoordY(coords[1][1]);
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.LineModifiable.prototype.setCoordAt = function(pos, coord) {
+  if (pos === 0) {
+    this.dragger_[0].setCoordX(coord[0]);
+    this.dragger_[0].setCoordY(coord[1]);
+    this.shape_.setX1(coord[0]);
+    this.shape_.setY1(coord[1]);
+  } else {
+    this.dragger_[1].setCoordX(coord[0]);
+    this.dragger_[1].setCoordY(coord[1]);
+    this.shape_.setX2(coord[0]);
+    this.shape_.setY2(coord[1]);
+  }
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.LineModifiable.prototype.move = function(distX, distY) {
+  var coords = this.shape_.getCoordsCopy();
+  coords[0][0] += distX;
+  coords[0][1] += distY;
+  coords[1][0] += distX;
+  coords[1][1] += distY;
+  this.setCoords(coords);
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.LineModifiable.prototype.init_ = function() {
+  var dragger1 = new xrx.shape.Dragger(this, 0);
+  dragger1.setCoords([[this.shape_.getX1(), this.shape_.getY1()]]);
+  var dragger2 = new xrx.shape.Dragger(this, 1);
+  dragger2.setCoords([[this.shape_.getX2(), this.shape_.getY2()]]);
+  this.setDragger([dragger1, dragger2]);
+};
+
+
+
+/**
+ * Disposes this modifiable line shape.
+ */
+xrx.shape.LineModifiable.prototype.disposeInternal = function() {
+  goog.base(this, 'disposeInternal');
+};
+
+
+
+/**
+ * A class representing a creatable line shape.
+ * @param {xrx.shape.Line} line The parent line shape.
+ * @constructor
+ * @private
+ */
+xrx.shape.LineCreatable = function(line) {
+
+  goog.base(this, line, new xrx.shape.Line(line.getDrawing()));
+};
+goog.inherits(xrx.shape.LineCreatable, xrx.shape.Creatable);
+
+
+
+/**
+ * Returns the coordinates of the line currently created.
+ * @return Array&lt;number> The coordinates.
+ */
+xrx.shape.LineCreatable.prototype.getCoords = function() {
+  return this.helper_.getCoords();
+};
+
+
+
+/**
+ * Handles down events for a creatable line shape.
+ * @param {goog.events.BrowserEvent} e The browser event.
+ */
+xrx.shape.LineCreatable.prototype.handleDown = function(e, cursor) {
+  var point = cursor.getPointTransformed();
+  this.preview_.setX1(point[0]);
+  this.preview_.setY1(point[1]);
+  this.preview_.setX2(point[0]);
+  this.preview_.setY2(point[1]);
+  this.target_.getDrawing().eventShapeCreate([this.preview_]);
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.LineCreatable.prototype.handleMove = function(e, cursor) {
+  var point = cursor.getPointTransformed();
+  this.preview_.setX2(point[0]);
+  this.preview_.setY2(point[1]);
+};
+
+
+
+/**
+ * @private
+ */
+xrx.shape.LineCreatable.prototype.handleUp = function(e, cursor) {
+  var point = cursor.getPointTransformed();
+  var line = new xrx.shape.Line(this.target_.getDrawing());
+  line.setStyle(this.target_);
+  line.setX1(this.preview_.getX1());
+  line.setY1(this.preview_.getY1());
+  line.setX2(point[0]);
+  line.setY2(point[1]);
+  this.target_.getDrawing().eventShapeCreated(line);
+};
+
+
+
+/**
+ * Disposes this creatable line shape.
+ */
+xrx.shape.LineCreatable.prototype.disposeInternal = function() {
+  goog.base(this, 'disposeInternal');
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    </div>
+    <nav class="col-md-3">
+      <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="xrx.drawing.Drawing.html">xrx.drawing.Drawing</a></li><li><a href="xrx.shape.Circle.html">xrx.shape.Circle</a></li><li><a href="xrx.shape.DiPolygon.html">xrx.shape.DiPolygon</a></li><li><a href="xrx.shape.DiPolygonArrow.html">xrx.shape.DiPolygonArrow</a></li><li><a href="xrx.shape.DiPolygonArrowModifiable.html">xrx.shape.DiPolygonArrowModifiable</a></li><li><a href="xrx.shape.Ellipse.html">xrx.shape.Ellipse</a></li><li><a href="xrx.shape.Line.html">xrx.shape.Line</a></li><li><a href="xrx.shape.Polygon.html">xrx.shape.Polygon</a></li><li><a href="xrx.shape.Polyline.html">xrx.shape.Polyline</a></li><li><a href="xrx.shape.Rect.html">xrx.shape.Rect</a></li><li><a href="xrx.shape.ShapeGroup.html">xrx.shape.ShapeGroup</a></li><li><a href="xrx.shape.Style.html">xrx.shape.Style</a></li><li><a href="xrx.viewbox.Viewbox.html">xrx.viewbox.Viewbox</a></li></ul><h3>Events</h3><ul><li><a href="xrx.drawing.Drawing.html#event:eventShapeModify">xrx.drawing.Drawing#event:eventShapeModify</a></li></ul><h3>Namespaces</h3><ul><li><a href="xrx.html">xrx</a></li><li><a href="xrx.canvas.html">xrx.canvas</a></li><li><a href="xrx.drawing.html">xrx.drawing</a></li><li><a href="xrx.engine.html">xrx.engine</a></li><li><a href="xrx.shape.html">xrx.shape</a></li><li><a href="xrx.svg.html">xrx.svg</a></li><li><a href="xrx.viewbox.html">xrx.viewbox</a></li><li><a href="xrx.vml.html">xrx.vml</a></li></ul>
+    </nav>
+  </div>
+  <script>prettyPrint();</script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,4361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Class: xrx.viewbox.ViewboxZoom | API Reference | SemToNotes</title>
+  <script src="scripts/prettify/prettify.js"></script>
+  <script src="scripts/prettify/lang-css.js"></script>
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+  <!--link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css"-->
+  <link href="../../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../../demo/stylesheets/demo.css" rel="stylesheet">
+</head>
+<body>
+  <nav id="nav" class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"></button>
+        <a class="navbar-brand" href="../../../../index.html">SemToNotes</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li id="homeLink"><a href="../../../../index.html#home">Home</a></li>
+          <li id="apiLink" class="active">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">JavaScript API <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="../../../../index.html#documentation">API Documentation</a></li>
+              <li><a href="../simple/index.html">Simple API Reference <small>(for users)</small></a></li>
+              <li><a href="../full/index.html">Full API Reference <small>(for developers)</small></a></li>
+              <li><a href="../../../../index.html#about">About</a></li>
+            </ul>
+          </li>
+          <li id="retrievalLink"><a href="../../../../index.html#retrieval">Topological Retrieval</a></li>
+          <li><a target="_blank" href="https://github.com/HKIKoeln/SemToNotes/">Code</a></li>
+        </ul>
+      </div>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+  <div id="content" class="container">
+    <div id="main" class="col-md-9">
+      <h1 class="page-title">Class: xrx.viewbox.ViewboxZoom</h1>
+      
+
+
+
+<section>
+
+<header>
+    <h2>
+        <span class="ancestors"><a href="xrx.html">xrx</a><a href="xrx.viewbox.html">.viewbox</a>.</span>
+    
+    ViewboxZoom
+    </h2>
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+
+    
+        
+<dt>
+    <h4 class="name" id="ViewboxZoom"><span class="type-signature">(private) </span>new xrx.viewbox.ViewboxZoom<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        A class implementing a zooming model for the drawing view-box.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxZoom.js.html">core/drawing/viewbox/viewboxViewboxZoom.js</a>, <a href="viewboxViewboxZoom.js.html#line20">line 20</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+    
+    </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        <ul>
+            <li><a href="xrx.viewbox.ViewboxRotate.html">xrx.viewbox.ViewboxRotate</a></li>
+        </ul>
+    
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        <dl>
+            
+<dt>
+    <h4 class="name" id="FixPoints_"><span class="type-signature">(private) </span>xrx.viewbox.ViewboxZoom#FixPoints_<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="xrx.viewbox.ViewboxGeometry.html#FixPoints_">xrx.viewbox.ViewboxGeometry#FixPoints_</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxGeometry.js.html">core/drawing/viewbox/viewboxViewboxGeometry.js</a>, <a href="viewboxViewboxGeometry.js.html#line154">line 154</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="zoomFactor_"><span class="type-signature">(private) </span>xrx.viewbox.ViewboxZoom#zoomFactor_<span class="type-signature"> :number</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The current zoom factor, defaults to .1.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">number</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxZoom.js.html">core/drawing/viewbox/viewboxViewboxZoom.js</a>, <a href="viewboxViewboxZoom.js.html#line33">line 33</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="zoomMax_"><span class="type-signature">(private) </span>xrx.viewbox.ViewboxZoom#zoomMax_<span class="type-signature"> :number</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The maximum zoom value, defaults to 2.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">number</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxZoom.js.html">core/drawing/viewbox/viewboxViewboxZoom.js</a>, <a href="viewboxViewboxZoom.js.html#line105">line 105</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="zoomMin_"><span class="type-signature">(private) </span>xrx.viewbox.ViewboxZoom#zoomMin_<span class="type-signature"> :number</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The minimum zoom value, defaults to 0.1.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">number</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxZoom.js.html">core/drawing/viewbox/viewboxViewboxZoom.js</a>, <a href="viewboxViewboxZoom.js.html#line76">line 76</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<dt>
+    <h4 class="name" id="containsPoint"><span class="type-signature">(private) </span>xrx.viewbox.ViewboxZoom#containsPoint<span class="signature">(point)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Whether a point is contained in this view-box.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>point</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;number></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The native point, without translation.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="xrx.viewbox.ViewboxGeometry.html#containsPoint">xrx.viewbox.ViewboxGeometry#containsPoint</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxGeometry.js.html">core/drawing/viewbox/viewboxViewboxGeometry.js</a>, <a href="viewboxViewboxGeometry.js.html#line114">line 114</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="direction_"><span class="type-signature">(private) </span>xrx.viewbox.ViewboxZoom#direction_<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns a positional utility number representing the current orientationof the view-box.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="xrx.viewbox.ViewboxRotate.html#direction_">xrx.viewbox.ViewboxRotate#direction_</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxRotate.js.html">core/drawing/viewbox/viewboxViewboxRotate.js</a>, <a href="viewboxViewboxRotate.js.html#line97">line 97</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The orientation.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="disposeInternal"><span class="type-signature"></span>xrx.viewbox.ViewboxZoom#disposeInternal<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Disposes this view-box.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxZoom.js.html">core/drawing/viewbox/viewboxViewboxZoom.js</a>, <a href="viewboxViewboxZoom.js.html#line208">line 208</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getBox"><span class="type-signature">(private) </span>xrx.viewbox.ViewboxZoom#getBox<span class="signature">()</span><span class="type-signature"> &rarr; {goog.math.Box}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the bounding-box for this view-box, respecting transformation.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="xrx.viewbox.ViewboxGeometry.html#getBox">xrx.viewbox.ViewboxGeometry#getBox</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxGeometry.js.html">core/drawing/viewbox/viewboxViewboxGeometry.js</a>, <a href="viewboxViewboxGeometry.js.html#line86">line 86</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The bounding box, coordinates are the visiblesand are transformed.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">goog.math.Box</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getCenterPoint_"><span class="type-signature">(private) </span>xrx.viewbox.ViewboxZoom#getCenterPoint_<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="xrx.viewbox.ViewboxGeometry.html#getCenterPoint_">xrx.viewbox.ViewboxGeometry#getCenterPoint_</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxGeometry.js.html">core/drawing/viewbox/viewboxViewboxGeometry.js</a>, <a href="viewboxViewboxGeometry.js.html#line124">line 124</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getFixPoint_"><span class="type-signature">(private) </span>xrx.viewbox.ViewboxZoom#getFixPoint_<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="xrx.viewbox.ViewboxGeometry.html#getFixPoint_">xrx.viewbox.ViewboxGeometry#getFixPoint_</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxGeometry.js.html">core/drawing/viewbox/viewboxViewboxGeometry.js</a>, <a href="viewboxViewboxGeometry.js.html#line184">line 184</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getFixPoints_"><span class="type-signature">(private) </span>xrx.viewbox.ViewboxZoom#getFixPoints_<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="xrx.viewbox.ViewboxGeometry.html#getFixPoints_">xrx.viewbox.ViewboxGeometry#getFixPoints_</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxGeometry.js.html">core/drawing/viewbox/viewboxViewboxGeometry.js</a>, <a href="viewboxViewboxGeometry.js.html#line167">line 167</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getHeight"><span class="type-signature">(private) </span>xrx.viewbox.ViewboxZoom#getHeight<span class="signature">(opt_transformed, opt_visible)</span><span class="type-signature"> &rarr; {number}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the height of this view-box, optionally the transformedheight (respecting the current scale) and / or the visible height(respecting the current rotation).
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>opt_transformed</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Whether to return the transformed  height respecting the current scale.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt_visible</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Whether to return the visible height  respecting the current rotation.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="xrx.viewbox.ViewboxGeometry.html#getHeight">xrx.viewbox.ViewboxGeometry#getHeight</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxGeometry.js.html">core/drawing/viewbox/viewboxViewboxGeometry.js</a>, <a href="viewboxViewboxGeometry.js.html#line68">line 68</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The height.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getPivotPoint_"><span class="type-signature">(private) </span>xrx.viewbox.ViewboxZoom#getPivotPoint_<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="xrx.viewbox.ViewboxRotate.html#getPivotPoint_">xrx.viewbox.ViewboxRotate#getPivotPoint_</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxRotate.js.html">core/drawing/viewbox/viewboxViewboxRotate.js</a>, <a href="viewboxViewboxRotate.js.html#line213">line 213</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getPivotPoints_"><span class="type-signature">(private) </span>xrx.viewbox.ViewboxZoom#getPivotPoints_<span class="signature">(reverse)</span><span class="type-signature"> &rarr; {Array.&lt;number>}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the four pivot points of this view-box.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>reverse</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">If we rotate in right or left direction.  If reverse is true we assume left direction otherwise right direction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="xrx.viewbox.ViewboxRotate.html#getPivotPoints_">xrx.viewbox.ViewboxRotate#getPivotPoints_</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxRotate.js.html">core/drawing/viewbox/viewboxViewboxRotate.js</a>, <a href="viewboxViewboxRotate.js.html#line252">line 252</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;number></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getRotation"><span class="type-signature"></span>xrx.viewbox.ViewboxZoom#getRotation<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the current rotation in degrees.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="xrx.viewbox.ViewboxRotate.html#getRotation">xrx.viewbox.ViewboxRotate#getRotation</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxRotate.js.html">core/drawing/viewbox/viewboxViewboxRotate.js</a>, <a href="viewboxViewboxRotate.js.html#line34">line 34</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The current rotation in degrees.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getVisibleOrientation_"><span class="type-signature">(private) </span>xrx.viewbox.ViewboxZoom#getVisibleOrientation_<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="xrx.viewbox.ViewboxGeometry.html#getVisibleOrientation_">xrx.viewbox.ViewboxGeometry#getVisibleOrientation_</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxGeometry.js.html">core/drawing/viewbox/viewboxViewboxGeometry.js</a>, <a href="viewboxViewboxGeometry.js.html#line142">line 142</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getWidth"><span class="type-signature">(private) </span>xrx.viewbox.ViewboxZoom#getWidth<span class="signature">(opt_transformed, opt_visible)</span><span class="type-signature"> &rarr; {number}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the width of this view-box, optionally the transformedwidth (respecting the current scale) and / or the visible width(respecting the current rotation).
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>opt_transformed</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Whether to return the transformed  width respecting the current scale.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt_visible</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Whether to return the visible width  respecting the current rotation.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="xrx.viewbox.ViewboxGeometry.html#getWidth">xrx.viewbox.ViewboxGeometry#getWidth</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxGeometry.js.html">core/drawing/viewbox/viewboxViewboxGeometry.js</a>, <a href="viewboxViewboxGeometry.js.html#line44">line 44</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The width.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getZoomFactor"><span class="type-signature"></span>xrx.viewbox.ViewboxZoom#getZoomFactor<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the current zoom factor, defaults to .1.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxZoom.js.html">core/drawing/viewbox/viewboxViewboxZoom.js</a>, <a href="viewboxViewboxZoom.js.html#line41">line 41</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The zoom factor.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getZoomMax"><span class="type-signature"></span>xrx.viewbox.ViewboxZoom#getZoomMax<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the current maximum zoom value.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxZoom.js.html">core/drawing/viewbox/viewboxViewboxZoom.js</a>, <a href="viewboxViewboxZoom.js.html#line113">line 113</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The maximum zoom value.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getZoomMin"><span class="type-signature"></span>xrx.viewbox.ViewboxZoom#getZoomMin<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the current minimum zoom value.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxZoom.js.html">core/drawing/viewbox/viewboxViewboxZoom.js</a>, <a href="viewboxViewboxZoom.js.html#line84">line 84</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The minimum zoom value.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getZoomStep"><span class="type-signature"></span>xrx.viewbox.ViewboxZoom#getZoomStep<span class="signature">(opt_zoomValue<span class="signature-attributes">nullable</span>)</span><span class="type-signature"> &rarr; {number}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the current zoom step or the zoom step of a zoom value ifopt_zoomValue is defined.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>opt_zoomValue</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">A zoom value.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxZoom.js.html">core/drawing/viewbox/viewboxViewboxZoom.js</a>, <a href="viewboxViewboxZoom.js.html#line135">line 135</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The zoom step.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getZoomValue"><span class="type-signature"></span>xrx.viewbox.ViewboxZoom#getZoomValue<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the current zoom value.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxZoom.js.html">core/drawing/viewbox/viewboxViewboxZoom.js</a>, <a href="viewboxViewboxZoom.js.html#line61">line 61</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="isFixPoint_"><span class="type-signature">(private) </span>xrx.viewbox.ViewboxZoom#isFixPoint_<span class="signature">(fixPoint)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Whether the fix-point is a point, that is an Array of length 2.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fixPoint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">?</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The fix-point.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="xrx.viewbox.ViewboxRotate.html#isFixPoint_">xrx.viewbox.ViewboxRotate#isFixPoint_</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxRotate.js.html">core/drawing/viewbox/viewboxViewboxRotate.js</a>, <a href="viewboxViewboxRotate.js.html#line153">line 153</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="isHorizontal"><span class="type-signature">(private) </span>xrx.viewbox.ViewboxZoom#isHorizontal<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Whether the view-box currently is in horizontal orientation.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="xrx.viewbox.ViewboxRotate.html#isHorizontal">xrx.viewbox.ViewboxRotate#isHorizontal</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxRotate.js.html">core/drawing/viewbox/viewboxViewboxRotate.js</a>, <a href="viewboxViewboxRotate.js.html#line70">line 70</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Whether the view-box is oriented horizontally.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="isOrientation_"><span class="type-signature">(private) </span>xrx.viewbox.ViewboxZoom#isOrientation_<span class="signature">(fixPoint)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Whether the fix-point is an orientation, that is one ofxrx.drawing.Orientation.*.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fixPoint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">?</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The fix-point.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="xrx.viewbox.ViewboxRotate.html#isOrientation_">xrx.viewbox.ViewboxRotate#isOrientation_</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxRotate.js.html">core/drawing/viewbox/viewboxViewboxRotate.js</a>, <a href="viewboxViewboxRotate.js.html#line165">line 165</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="isValidRotation"><span class="type-signature">(private) </span>xrx.viewbox.ViewboxZoom#isValidRotation<span class="signature">(rotation)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Checks whether the rotation value is valid.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rotation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The rotation in degrees.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="xrx.viewbox.ViewboxRotate.html#isValidRotation">xrx.viewbox.ViewboxRotate#isValidRotation</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxRotate.js.html">core/drawing/viewbox/viewboxViewboxRotate.js</a>, <a href="viewboxViewboxRotate.js.html#line46">line 46</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Whether the rotation is valid.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="isVertical"><span class="type-signature">(private) </span>xrx.viewbox.ViewboxZoom#isVertical<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Whether the view-box currently is in vertical orientation.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="xrx.viewbox.ViewboxRotate.html#isVertical">xrx.viewbox.ViewboxRotate#isVertical</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxRotate.js.html">core/drawing/viewbox/viewboxViewboxRotate.js</a>, <a href="viewboxViewboxRotate.js.html#line58">line 58</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Whether the view-box is oriented vertically.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="rotateBy"><span class="type-signature">(private) </span>xrx.viewbox.ViewboxZoom#rotateBy<span class="signature">(angle<span class="signature-attributes">nullable</span>, opt_fixPoint<span class="signature-attributes">nullable</span>)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Rotates the view-box by an angle, respecting a fix-point or an orientation.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>angle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The angle of rotation in degrees, e.g. 90 or 180.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt_fixPoint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;number></span>
+|
+
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">A fix-point or an orientation.  Defaults to the center of the view-box.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="xrx.viewbox.ViewboxRotate.html#rotateBy">xrx.viewbox.ViewboxRotate#rotateBy</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxRotate.js.html">core/drawing/viewbox/viewboxViewboxRotate.js</a>, <a href="viewboxViewboxRotate.js.html#line111">line 111</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="rotateBy_"><span class="type-signature">(private) </span>xrx.viewbox.ViewboxZoom#rotateBy_<span class="signature">(angle<span class="signature-attributes">nullable</span>, opt_orientation<span class="signature-attributes">nullable</span>, opt_fixPoint<span class="signature-attributes">nullable</span>)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Rotates the view-box by an angle, respecting a fix-point or anorientation.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>angle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The angle of rotation in degrees, e.g. 90 or 180.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt_orientation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">An orientation, defaults to  xrx.drawing.Orientation.C.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt_fixPoint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;number></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">A fix-point, defaults to the center  of the view-box.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="xrx.viewbox.ViewboxRotate.html#rotateBy_">xrx.viewbox.ViewboxRotate#rotateBy_</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxRotate.js.html">core/drawing/viewbox/viewboxViewboxRotate.js</a>, <a href="viewboxViewboxRotate.js.html#line182">line 182</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="rotateLeft"><span class="type-signature"></span>xrx.viewbox.ViewboxZoom#rotateLeft<span class="signature">(opt_fixPoint<span class="signature-attributes">nullable</span>)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Rotates the view-box by 90° in left direction, optionally respectinga fix-point or an orientation.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>opt_fixPoint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;number></span>
+|
+
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The fix-point.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="xrx.viewbox.ViewboxRotate.html#rotateLeft">xrx.viewbox.ViewboxRotate#rotateLeft</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxRotate.js.html">core/drawing/viewbox/viewboxViewboxRotate.js</a>, <a href="viewboxViewboxRotate.js.html#line131">line 131</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="rotateRight"><span class="type-signature"></span>xrx.viewbox.ViewboxZoom#rotateRight<span class="signature">(opt_fixPoint<span class="signature-attributes">nullable</span>)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Rotates the view-box by 90° in right direction, optionally respectinga fix-point or an orientation.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>opt_fixPoint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;number></span>
+|
+
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The fix-point.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="xrx.viewbox.ViewboxRotate.html#rotateRight">xrx.viewbox.ViewboxRotate#rotateRight</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxRotate.js.html">core/drawing/viewbox/viewboxViewboxRotate.js</a>, <a href="viewboxViewboxRotate.js.html#line142">line 142</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setZoomFactor"><span class="type-signature"></span>xrx.viewbox.ViewboxZoom#setZoomFactor<span class="signature">(factor)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets a new zoom factor, e.g. 0.1.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>factor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The new zoom factor.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxZoom.js.html">core/drawing/viewbox/viewboxViewboxZoom.js</a>, <a href="viewboxViewboxZoom.js.html#line51">line 51</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setZoomFactorMax"><span class="type-signature"></span>xrx.viewbox.ViewboxZoom#setZoomFactorMax<span class="signature">(value)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets the maximum zoom value.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The maximum zoom value.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxZoom.js.html">core/drawing/viewbox/viewboxViewboxZoom.js</a>, <a href="viewboxViewboxZoom.js.html#line123">line 123</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setZoomFactorMin"><span class="type-signature"></span>xrx.viewbox.ViewboxZoom#setZoomFactorMin<span class="signature">(value)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets the minimum zoom value.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The minimum zoom value.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxZoom.js.html">core/drawing/viewbox/viewboxViewboxZoom.js</a>, <a href="viewboxViewboxZoom.js.html#line94">line 94</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="zoomIn"><span class="type-signature"></span>xrx.viewbox.ViewboxZoom#zoomIn<span class="signature">(opt_fixPoint)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Zoom in on the view-box, optionally respecting a fix-point.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>opt_fixPoint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;number></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A fix-point.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxZoom.js.html">core/drawing/viewbox/viewboxViewboxZoom.js</a>, <a href="viewboxViewboxZoom.js.html#line189">line 189</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="zoomOffset_"><span class="type-signature">(private) </span>xrx.viewbox.ViewboxZoom#zoomOffset_<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxZoom.js.html">core/drawing/viewbox/viewboxViewboxZoom.js</a>, <a href="viewboxViewboxZoom.js.html#line145">line 145</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="zoomOut"><span class="type-signature"></span>xrx.viewbox.ViewboxZoom#zoomOut<span class="signature">(opt_fixPoint)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Zoom out the view-box, optionally respecting a fix-point.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>opt_fixPoint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;number></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A fix-point.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxZoom.js.html">core/drawing/viewbox/viewboxViewboxZoom.js</a>, <a href="viewboxViewboxZoom.js.html#line199">line 199</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="zoomTo"><span class="type-signature"></span>xrx.viewbox.ViewboxZoom#zoomTo<span class="signature">(zoomValue, opt_fixPoint<span class="signature-attributes">nullable</span>)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Zooms the view-box to a value, optionally respecting a fix-point.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>zoomValue</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The zoom value.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt_fixPoint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">A fix-point.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="viewboxViewboxZoom.js.html">core/drawing/viewbox/viewboxViewboxZoom.js</a>, <a href="viewboxViewboxZoom.js.html#line161">line 161</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+    </div>
+    <nav class="col-md-3">
+      <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="xrx.canvas.Canvas.html">xrx.canvas.Canvas</a></li><li><a href="xrx.canvas.Circle.html">xrx.canvas.Circle</a></li><li><a href="xrx.canvas.Container.html">xrx.canvas.Container</a></li><li><a href="xrx.canvas.Element.html">xrx.canvas.Element</a></li><li><a href="xrx.canvas.Ellipse.html">xrx.canvas.Ellipse</a></li><li><a href="xrx.canvas.Group.html">xrx.canvas.Group</a></li><li><a href="xrx.canvas.Image.html">xrx.canvas.Image</a></li><li><a href="xrx.canvas.Line.html">xrx.canvas.Line</a></li><li><a href="xrx.canvas.Polygon.html">xrx.canvas.Polygon</a></li><li><a href="xrx.canvas.Polyline.html">xrx.canvas.Polyline</a></li><li><a href="xrx.canvas.Rect.html">xrx.canvas.Rect</a></li><li><a href="xrx.canvas.Stylable.html">xrx.canvas.Stylable</a></li><li><a href="xrx.drawing.Cursor.html">xrx.drawing.Cursor</a></li><li><a href="xrx.drawing.Drawing.html">xrx.drawing.Drawing</a></li><li><a href="xrx.drawing.EventHandler.html">xrx.drawing.EventHandler</a></li><li><a href="xrx.drawing.Hoverable.html">xrx.drawing.Hoverable</a></li><li><a href="xrx.drawing.Layer.html">xrx.drawing.Layer</a></li><li><a href="xrx.drawing.LayerBackground.html">xrx.drawing.LayerBackground</a></li><li><a href="xrx.drawing.LayerShape.html">xrx.drawing.LayerShape</a></li><li><a href="xrx.drawing.LayerShapeCreate.html">xrx.drawing.LayerShapeCreate</a></li><li><a href="xrx.drawing.LayerShapeModify.html">xrx.drawing.LayerShapeModify</a></li><li><a href="xrx.drawing.LayerTool.html">xrx.drawing.LayerTool</a></li><li><a href="xrx.drawing.Modifiable.html">xrx.drawing.Modifiable</a></li><li><a href="xrx.drawing.Selectable.html">xrx.drawing.Selectable</a></li><li><a href="xrx.drawing.tool.Magnifier.html">xrx.drawing.tool.Magnifier</a></li><li><a href="xrx.engine.Element.html">xrx.engine.Element</a></li><li><a href="xrx.engine.Engine.html">xrx.engine.Engine</a></li><li><a href="xrx.engine.Engines.html">xrx.engine.Engines</a></li><li><a href="xrx.event.HandlerTarget.html">xrx.event.HandlerTarget</a></li><li><a href="xrx.EventTarget.html">xrx.EventTarget</a></li><li><a href="xrx.geometry.Box.html">xrx.geometry.Box</a></li><li><a href="xrx.geometry.Circle.html">xrx.geometry.Circle</a></li><li><a href="xrx.geometry.Ellipse.html">xrx.geometry.Ellipse</a></li><li><a href="xrx.geometry.Geometry.html">xrx.geometry.Geometry</a></li><li><a href="xrx.geometry.Line.html">xrx.geometry.Line</a></li><li><a href="xrx.geometry.Path.html">xrx.geometry.Path</a></li><li><a href="xrx.geometry.Point.html">xrx.geometry.Point</a></li><li><a href="xrx.geometry.Polyline.html">xrx.geometry.Polyline</a></li><li><a href="xrx.geometry.Rect.html">xrx.geometry.Rect</a></li><li><a href="xrx.shape.Canvas.html">xrx.shape.Canvas</a></li><li><a href="xrx.shape.Circle.html">xrx.shape.Circle</a></li><li><a href="xrx.shape.CircleCreatable.html">xrx.shape.CircleCreatable</a></li><li><a href="xrx.shape.CircleHoverable.html">xrx.shape.CircleHoverable</a></li><li><a href="xrx.shape.CircleModifiable.html">xrx.shape.CircleModifiable</a></li><li><a href="xrx.shape.CircleSelectable.html">xrx.shape.CircleSelectable</a></li><li><a href="xrx.shape.Container.html">xrx.shape.Container</a></li><li><a href="xrx.shape.Creatable.html">xrx.shape.Creatable</a></li><li><a href="xrx.shape.DiPolygon.html">xrx.shape.DiPolygon</a></li><li><a href="xrx.shape.DiPolygonArrow.html">xrx.shape.DiPolygonArrow</a></li><li><a href="xrx.shape.DiPolygonArrowModifiable.html">xrx.shape.DiPolygonArrowModifiable</a></li><li><a href="xrx.shape.Dragger.html">xrx.shape.Dragger</a></li><li><a href="xrx.shape.Ellipse.html">xrx.shape.Ellipse</a></li><li><a href="xrx.shape.EllipseCreatable.html">xrx.shape.EllipseCreatable</a></li><li><a href="xrx.shape.EllipseHoverable.html">xrx.shape.EllipseHoverable</a></li><li><a href="xrx.shape.EllipseModifiable.html">xrx.shape.EllipseModifiable</a></li><li><a href="xrx.shape.EllipseSelectable.html">xrx.shape.EllipseSelectable</a></li><li><a href="xrx.shape.Geometry.html">xrx.shape.Geometry</a></li><li><a href="xrx.shape.Group.html">xrx.shape.Group</a></li><li><a href="xrx.shape.Hoverable.html">xrx.shape.Hoverable</a></li><li><a href="xrx.shape.Image.html">xrx.shape.Image</a></li><li><a href="xrx.shape.Line.html">xrx.shape.Line</a></li><li><a href="xrx.shape.LineCreatable.html">xrx.shape.LineCreatable</a></li><li><a href="xrx.shape.LineHoverable.html">xrx.shape.LineHoverable</a></li><li><a href="xrx.shape.LineModifiable.html">xrx.shape.LineModifiable</a></li><li><a href="xrx.shape.LineSelectable.html">xrx.shape.LineSelectable</a></li><li><a href="xrx.shape.Modifiable.html">xrx.shape.Modifiable</a></li><li><a href="xrx.shape.PathLike.html">xrx.shape.PathLike</a></li><li><a href="xrx.shape.Polygon.html">xrx.shape.Polygon</a></li><li><a href="xrx.shape.PolygonCreatable.html">xrx.shape.PolygonCreatable</a></li><li><a href="xrx.shape.PolygonHoverable.html">xrx.shape.PolygonHoverable</a></li><li><a href="xrx.shape.PolygonModifiable.html">xrx.shape.PolygonModifiable</a></li><li><a href="xrx.shape.PolygonSelectable.html">xrx.shape.PolygonSelectable</a></li><li><a href="xrx.shape.Polyline.html">xrx.shape.Polyline</a></li><li><a href="xrx.shape.PolylineCreatable.html">xrx.shape.PolylineCreatable</a></li><li><a href="xrx.shape.PolylineHoverable.html">xrx.shape.PolylineHoverable</a></li><li><a href="xrx.shape.PolylineModifiable.html">xrx.shape.PolylineModifiable</a></li><li><a href="xrx.shape.PolylineSelectable.html">xrx.shape.PolylineSelectable</a></li><li><a href="xrx.shape.Rect.html">xrx.shape.Rect</a></li><li><a href="xrx.shape.RectCreatable.html">xrx.shape.RectCreatable</a></li><li><a href="xrx.shape.RectHoverable.html">xrx.shape.RectHoverable</a></li><li><a href="xrx.shape.RectModifiable.html">xrx.shape.RectModifiable</a></li><li><a href="xrx.shape.RectSelectable.html">xrx.shape.RectSelectable</a></li><li><a href="xrx.shape.RenderStylable.html">xrx.shape.RenderStylable</a></li><li><a href="xrx.shape.Selectable.html">xrx.shape.Selectable</a></li><li><a href="xrx.shape.Shape.html">xrx.shape.Shape</a></li><li><a href="xrx.shape.ShapeGroup.html">xrx.shape.ShapeGroup</a></li><li><a href="xrx.shape.Shapes.html">xrx.shape.Shapes</a></li><li><a href="xrx.shape.Style.html">xrx.shape.Style</a></li><li><a href="xrx.svg.Canvas.html">xrx.svg.Canvas</a></li><li><a href="xrx.svg.Circle.html">xrx.svg.Circle</a></li><li><a href="xrx.svg.Container.html">xrx.svg.Container</a></li><li><a href="xrx.svg.Element.html">xrx.svg.Element</a></li><li><a href="xrx.svg.Ellipse.html">xrx.svg.Ellipse</a></li><li><a href="xrx.svg.Group.html">xrx.svg.Group</a></li><li><a href="xrx.svg.Image.html">xrx.svg.Image</a></li><li><a href="xrx.svg.Line.html">xrx.svg.Line</a></li><li><a href="xrx.svg.Polygon.html">xrx.svg.Polygon</a></li><li><a href="xrx.svg.Polyline.html">xrx.svg.Polyline</a></li><li><a href="xrx.svg.Rect.html">xrx.svg.Rect</a></li><li><a href="xrx.svg.Stylable.html">xrx.svg.Stylable</a></li><li><a href="xrx.Util.html">xrx.Util</a></li><li><a href="xrx.viewbox.FastAffineTransform.html">xrx.viewbox.FastAffineTransform</a></li><li><a href="xrx.viewbox.Viewbox.html">xrx.viewbox.Viewbox</a></li><li><a href="xrx.viewbox.ViewboxGeometry.html">xrx.viewbox.ViewboxGeometry</a></li><li><a href="xrx.viewbox.ViewboxRotate.html">xrx.viewbox.ViewboxRotate</a></li><li><a href="xrx.viewbox.ViewboxTransform.html">xrx.viewbox.ViewboxTransform</a></li><li><a href="xrx.viewbox.ViewboxTranslate.html">xrx.viewbox.ViewboxTranslate</a></li><li><a href="xrx.viewbox.ViewboxZoom.html">xrx.viewbox.ViewboxZoom</a></li><li><a href="xrx.vml.Canvas.html">xrx.vml.Canvas</a></li><li><a href="xrx.vml.Circle.html">xrx.vml.Circle</a></li><li><a href="xrx.vml.Container.html">xrx.vml.Container</a></li><li><a href="xrx.vml.Element.html">xrx.vml.Element</a></li><li><a href="xrx.vml.Ellipse.html">xrx.vml.Ellipse</a></li><li><a href="xrx.vml.Group.html">xrx.vml.Group</a></li><li><a href="xrx.vml.Image.html">xrx.vml.Image</a></li><li><a href="xrx.vml.Line.html">xrx.vml.Line</a></li><li><a href="xrx.vml.Polygon.html">xrx.vml.Polygon</a></li><li><a href="xrx.vml.Polyline.html">xrx.vml.Polyline</a></li><li><a href="xrx.vml.Rect.html">xrx.vml.Rect</a></li><li><a href="xrx.vml.Stylable.html">xrx.vml.Stylable</a></li></ul><h3>Events</h3><ul><li><a href="xrx.drawing.Drawing.html#event:eventShapeModify">xrx.drawing.Drawing#event:eventShapeModify</a></li></ul><h3>Namespaces</h3><ul><li><a href="xrx.html">xrx</a></li><li><a href="xrx.canvas.html">xrx.canvas</a></li><li><a href="xrx.drawing.html">xrx.drawing</a></li><li><a href="xrx.engine.html">xrx.engine</a></li><li><a href="xrx.geometry.html">xrx.geometry</a></li><li><a href="xrx.shape.html">xrx.shape</a></li><li><a href="xrx.svg.html">xrx.svg</a></li><li><a href="xrx.viewbox.html">xrx.viewbox</a></li><li><a href="xrx.vml.html">xrx.vml</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_allTests">_allTests</a></li></ul>
+    </nav>
+  </div>
+  <script>prettyPrint();</script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Test Dispose of Geometry Objects</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../deps.js'></script>
+<script>
+goog.require('xrx.api.drawing');
+</script>
+<script>
+
+
+
+var col = [];
+
+
+
+function run1TestDispose() {
+  var circle = new xrx.geometry.Circle();
+  circle.cx = 0;
+  circle.cy = 0;
+  circle.r = 0;
+  col.push(circle);
+  circle.dispose();
+  var ellipse = new xrx.geometry.Ellipse();
+  ellipse.x = 0;
+  ellipse.y = 0;
+  ellipse.rx = 0;
+  ellipse.ry = 0;
+  col.push(ellipse);
+  ellipse.dispose();
+  var line = new xrx.geometry.Line();
+  line.x1 = 0;
+  line.y1 = 0;
+  line.x2 = 0;
+  line.y2 = 0;
+  col.push(line);
+  line.dispose();
+  var path = new xrx.geometry.Path(10);
+  path.coords = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]];
+  col.push(path);
+  path.dispose();
+  var polyline = new xrx.geometry.Polyline(10);
+  polyline.coords = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]];
+  col.push(polyline);
+  polyline.dispose();
+  var rect = new xrx.geometry.Rect();
+  rect.x = 0;
+  rect.y = 0;
+  rect.width = 0;
+  rect.height = 0;
+  col.push(rect);
+  rect.dispose();
+};
+
+
+
+function runTestDispose() {
+  for (var i = 0; i < 10; i++) {
+    run1TestDispose();
+  }
+};
+
+
+
+</script>
+</head>
+<body onload="runTestDispose()">
+  <h1>Test Dispose of Geometry Objects</h1>
+  <p>Use Google Chrome <em>Developer Tools &gt; Profiles &gt; Record Heap Allocations</em>.</p>
+  <p>Use <em>Class Filter</em> 'xrx'</p>
+  <p>Test succeeds if for each xrx.geometry.* object <em>Shallow Size</em> is equal to <em>Retained Size</em>.</p>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.shape.Line, xrx.shape.LineModify, xrx.shape.LineCreate</title>
+<script src='../../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../../deps.js'></script>
+<script src='./shapeTest.js'></script>
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.dom.DomHelper');
+  goog.require('xrx.api.drawing');
+</script>
+<link rel="stylesheet" type="text/css" href="./shapeTest.css">
+</head>
+<body>
+<script type="text/javascript">
+
+
+
+createTables('Line', goog.dom);
+
+
+
+function getLines(drawing) {
+  var hoverableStyle = new xrx.shape.Style();
+  hoverableStyle.setStrokeColor('green');
+  hoverableStyle.setStrokeWidth(2);
+  var selectableStyle = new xrx.shape.Selectable();
+  selectableStyle.setStrokeColor('yellow');
+  selectableStyle.setStrokeWidth(2);
+  var line1 = new xrx.shape.Line(drawing);
+  var line2 = new xrx.shape.Line(drawing);
+  var line3 = new xrx.shape.Line(drawing);
+  line1.setX1(20);
+  line1.setY1(20);
+  line1.setX2(100);
+  line1.setY2(100);
+  line1.getHoverable().setStyle(hoverableStyle);
+  line1.getSelectable().setStyle(selectableStyle);
+  line1.setStrokeWidth(2);
+  line2.setX1(200);
+  line2.setY1(200);
+  line2.setX2(250);
+  line2.setY2(25);
+  line2.setStrokeWidth(2);
+  line2.getHoverable().setStyle(hoverableStyle);
+  line2.getSelectable().setStyle(selectableStyle);
+  line3.setX1(100);
+  line3.setX2(10);
+  line3.setY1(10);
+  line3.setY2(100);
+  line3.setStrokeWidth(2);
+  line3.getHoverable().setStyle(hoverableStyle);
+  line3.getSelectable().setStyle(selectableStyle);
+  return [line1, line2, line3];
+};
+
+
+
+function test1View() {
+  modeView('Line');
+};
+
+
+
+function test2Hover() {
+  modeHover('Line');
+};
+
+
+
+function test3HoverMultiple() {
+  modeHoverMultiple('Line');
+};
+
+
+
+function test4Select() {
+  modeSelect('Line');
+};
+
+
+
+function test5Modify() {
+  modeModify('Line');
+};
+
+
+
+function test6Create() {
+  modeCreate('Line');
+};
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.xml.Indent</title>
+<script src='../../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('xrx');
+  goog.require('xrx.xml.Indent');
+</script>
+</head>
+<body>
+<script type="text/javascript">
+
+
+
+function test01standard() {
+  var xml1 = '<a><b>1</b><c>2</c><d>3</d></a>';
+  var expected1 =
+      '<a>\n' +
+      '  <b>1</b>\n' +
+      '  <c>2</c>\n' +
+      '  <d>3</d>\n' +
+      '</a>';
+  assertEquals(expected1, xrx.xml.Indent.forward(xml1, 2));
+  assertEquals(expected1, xrx.xml.Indent.backward(xml1, 2));
+};
+
+
+
+function test02xmlMixedContent() {
+  var xml1 = '<a><b>1</b><c>2</c><d><e>3</e><f>4</f><g></g><h/></d></a>';
+  var expected1 =
+      '<a>\n' +
+      '  <b>1</b>\n' +
+      '  <c>2</c>\n' +
+      '  <d>\n' +
+      '    <e>3</e>\n' +
+      '    <f>4</f>\n' +
+      '    <g></g>\n' +
+      '    <h/>\n' +
+      '  </d>\n' +
+      '</a>';
+  assertEquals(expected1, xrx.xml.Indent.forward(xml1, 2));
+  assertEquals(expected1, xrx.xml.Indent.backward(xml1, 2));
+};
+
+
+
+</script>
+</body>
+</html>

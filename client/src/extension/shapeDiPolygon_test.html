@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XRX++ Unit Tests - xrx.shape.Line, xrx.shape.LineModify, xrx.shape.LineCreate</title>
+<script src='../../lib/closure-library/closure/goog/base.js'></script>
+<script src='../deps.js'></script>
+<script type="text/javascript">
+  goog.require('goog.testing.jsunit');
+  goog.require('goog.dom.DomHelper');
+  goog.require('xrx.api.drawing');
+</script>
+<style>
+#drawing {
+width: 100%;
+height: 400px;
+}
+</style>
+</head>
+<body>
+<div id="drawing"></div>
+<script type="text/javascript">
+
+
+
+var element = goog.dom.getElement('drawing');
+var drawing = new xrx.drawing.Drawing(element);
+var diPolygon = new xrx.shape.DiPolygon(drawing);
+var coords = [[12,12], [250,40], [200,136], [160,139], [150,85], [30,40]];
+diPolygon.setCoords(coords);
+//diPolygon.setStrokeColor('magenta');
+//diPolygon.setStrokeWidth(3);
+//diPolygon.getArrow().setStyle(diPolygon);
+drawing.addShapes(diPolygon);
+//drawing.setModeModify();
+
+
+function test() {
+
+};
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<div id="content" class="container" data-type="js">
+<h1>Selecting Shapes</h1>
+<ul>
+  <li>In order to style shapes differently when selected with touch or mouse, turn a drawing canvas over into mode <em>select</em>, e.g., with
+      <code>drawing1.setModeSelect()</code>.</li>
+  <li>Each shape object automatically has a helper shape attached called <em>selectable</em> that can be reached with the <code>getSelectable()</code> function. One can
+      define the style of a selected shape, e.g., with <code>rect.getSelectable().setStrokeColor('#99CCFF')</code> or <code>circle.getSelectable().setFillColor('#99CCFF')</code>.</li>
+  <li>Besides selecting a shape with touch or mouse, one can also programmatically turn a shape into selected state. The left example sets the first shape into selected mode by calling <code>drawing1.setSelected(drawing1.getShapes()[0])</code>.</li>
+  <li>The right example demonstrates the removal of a shape by selecting it with touch or mouse and by implementing a <button class="btn btn-primary btn-xs">Remove selected shape</button> button such as
+      <code>&lt;button onclick="window.drawing.removeShape(window.drawing.getSelectedShape());"&gt;Remove selected shape&lt;/button&gt;</code>.</li>
+</ul>
+<div class="container">
+  <div id="drawing1" class="col-sm-6 col-md-6"></div>
+  <div id="drawing2" class="col-sm-6 col-md-6"></div>
+  <div id="drawing3" class="col-sm-6 col-md-6"></div>
+  <div class="col-sm-offset-6 col-md-offset-6 col-sm-6 col-md-6">
+    <button class="btn btn-primary" onclick="window.drawing.removeShape(window.drawing.getSelectedShape());">Remove selected shape</button>
+  </div>
+</div>
+<h3>API Reference</h3>
+<ul>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.drawing.Drawing.html#setModeSelect">xrx.drawing.Drawing.setModeSelect()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.drawing.Drawing.html#setSelected">xrx.drawing.Drawing.setSelected()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Circle.html#getSelectable">xrx.shape.Circle.getSelectable()</a></li>
+  <li><a target="_blank" href="./client/api/drawing/simple/xrx.shape.Rect.html#getSelectable">xrx.shape.Rect.getSelectable()</a></li>
+</ul>
+</div>
